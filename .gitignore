@@ -1,0 +1,12 @@
+# Результати компіляції
+*.jar
+*.class
+out/
+build/
+
+# Налаштування IntelliJ
+.idea/
+*.iml
+
+# Резервна копія внутрішнього Git
+.git-backup/
