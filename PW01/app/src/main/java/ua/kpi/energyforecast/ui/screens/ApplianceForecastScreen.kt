@@ -24,6 +24,11 @@ import ua.kpi.energyforecast.ui.components.DeviceEditorDialog
 
 private const val MAX_DEVICE_POSITIONS = 50
 
+/**
+ * Перетворює список на підтримувані saved state значення: по п’ять полів на прилад.
+ * Відновлення читає той самий порядок і зберігає id для редагування та ключів LazyColumn.
+ * Це механізм відновлення UI, а не постійне сховище після повного закриття застосунку.
+ */
 private val DeviceListSaver = listSaver<List<EnergyDevice>, Any>(
     save = { devices ->
         devices.flatMap { device ->
@@ -49,6 +54,10 @@ private val DeviceListSaver = listSaver<List<EnergyDevice>, Any>(
     }
 )
 
+/**
+ * Керує списком приладів, періодом і діалогами в межах стану поточного користувача.
+ * Зміни списку або валідного періоду автоматично оновлюють результат і графік.
+ */
 @Composable
 fun ApplianceForecastScreen(
     modifier: Modifier = Modifier
@@ -77,6 +86,8 @@ fun ApplianceForecastScreen(
 
     val forecastDays = DeviceValidator.parseForecastDays(daysText)
 
+    // Результат похідний: окремо його не зберігаємо, щоб він не розходився з параметрами.
+    // Порожній список або невалідний період приховують результат замість показу застарілих даних.
     val result = remember(devices, forecastDays) {
         if (devices.isNotEmpty() && forecastDays != null) {
             EnergyCalculator.calculateTotal(
@@ -294,6 +305,9 @@ fun ApplianceForecastScreen(
     }
 }
 
+/**
+ * Пояснює призначення списку приладів і позначає предметну область зображенням.
+ */
 @Composable
 private fun ApplianceHeader() {
     Column(
@@ -320,6 +334,9 @@ private fun ApplianceHeader() {
     }
 }
 
+/**
+ * Підказує першу дію, коли список порожній і розрахунок ще не показується.
+ */
 @Composable
 private fun EmptyDeviceList() {
     Card(

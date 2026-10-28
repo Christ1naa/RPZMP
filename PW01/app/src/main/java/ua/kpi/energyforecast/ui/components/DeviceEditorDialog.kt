@@ -24,12 +24,17 @@ import ua.kpi.energyforecast.logic.ForecastValidator
 import ua.kpi.energyforecast.model.EnergyDevice
 import java.util.UUID
 
+/**
+ * Редагує окрему чернетку: список змінюється лише через onSave після валідації.
+ * Скасування відкидає чернетку; редагування зберігає id, нова позиція отримує UUID.
+ */
 @Composable
 fun DeviceEditorDialog(
     device: EnergyDevice?,
     onSave: (EnergyDevice) -> Unit,
     onDismiss: () -> Unit
 ) {
+    // Чернетка переживає поворот; зміна id під час роботи компонента скидає її для іншого приладу.
     var nameText by rememberSaveable(device?.id) {
         mutableStateOf(device?.name ?: "")
     }
@@ -150,6 +155,9 @@ fun DeviceEditorDialog(
     )
 }
 
+/**
+ * Узгоджує підпис, клавіатуру й повідомлення про помилку для полів редактора.
+ */
 @Composable
 private fun DeviceInputField(
     value: String,

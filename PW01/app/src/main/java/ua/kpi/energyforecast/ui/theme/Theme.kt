@@ -33,10 +33,14 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * Застосовує системну світлу або темну Material-тему та типографіку.
+ * На Android 12+ за замовчуванням використовує динамічні кольори; Preview може їх вимкнути.
+ */
 @Composable
 fun EnergyForecastTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
+    // Динамічні кольори доступні з Android 12.
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

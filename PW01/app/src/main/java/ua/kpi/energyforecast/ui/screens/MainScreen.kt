@@ -16,6 +16,10 @@ import androidx.compose.ui.unit.dp
 import ua.kpi.energyforecast.EnergyDashboard
 import ua.kpi.energyforecast.model.DemoUser
 
+/**
+ * Керує вкладками авторизованого користувача та передає вихід до AuthViewModel.
+ * SaveableStateHolder зберігає стан вкладки, поки її Composable відсутній у композиції.
+ */
 @Composable
 fun MainScreen(
     user: DemoUser,
@@ -26,6 +30,7 @@ fun MainScreen(
         mutableStateOf("forecast")
     }
 
+    // Вибір вкладки відновлюється після повороту, її введення — за ключем selectedScreen.
     val screenStateHolder = rememberSaveableStateHolder()
 
     Column(modifier = modifier) {

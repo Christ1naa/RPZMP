@@ -15,6 +15,10 @@ import ua.kpi.energyforecast.model.AuthField
 import ua.kpi.energyforecast.model.AuthMode
 import ua.kpi.energyforecast.model.AuthUiState
 
+/**
+ * Власник стану auth-форми й акаунтів поточного сеансу; Compose реагує на зміни uiState.
+ * Переживає поворот Activity, але не відновлює акаунти чи сесію після process death.
+ */
 class AuthViewModel : ViewModel() {
 
     private val repository = DemoAuthRepository()
@@ -22,6 +26,10 @@ class AuthViewModel : ViewModel() {
     var uiState by mutableStateOf(AuthUiState())
         private set
 
+    /**
+     * Після невдалої валідації повторно перевіряє форму, зберігаючи помилки інших полів.
+     * Під час loading ігнорує зміни, щоб результат відповідав надісланому введенню.
+     */
     fun updateField(
         field: AuthField,
         value: String
@@ -69,6 +77,7 @@ class AuthViewModel : ViewModel() {
         )
     }
 
+    /** Перемикає форму, зберігаючи email, але очищуючи паролі та попередні повідомлення. */
     fun switchMode() {
         if (uiState.isLoading) return
 
@@ -82,6 +91,10 @@ class AuthViewModel : ViewModel() {
         )
     }
 
+    /**
+     * Перевіряє snapshot форми; невалідні дані не запускають обробку.
+     * Реєстрація повертає до входу, успішний вхід відкриває основний UI через user.
+     */
     fun submit() {
         if (uiState.isLoading) return
 
@@ -113,11 +126,12 @@ class AuthViewModel : ViewModel() {
 
         if (errors.isNotEmpty()) return
 
+        // Синхронне блокування до launch захищає від повторного submit навіть до старту coroutine.
         uiState = uiState.copy(isLoading = true)
 
         viewModelScope.launch {
             try {
-                // Імітація запиту: UI залишається доступним для відображення.
+                // Навчальна затримка показує loading, не блокуючи головний потік.
                 delay(1200)
 
                 val result = when (submittedState.mode) {
@@ -158,6 +172,7 @@ class AuthViewModel : ViewModel() {
                     }
                 }
             } catch (exception: CancellationException) {
+                // Скасування ViewModel не перетворюємо на помилку авторизації.
                 throw exception
             } catch (exception: Exception) {
                 uiState = uiState.copy(
@@ -170,6 +185,7 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+    /** Очищує auth-стан; акаунти залишаються в repository до знищення ViewModel. */
     fun logout() {
         uiState = AuthUiState()
     }

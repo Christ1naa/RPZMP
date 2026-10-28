@@ -19,6 +19,10 @@ import ua.kpi.energyforecast.model.AuthUiState
 import ua.kpi.energyforecast.ui.components.AuthPasswordField
 import ua.kpi.energyforecast.ui.components.AuthTextField
 
+/**
+ * Відображає вхід або реєстрацію зі стану AuthViewModel та передає події назовні.
+ * Під час обробки блокує поля й кнопки; прокручування та imePadding враховують клавіатуру.
+ */
 @Composable
 fun AuthScreen(
     state: AuthUiState,
@@ -159,6 +163,9 @@ fun AuthScreen(
     }
 }
 
+/**
+ * Показує назву застосунку та заголовок поточного режиму авторизації.
+ */
 @Composable
 private fun AuthHeader(
     isRegistration: Boolean
@@ -187,6 +194,9 @@ private fun AuthHeader(
     )
 }
 
+/**
+ * Показує результат операції; тип повідомлення визначає стан, а не його текст.
+ */
 @Composable
 private fun AuthMessage(
     message: String?,
