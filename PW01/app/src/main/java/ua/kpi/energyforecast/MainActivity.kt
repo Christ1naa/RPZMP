@@ -4,23 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import ua.kpi.energyforecast.ui.screens.ApplianceForecastScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ua.kpi.energyforecast.ui.auth.AuthViewModel
+import ua.kpi.energyforecast.ui.screens.AuthScreen
+import ua.kpi.energyforecast.ui.screens.MainScreen
 import ua.kpi.energyforecast.ui.theme.EnergyForecastTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,75 +24,38 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             EnergyForecastTheme {
-                var selectedScreen by rememberSaveable {
-                    mutableStateOf("forecast")
-                }
+                val authViewModel: AuthViewModel = viewModel()
+                val authState = authViewModel.uiState
 
-                // Зберігає стан кожного екрана при перемиканні.
-                val screenStateHolder = rememberSaveableStateHolder()
+                // Окремий стан екранів для кожного користувача.
+                val userStateHolder = rememberSaveableStateHolder()
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
+                    val contentModifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+
+                    val user = authState.user
+
+                    if (user == null) {
+                        AuthScreen(
+                            state = authState,
+                            onFieldChange = authViewModel::updateField,
+                            onSubmit = authViewModel::submit,
+                            onSwitchMode = authViewModel::switchMode,
+                            modifier = contentModifier
+                        )
+                    } else {
+                        userStateHolder.SaveableStateProvider(
+                            key = user.id
                         ) {
-                            TextButton(
-                                onClick = {
-                                    selectedScreen = "demo"
-                                },
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Text(
-                                    text = "Демонстрація",
-                                    color = if (selectedScreen == "demo") {
-                                        MaterialTheme.colorScheme.primary
-                                    } else {
-                                        MaterialTheme.colorScheme.onSurfaceVariant
-                                    }
-                                )
-                            }
-
-                            TextButton(
-                                onClick = {
-                                    selectedScreen = "forecast"
-                                },
-                                modifier = Modifier.weight(1f)
-                            ) {
-                                Text(
-                                    text = "Мої прилади",
-                                    color = if (selectedScreen == "forecast") {
-                                        MaterialTheme.colorScheme.primary
-                                    } else {
-                                        MaterialTheme.colorScheme.onSurfaceVariant
-                                    }
-                                )
-                            }
-                        }
-
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
-                        ) {
-                            screenStateHolder.SaveableStateProvider(
-                                key = selectedScreen
-                            ) {
-                                when (selectedScreen) {
-                                    "demo" -> EnergyDashboard(
-                                        modifier = Modifier.fillMaxSize()
-                                    )
-
-                                    "forecast" -> ApplianceForecastScreen(
-                                        modifier = Modifier.fillMaxSize()
-                                    )
-                                }
-                            }
+                            MainScreen(
+                                user = user,
+                                onLogout = authViewModel::logout,
+                                modifier = contentModifier
+                            )
                         }
                     }
                 }
