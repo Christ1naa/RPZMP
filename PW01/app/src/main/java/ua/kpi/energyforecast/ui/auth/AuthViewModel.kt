@@ -40,8 +40,30 @@ class AuthViewModel : ViewModel() {
             }
         }
 
+        val updatedErrors = if (uiState.errors.isNotEmpty()) {
+            when (updated.mode) {
+                AuthMode.LOGIN -> {
+                    AuthValidator.validateLogin(
+                        email = updated.email,
+                        password = updated.password
+                    )
+                }
+
+                AuthMode.REGISTER -> {
+                    AuthValidator.validateRegistration(
+                        name = updated.name,
+                        email = updated.email,
+                        password = updated.password,
+                        confirmPassword = updated.confirmPassword
+                    )
+                }
+            }
+        } else {
+            emptyMap()
+        }
+
         uiState = updated.copy(
-            errors = emptyMap(),
+            errors = updatedErrors,
             message = null,
             messageIsError = false
         )

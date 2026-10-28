@@ -1,9 +1,5 @@
 package ua.kpi.energyforecast
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
@@ -34,14 +30,21 @@ import ua.kpi.energyforecast.ui.theme.EnergyForecastTheme
 import java.util.Locale
 import kotlin.random.Random
 
+/**
+ * Демонстраційні показники; споживання задано у кВт·год за добу.
+ */
 private data class DemoForecast(
     val dailyConsumptionKwh: Float,
     val activeDevices: Int
 )
 
+/**
+ * Генерує тестові показники без використання моделі прогнозування.
+ */
 private fun generateDemoForecast(): DemoForecast {
     val deviceCount = Random.nextInt(from = 3, until = 11)
 
+    // Споживання одного приладу: 30–200 сотих кВт·год за добу.
     val totalConsumption = (1..deviceCount).sumOf {
         Random.nextInt(from = 30, until = 201)
     } / 100f
@@ -52,10 +55,14 @@ private fun generateDemoForecast(): DemoForecast {
     )
 }
 
+/**
+ * Керує станом демонстраційного екрана та оновленням показників.
+ */
 @Composable
 fun EnergyDashboard(
     modifier: Modifier = Modifier
 ) {
+    // Відновлюємо показники та лічильник після відтворення Activity.
     var dailyConsumption by rememberSaveable {
         mutableStateOf(8.4f)
     }
@@ -72,6 +79,7 @@ fun EnergyDashboard(
         Locale.forLanguageTag("uk-UA")
     }
 
+    // Анімуємо відображення, зберігаючи цільове значення окремо.
     val animatedConsumption by animateFloatAsState(
         targetValue = dailyConsumption,
         animationSpec = tween(durationMillis = 900),
@@ -109,7 +117,7 @@ fun EnergyDashboard(
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Оновити демодані")
+            Text(text = "Оновити демодані")
         }
 
         DemoInformation()
@@ -135,6 +143,9 @@ private fun DashboardHeader() {
     }
 }
 
+/**
+ * Відображає споживання у кВт·год; форматування виконує викликач.
+ */
 @Composable
 private fun ConsumptionCard(
     consumptionText: String
@@ -210,8 +221,9 @@ private fun DeviceSummary(
 private fun DemoInformation() {
     Text(
         text = "Демонстраційний режим. Показники генеруються " +
-                "випадково для перевірки інтерфейсу. Розрахунок за " +
-                "параметрами електроприладів буде додано на наступному етапі.",
+                "випадково для перевірки інтерфейсу. Для розрахунку " +
+                "за параметрами електроприладів перейдіть до " +
+                "вкладки «Мої прилади».",
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.onSurfaceVariant
     )
