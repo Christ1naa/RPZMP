@@ -17,10 +17,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import ua.kpi.energyforecast.model.ForecastResult
 import java.util.Locale
 
-/**
- * Показує накопичене споживання від дня 0 до кінця періоду.
- * AndroidView вбудовує графік бібліотеки в Compose.
- */
 @Composable
 fun ConsumptionChart(
     result: ForecastResult,

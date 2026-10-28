@@ -2,18 +2,11 @@ package ua.kpi.energyforecast.logic
 
 import ua.kpi.energyforecast.model.ForecastParameters
 
-/**
- * Результат перевірки форми.
- * parameters доступні лише тоді, коли всі поля коректні.
- */
 data class ForecastValidation(
     val parameters: ForecastParameters?,
     val errors: Map<String, String>
 )
 
-/**
- * Перетворює текстові значення на числа та перевіряє їх.
- */
 object ForecastValidator {
 
     const val POWER = "power"

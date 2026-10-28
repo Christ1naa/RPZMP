@@ -20,7 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import ua.kpi.energyforecast.ui.screens.ForecastScreen
+import ua.kpi.energyforecast.ui.screens.ApplianceForecastScreen
 import ua.kpi.energyforecast.ui.theme.EnergyForecastTheme
 
 class MainActivity : ComponentActivity() {
@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text(
-                                    text = "Розрахунок",
+                                    text = "Мої прилади",
                                     color = if (selectedScreen == "forecast") {
                                         MaterialTheme.colorScheme.primary
                                     } else {
@@ -96,7 +96,7 @@ class MainActivity : ComponentActivity() {
                                         modifier = Modifier.fillMaxSize()
                                     )
 
-                                    "forecast" -> ForecastScreen(
+                                    "forecast" -> ApplianceForecastScreen(
                                         modifier = Modifier.fillMaxSize()
                                     )
                                 }

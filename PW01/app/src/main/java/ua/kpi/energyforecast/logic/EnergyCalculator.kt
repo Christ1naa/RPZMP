@@ -2,11 +2,8 @@ package ua.kpi.energyforecast.logic
 
 import ua.kpi.energyforecast.model.ForecastParameters
 import ua.kpi.energyforecast.model.ForecastResult
+import ua.kpi.energyforecast.model.EnergyDevice
 
-/**
- * Обчислює прогноз за сталого режиму роботи приладів.
- * Не залежить від Android або Jetpack Compose.
- */
 object EnergyCalculator {
 
     fun calculate(parameters: ForecastParameters): ForecastResult {
@@ -51,6 +48,45 @@ object EnergyCalculator {
             dailyConsumptionKwh = dailyConsumption,
             periodConsumptionKwh = periodConsumption,
             forecastDays = parameters.forecastDays
+        )
+    }
+
+    fun calculateDeviceDaily(device: EnergyDevice): Double {
+        return calculate(
+            ForecastParameters(
+                powerWatts = device.powerWatts,
+                hoursPerDay = device.hoursPerDay,
+                deviceCount = device.deviceCount,
+                forecastDays = 1
+            )
+        ).dailyConsumptionKwh
+    }
+
+    fun calculateTotal(
+        devices: List<EnergyDevice>,
+        forecastDays: Int
+    ): ForecastResult {
+        require(forecastDays in 1..365) {
+            "Період прогнозування має бути від 1 до 365 днів"
+        }
+
+        val dailyConsumption = devices.sumOf { device ->
+            calculateDeviceDaily(device)
+        }
+
+        val periodConsumption = dailyConsumption * forecastDays
+
+        require(
+            dailyConsumption.isFinite() &&
+                    periodConsumption.isFinite()
+        ) {
+            "Результат розрахунку завеликий"
+        }
+
+        return ForecastResult(
+            dailyConsumptionKwh = dailyConsumption,
+            periodConsumptionKwh = periodConsumption,
+            forecastDays = forecastDays
         )
     }
 }

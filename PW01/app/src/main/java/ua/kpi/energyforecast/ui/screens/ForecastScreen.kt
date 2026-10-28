@@ -27,10 +27,6 @@ import ua.kpi.energyforecast.model.ForecastResult
 import ua.kpi.energyforecast.ui.components.ConsumptionChart
 import java.util.Locale
 
-/**
- * Форма прогнозування для одного типу електроприладів.
- * Кожна зміна параметрів приховує попередній результат.
- */
 @Composable
 fun ForecastScreen(
     modifier: Modifier = Modifier
@@ -162,9 +158,6 @@ fun ForecastScreen(
     }
 }
 
-/**
- * Повторно використовуване числове поле з повідомленням про помилку.
- */
 @Composable
 private fun NumericInput(
     value: String,
@@ -191,11 +184,8 @@ private fun NumericInput(
     )
 }
 
-/**
- * Відображає готовий результат без виконання обчислень у картці.
- */
 @Composable
-private fun ForecastResultCard(
+fun ForecastResultCard(
     result: ForecastResult
 ) {
     Card(
