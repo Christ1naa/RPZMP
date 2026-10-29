@@ -4,21 +4,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.saveable.rememberSaveableStateHolder
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import ua.kpi.energyforecast.EnergyDashboard
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import ua.kpi.energyforecast.model.DemoUser
+import ua.kpi.energyforecast.ui.navigation.AppNavHost
+import ua.kpi.energyforecast.ui.navigation.AppRoutes
 
 /**
- * Керує вкладками авторизованого користувача та передає вихід до AuthViewModel.
- * SaveableStateHolder зберігає стан вкладки, поки її Composable відсутній у композиції.
+ * Створює навігацію авторизованого користувача.
+ * Підсумок швидкого прогнозу зберігається над NavHost і доступний після повернення.
  */
 @Composable
 fun MainScreen(
@@ -26,12 +24,13 @@ fun MainScreen(
     onLogout: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selectedScreen by rememberSaveable {
-        mutableStateOf("forecast")
-    }
+    val navController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val route = backStackEntry?.destination?.route
 
-    // Вибір вкладки відновлюється після повороту, її введення — за ключем selectedScreen.
-    val screenStateHolder = rememberSaveableStateHolder()
+    var lastForecast by rememberSaveable {
+        mutableStateOf<String?>(null)
+    }
 
     Column(modifier = modifier) {
         Row(
@@ -45,8 +44,6 @@ fun MainScreen(
                 modifier = Modifier
                     .weight(1f)
                     .padding(vertical = 12.dp),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.bodyLarge
             )
 
@@ -55,51 +52,21 @@ fun MainScreen(
             }
         }
 
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            val screens = listOf(
-                "demo" to "Демонстрація",
-                "forecast" to "Мої прилади"
-            )
-
-            screens.forEach { (key, title) ->
-                TextButton(
-                    onClick = {
-                        selectedScreen = key
-                    },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = title,
-                        color = if (selectedScreen == key) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurfaceVariant
-                        }
-                    )
-                }
+        if (route != null && route != AppRoutes.MENU) {
+            TextButton(
+                onClick = { navController.popBackStack() }
+            ) {
+                Text("Назад до меню")
             }
         }
 
-        Box(
+        AppNavHost(
+            navController = navController,
+            lastForecast = lastForecast,
+            onForecastCalculated = { lastForecast = it },
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-        ) {
-            screenStateHolder.SaveableStateProvider(
-                key = selectedScreen
-            ) {
-                when (selectedScreen) {
-                    "demo" -> EnergyDashboard(
-                        modifier = Modifier.fillMaxSize()
-                    )
-
-                    "forecast" -> ApplianceForecastScreen(
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-            }
-        }
+        )
     }
 }

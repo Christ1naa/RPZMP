@@ -33,13 +33,16 @@ import java.util.Locale
  */
 @Composable
 fun ForecastScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    initialDays: Int = 30,
+    onCalculated: (String) -> Unit = {}
 ) {
     var powerText by rememberSaveable { mutableStateOf("1000") }
     var hoursText by rememberSaveable { mutableStateOf("2") }
     var countText by rememberSaveable { mutableStateOf("1") }
-    var daysText by rememberSaveable { mutableStateOf("30") }
-
+    var daysText by rememberSaveable(initialDays) {
+        mutableStateOf(initialDays.toString())
+    }
     var showErrors by rememberSaveable { mutableStateOf(false) }
     var hasCalculated by rememberSaveable { mutableStateOf(false) }
 
@@ -129,7 +132,18 @@ fun ForecastScreen(
         Button(
             onClick = {
                 showErrors = true
-                hasCalculated = validation.parameters != null
+                val parameters = validation.parameters
+                hasCalculated = parameters != null
+
+                if (parameters != null) {
+                    val calculated = EnergyCalculator.calculate(parameters)
+
+                    // Передаємо підсумок власнику стану для оновлення головного меню.
+                    onCalculated(
+                        "За ${calculated.forecastDays} днів: " +
+                                "${formatEnergy(calculated.periodConsumptionKwh)} кВт·год"
+                    )
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
