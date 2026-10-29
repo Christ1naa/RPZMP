@@ -206,6 +206,45 @@ class AuthViewModelTest {
             assertEquals(AuthMode.LOGIN, viewModel.uiState.mode)
         }
 
+    @Test
+    fun validationContinuesAfterAllErrorsAreCorrected() =
+        runTest(mainDispatcher) {
+            viewModel.submit()
+
+            fillDemoLogin()
+            assertTrue(viewModel.uiState.errors.isEmpty())
+
+            // Відтворюємо помилку після повного виправлення форми.
+            viewModel.updateField(AuthField.EMAIL, "invalid-email")
+
+            assertTrue(
+                viewModel.uiState.errors.containsKey(AuthField.EMAIL)
+            )
+            assertFalse(
+                viewModel.uiState.errors.containsKey(AuthField.PASSWORD)
+            )
+            assertFalse(viewModel.uiState.isLoading)
+        }
+
+    @Test
+    fun switchingModeResetsValidationUntilNextSubmission() =
+        runTest(mainDispatcher) {
+            viewModel.submit()
+            assertTrue(viewModel.uiState.errors.isNotEmpty())
+
+            viewModel.switchMode()
+            viewModel.updateField(AuthField.NAME, "Х")
+
+            // Нова форма не показує помилки до першої спроби підтвердження.
+            assertTrue(viewModel.uiState.errors.isEmpty())
+
+            viewModel.submit()
+
+            assertTrue(
+                viewModel.uiState.errors.containsKey(AuthField.NAME)
+            )
+            assertFalse(viewModel.uiState.isLoading)
+        }
     private fun fillDemoLogin(
         password: String = DemoAuthRepository.DEMO_PASSWORD
     ) {

@@ -19,6 +19,7 @@ import ua.kpi.energyforecast.model.AuthUiState
 import ua.kpi.energyforecast.ui.components.AuthPasswordField
 import ua.kpi.energyforecast.ui.components.AuthTextField
 
+
 /**
  * Відображає вхід або реєстрацію зі стану AuthViewModel та передає події назовні.
  * Під час обробки блокує поля й кнопки; прокручування та imePadding враховують клавіатуру.
@@ -56,7 +57,8 @@ fun AuthScreen(
                     },
                     label = "Ім’я",
                     error = state.errors[AuthField.NAME],
-                    enabled = fieldsEnabled
+                    enabled = fieldsEnabled,
+                    hint = "Від 2 до 60 символів"
                 )
             }
 
@@ -68,7 +70,8 @@ fun AuthScreen(
                 label = "Email",
                 error = state.errors[AuthField.EMAIL],
                 enabled = fieldsEnabled,
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Email,
+                hint = "Наприклад: student@example.test"
             )
 
             AuthPasswordField(
@@ -78,16 +81,15 @@ fun AuthScreen(
                 },
                 label = "Пароль",
                 error = state.errors[AuthField.PASSWORD],
-                enabled = fieldsEnabled
+                enabled = fieldsEnabled,
+                hint = if (isRegistration) {
+                    "8–64 символи, хоча б одна літера та одна цифра"
+                } else {
+                    "Введіть пароль свого навчального акаунта"
+                }
             )
 
             if (isRegistration) {
-                Text(
-                    text = "Пароль: 8–64 символи, " +
-                            "хоча б одна літера та одна цифра.",
-                    style = MaterialTheme.typography.bodySmall
-                )
-
                 AuthPasswordField(
                     value = state.confirmPassword,
                     onValueChange = {
@@ -95,7 +97,8 @@ fun AuthScreen(
                     },
                     label = "Підтвердження пароля",
                     error = state.errors[AuthField.CONFIRM_PASSWORD],
-                    enabled = fieldsEnabled
+                    enabled = fieldsEnabled,
+                    hint = "Повторіть пароль без змін"
                 )
             }
 

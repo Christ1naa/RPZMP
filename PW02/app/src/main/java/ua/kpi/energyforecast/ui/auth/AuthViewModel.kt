@@ -23,6 +23,9 @@ class AuthViewModel : ViewModel() {
 
     private val repository = DemoAuthRepository()
 
+    // Після першого submit перевіряємо кожну зміну, навіть коли попередні помилки вже виправлено.
+    private var validationRequested = false
+
     var uiState by mutableStateOf(AuthUiState())
         private set
 
@@ -48,7 +51,7 @@ class AuthViewModel : ViewModel() {
             }
         }
 
-        val updatedErrors = if (uiState.errors.isNotEmpty()) {
+        val updatedErrors = if (validationRequested) {
             when (updated.mode) {
                 AuthMode.LOGIN -> {
                     AuthValidator.validateLogin(
@@ -81,6 +84,8 @@ class AuthViewModel : ViewModel() {
     fun switchMode() {
         if (uiState.isLoading) return
 
+        validationRequested = false
+
         uiState = AuthUiState(
             mode = if (uiState.mode == AuthMode.LOGIN) {
                 AuthMode.REGISTER
@@ -98,6 +103,7 @@ class AuthViewModel : ViewModel() {
     fun submit() {
         if (uiState.isLoading) return
 
+        validationRequested = true
         val submittedState = uiState
 
         val errors = when (submittedState.mode) {
@@ -149,6 +155,8 @@ class AuthViewModel : ViewModel() {
 
                 when (result) {
                     is AuthResult.Success -> {
+                        validationRequested = false
+
                         uiState = if (
                             submittedState.mode == AuthMode.REGISTER
                         ) {
@@ -185,8 +193,9 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    /** Очищує auth-стан; акаунти залишаються в repository до знищення ViewModel. */
+    /** Очищує форму й режим перевірки; акаунти залишаються в пам’яті Repository. */
     fun logout() {
+        validationRequested = false
         uiState = AuthUiState()
     }
 }

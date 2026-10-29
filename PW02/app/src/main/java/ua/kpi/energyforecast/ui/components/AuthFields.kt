@@ -25,7 +25,8 @@ fun AuthTextField(
     label: String,
     error: String?,
     enabled: Boolean,
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    hint: String? = null
 ) {
     OutlinedTextField(
         value = value,
@@ -39,8 +40,10 @@ fun AuthTextField(
             keyboardType = keyboardType
         ),
         supportingText = {
-            if (error != null) {
-                Text(error)
+            // Помилка має пріоритет над підказкою.
+            val supportingMessage = error ?: hint
+            if (supportingMessage != null) {
+                Text(supportingMessage)
             }
         }
     )
@@ -56,7 +59,8 @@ fun AuthPasswordField(
     onValueChange: (String) -> Unit,
     label: String,
     error: String?,
-    enabled: Boolean
+    enabled: Boolean,
+    hint: String? = null
 ) {
     var passwordVisible by remember {
         mutableStateOf(false)
@@ -95,8 +99,10 @@ fun AuthPasswordField(
             }
         },
         supportingText = {
-            if (error != null) {
-                Text(error)
+            // Помилка має пріоритет над підказкою.
+            val supportingMessage = error ?: hint
+            if (supportingMessage != null) {
+                Text(supportingMessage)
             }
         }
     )
