@@ -17,6 +17,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import ua.kpi.energyforecast.model.ForecastResult
 import java.util.Locale
 
+/**
+ * Показує накопичену енергію: X — день, Y — добове споживання × день у кВт·год.
+ * Однаковий режим щодня дає пряму лінію; кольори й дані оновлюються з Compose.
+ * Перехід у Float потрібний лише для API графіка; розрахунки залишаються в Double.
+ */
 @Composable
 fun ConsumptionChart(
     result: ForecastResult,

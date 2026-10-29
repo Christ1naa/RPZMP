@@ -2,11 +2,13 @@ package ua.kpi.energyforecast.logic
 
 import ua.kpi.energyforecast.model.AuthField
 
+/** Локальні правила навчальних форм; перевірку наявності акаунта виконує repository. */
 object AuthValidator {
 
     private val emailPattern =
         Regex("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
 
+    /** Для входу перевіряє формат email і непорожній пароль, не змінюючи його символів. */
     fun validateLogin(
         email: String,
         password: String
@@ -24,6 +26,10 @@ object AuthValidator {
         return errors
     }
 
+    /**
+     * Ім’я після trim: 2–60 символів; пароль: 8–64, хоча б одна літера й цифра.
+     * Підтвердження має бути непорожнім і точно збігатися; повертаються помилки всіх полів.
+     */
     fun validateRegistration(
         name: String,
         email: String,
@@ -69,6 +75,7 @@ object AuthValidator {
         return errors
     }
 
+    // Навчальна перевірка: після trim до 254 символів, без пробілів, із @ та крапкою в домені.
     private fun validateEmail(email: String): String? {
         val normalized = email.trim()
 

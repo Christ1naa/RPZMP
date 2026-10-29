@@ -15,6 +15,12 @@ sealed interface AuthResult {
     ) : AuthResult
 }
 
+/**
+ * Навчальне сховище в пам’яті одного AuthViewModel: без сервера та постійного збереження.
+ * Поворот зберігає ViewModel, process death — ні; новий екземпляр містить лише демоакаунт.
+ * Паролі зберігаються відкрито лише для демонстрації, тому слід вводити вигадані дані.
+ * Методи викликаються послідовно з AuthViewModel після перевірки форми.
+ */
 class DemoAuthRepository {
 
     private data class Account(
@@ -33,6 +39,7 @@ class DemoAuthRepository {
         )
     )
 
+    /** Шукає нормалізований email, але порівнює пароль без trim та зміни регістру. */
     fun login(
         email: String,
         password: String
@@ -49,6 +56,7 @@ class DemoAuthRepository {
         }
     }
 
+    /** Відхиляє дублі email; новому акаунту призначає стабільний у цьому сеансі UUID. */
     fun register(
         name: String,
         email: String,
@@ -76,6 +84,7 @@ class DemoAuthRepository {
         return AuthResult.Success(user)
     }
 
+    // Єдиний ключ для входу й реєстрації; Locale.ROOT усуває залежність від мови пристрою.
     private fun normalizeEmail(email: String): String {
         return email.trim().lowercase(Locale.ROOT)
     }

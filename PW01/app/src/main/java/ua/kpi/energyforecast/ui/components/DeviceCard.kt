@@ -16,6 +16,10 @@ import ua.kpi.energyforecast.logic.EnergyCalculator
 import ua.kpi.energyforecast.model.EnergyDevice
 import java.util.Locale
 
+/**
+ * Показує параметри групи однакових приладів і її добове споживання.
+ * Редагування та видалення передає власнику списку через callbacks.
+ */
 @Composable
 fun DeviceCard(
     device: EnergyDevice,

@@ -12,6 +12,10 @@ object DeviceValidator {
 
     const val NAME = "name"
 
+    /**
+     * Назва після trim має 1–60 символів; числові правила спільні з ForecastValidator.
+     * Період 1 потрібний лише для перевірки параметрів приладу, період списку вводиться окремо.
+     */
     fun validate(
         nameText: String,
         powerText: String,
@@ -44,6 +48,7 @@ object DeviceValidator {
         )
     }
 
+    /** Приймає цілий період 1–365 днів; null дозволяє UI приховати невалідний прогноз. */
     fun parseForecastDays(text: String): Int? {
         return text.trim()
             .toIntOrNull()

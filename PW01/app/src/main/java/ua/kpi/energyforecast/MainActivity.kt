@@ -27,7 +27,8 @@ class MainActivity : ComponentActivity() {
                 val authViewModel: AuthViewModel = viewModel()
                 val authState = authViewModel.uiState
 
-                // Окремий стан екранів для кожного користувача.
+                // Ключ user.id відокремлює стани акаунтів і дозволяє повернутися до них після logout.
+                // Saved UI state не замінює базу даних; акаунти ViewModel не переживають process death.
                 val userStateHolder = rememberSaveableStateHolder()
 
                 Scaffold(

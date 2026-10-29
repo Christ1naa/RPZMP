@@ -27,6 +27,10 @@ import ua.kpi.energyforecast.model.ForecastResult
 import ua.kpi.energyforecast.ui.components.ConsumptionChart
 import java.util.Locale
 
+/**
+ * Окремий екран розрахунку для одного типу приладів; основна навігація використовує список.
+ * Зберігає введення через rememberSaveable, а зміна поля приховує попередній результат.
+ */
 @Composable
 fun ForecastScreen(
     modifier: Modifier = Modifier
@@ -158,6 +162,9 @@ fun ForecastScreen(
     }
 }
 
+/**
+ * Показує числове поле з одиницями в підписі та помилкою зовнішньої валідації.
+ */
 @Composable
 private fun NumericInput(
     value: String,
@@ -184,6 +191,10 @@ private fun NumericInput(
     )
 }
 
+/**
+ * Відображає добову й сумарну енергію у кВт·год.
+ * Округлення до двох знаків виконується лише для тексту, а не в моделі розрахунку.
+ */
 @Composable
 fun ForecastResultCard(
     result: ForecastResult

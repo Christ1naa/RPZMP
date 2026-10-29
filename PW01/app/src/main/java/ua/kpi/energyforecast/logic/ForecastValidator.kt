@@ -7,6 +7,7 @@ data class ForecastValidation(
     val errors: Map<String, String>
 )
 
+/** Перевіряє текстове введення до створення параметрів, не округлюючи числові значення. */
 object ForecastValidator {
 
     const val POWER = "power"
@@ -14,6 +15,10 @@ object ForecastValidator {
     const val COUNT = "count"
     const val DAYS = "days"
 
+    /**
+     * Приймає скінченні 0 < P ≤ 100000 Вт, 0 ≤ t ≤ 24 год та цілі q = 1–1000, D = 1–365.
+     * Збирає помилки всіх полів; parameters доступні лише за відсутності помилок.
+     */
     fun validate(
         powerText: String,
         hoursText: String,

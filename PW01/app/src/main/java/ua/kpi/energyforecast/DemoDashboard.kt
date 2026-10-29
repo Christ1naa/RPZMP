@@ -124,6 +124,9 @@ fun EnergyDashboard(
     }
 }
 
+/**
+ * Позначає назву застосунку та предметну область демонстраційного екрана.
+ */
 @Composable
 private fun DashboardHeader() {
     Column(
@@ -179,6 +182,9 @@ private fun ConsumptionCard(
     }
 }
 
+/**
+ * Показує кількість демоприладів і оновлень зі стану батьківського екрана.
+ */
 @Composable
 private fun DeviceSummary(
     activeDevices: Int,
@@ -217,6 +223,9 @@ private fun DeviceSummary(
     }
 }
 
+/**
+ * Відрізняє випадкові демопоказники від розрахунку за параметрами приладів.
+ */
 @Composable
 private fun DemoInformation() {
     Text(
@@ -229,6 +238,9 @@ private fun DemoInformation() {
     )
 }
 
+/**
+ * Показує демоекран у фіксованій світлій темі для перевірки в Preview.
+ */
 @Preview(
     name = "Світла тема",
     showBackground = true
@@ -249,6 +261,9 @@ private fun EnergyDashboardPreview() {
     }
 }
 
+/**
+ * Показує демоекран у фіксованій темній темі для перевірки в Preview.
+ */
 @Preview(
     name = "Темна тема",
     showBackground = true

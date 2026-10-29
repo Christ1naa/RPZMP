@@ -15,6 +15,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 
+/**
+ * Повторно використовуване поле: значення, помилка й доступність надходять від форми.
+ */
 @Composable
 fun AuthTextField(
     value: String,
@@ -43,6 +46,10 @@ fun AuthTextField(
     )
 }
 
+/**
+ * Відображає пароль і помилку форми; локально керує лише видимістю символів.
+ * Видимість скидається після відтворення компонента, сам пароль належить AuthViewModel.
+ */
 @Composable
 fun AuthPasswordField(
     value: String,

@@ -18,6 +18,7 @@ data class DemoUser(
     val email: String
 )
 
+/** Snapshot auth-форми: помилки полів, loading і результат операції оновлюють Compose UI. */
 data class AuthUiState(
     val mode: AuthMode = AuthMode.LOGIN,
     val name: String = "",
