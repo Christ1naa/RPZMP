@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,62 +14,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import ua.kpi.energyforecast.R
-import ua.kpi.energyforecast.logic.DeviceValidator
-import ua.kpi.energyforecast.logic.EnergyCalculator
 import ua.kpi.energyforecast.model.EnergyDevice
 import ua.kpi.energyforecast.ui.components.ConsumptionChart
 import ua.kpi.energyforecast.ui.components.DeviceCard
 import ua.kpi.energyforecast.ui.components.DeviceEditorDialog
-
-private const val MAX_DEVICE_POSITIONS = 50
-
-/**
- * Перетворює список на підтримувані saved state значення: по п’ять полів на прилад.
- * Відновлення читає той самий порядок і зберігає id для редагування та ключів LazyColumn.
- * Це механізм відновлення UI, а не постійне сховище після повного закриття застосунку.
- */
-private val DeviceListSaver = listSaver<List<EnergyDevice>, Any>(
-    save = { devices ->
-        devices.flatMap { device ->
-            listOf<Any>(
-                device.id,
-                device.name,
-                device.powerWatts,
-                device.hoursPerDay,
-                device.deviceCount
-            )
-        }
-    },
-    restore = { savedValues ->
-        savedValues.chunked(5).map { values ->
-            EnergyDevice(
-                id = values[0] as String,
-                name = values[1] as String,
-                powerWatts = (values[2] as Number).toDouble(),
-                hoursPerDay = (values[3] as Number).toDouble(),
-                deviceCount = (values[4] as Number).toInt()
-            )
-        }
-    }
-)
+import ua.kpi.energyforecast.ui.forecast.ForecastUiState
 
 /**
- * Керує списком приладів, періодом і діалогами в межах стану поточного користувача.
- * Зміни списку або валідного періоду автоматично оновлюють результат і графік.
+ * Відображає стан прогнозу й передає дії користувача назовні.
+ * Локально зберігає тільки відкриття діалогів та id вибраних позицій.
  */
 @Composable
 fun ApplianceForecastScreen(
+    state: ForecastUiState,
+    onDaysChange: (String) -> Unit,
+    onSaveDevice: (EnergyDevice) -> Unit,
+    onDeleteDevice: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var devices by rememberSaveable(
-        stateSaver = DeviceListSaver
-    ) {
-        mutableStateOf(emptyList<EnergyDevice>())
-    }
-
-    var daysText by rememberSaveable {
-        mutableStateOf("30")
-    }
+    val devices = state.devices
+    val forecastDays = state.forecastDays
+    val result = state.result
 
     var editorOpen by rememberSaveable {
         mutableStateOf(false)
@@ -82,21 +46,6 @@ fun ApplianceForecastScreen(
 
     var deletingId by rememberSaveable {
         mutableStateOf<String?>(null)
-    }
-
-    val forecastDays = DeviceValidator.parseForecastDays(daysText)
-
-    // Результат похідний: окремо його не зберігаємо, щоб він не розходився з параметрами.
-    // Порожній список або невалідний період приховують результат замість показу застарілих даних.
-    val result = remember(devices, forecastDays) {
-        if (devices.isNotEmpty() && forecastDays != null) {
-            EnergyCalculator.calculateTotal(
-                devices = devices,
-                forecastDays = forecastDays
-            )
-        } else {
-            null
-        }
     }
 
     val editingDevice = devices.firstOrNull {
@@ -125,9 +74,11 @@ fun ApplianceForecastScreen(
 
             item(key = "period") {
                 OutlinedTextField(
-                    value = daysText,
-                    onValueChange = { daysText = it },
-                    label = { Text("Період прогнозування, днів") },
+                    value = state.daysText,
+                    onValueChange = onDaysChange,
+                    label = {
+                        Text("Період прогнозування, днів")
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
                     isError = forecastDays == null,
@@ -136,7 +87,7 @@ fun ApplianceForecastScreen(
                     ),
                     supportingText = {
                         Text(
-                            if (forecastDays == null) {
+                            text = if (forecastDays == null) {
                                 "Введіть ціле число від 1 до 365"
                             } else {
                                 "Прогноз оновлюється автоматично"
@@ -146,11 +97,27 @@ fun ApplianceForecastScreen(
                 )
             }
 
+            if (state.isLoading) {
+                item(key = "loading") {
+                    LinearProgressIndicator(
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+
+            state.error?.let { message ->
+                item(key = "operation_error") {
+                    Text(
+                        text = message,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
+
             item(key = "summary") {
                 Text(
                     text = "Позицій: ${devices.size}. " +
-                            "Усього приладів: " +
-                            devices.sumOf { it.deviceCount },
+                            "Усього приладів: ${state.totalDeviceCount}",
                     style = MaterialTheme.typography.titleMedium
                 )
             }
@@ -162,23 +129,27 @@ fun ApplianceForecastScreen(
             }
 
             item(key = "add_button") {
-                Button(
-                    onClick = {
-                        editingId = null
-                        editorOpen = true
-                    },
-                    enabled = devices.size < MAX_DEVICE_POSITIONS,
-                    modifier = Modifier.fillMaxWidth()
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text("Додати прилад")
-                }
+                    Button(
+                        onClick = {
+                            editingId = null
+                            editorOpen = true
+                        },
+                        enabled = state.canAddDevice,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Додати прилад")
+                    }
 
-                if (devices.size >= MAX_DEVICE_POSITIONS) {
-                    Text(
-                        text = "Досягнуто межі: " +
-                                "$MAX_DEVICE_POSITIONS позицій.",
-                        style = MaterialTheme.typography.bodySmall
-                    )
+                    if (!state.canAddDevice) {
+                        Text(
+                            text = "Досягнуто межі: " +
+                                    "${ForecastUiState.MAX_DEVICE_POSITIONS} позицій.",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
                 }
             }
 
@@ -207,8 +178,7 @@ fun ApplianceForecastScreen(
             if (result != null) {
                 item(key = "chart") {
                     Column(
-                        verticalArrangement =
-                            Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         Text(
                             text = "Загальне накопичене споживання",
@@ -241,18 +211,8 @@ fun ApplianceForecastScreen(
         DeviceEditorDialog(
             device = editingDevice,
             onSave = { savedDevice ->
-                devices = if (editingId == null) {
-                    devices + savedDevice
-                } else {
-                    devices.map { current ->
-                        if (current.id == savedDevice.id) {
-                            savedDevice
-                        } else {
-                            current
-                        }
-                    }
-                }
-
+                // Список і результат змінює ViewModel; екран закриває лише діалог.
+                onSaveDevice(savedDevice)
                 editorOpen = false
                 editingId = null
             },
@@ -273,16 +233,14 @@ fun ApplianceForecastScreen(
             },
             text = {
                 Text(
-                    "Позицію «${deletingDevice.name}» " +
+                    text = "Позицію «${deletingDevice.name}» " +
                             "буде вилучено зі списку."
                 )
             },
             confirmButton = {
                 TextButton(
                     onClick = {
-                        devices = devices.filterNot {
-                            it.id == deletingDevice.id
-                        }
+                        onDeleteDevice(deletingDevice.id)
                         deletingId = null
                     }
                 ) {
@@ -305,9 +263,7 @@ fun ApplianceForecastScreen(
     }
 }
 
-/**
- * Пояснює призначення списку приладів і позначає предметну область зображенням.
- */
+/** Пояснює призначення списку приладів і позначає предметну область зображенням. */
 @Composable
 private fun ApplianceHeader() {
     Column(
@@ -334,9 +290,7 @@ private fun ApplianceHeader() {
     }
 }
 
-/**
- * Підказує першу дію, коли список порожній і розрахунок ще не показується.
- */
+/** Підказує першу дію, коли список порожній і розрахунок ще не показується. */
 @Composable
 private fun EmptyDeviceList() {
     Card(

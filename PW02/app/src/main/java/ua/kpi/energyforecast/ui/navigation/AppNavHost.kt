@@ -1,5 +1,6 @@
 package ua.kpi.energyforecast.ui.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -8,17 +9,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import ua.kpi.energyforecast.EnergyDashboard
+import ua.kpi.energyforecast.model.EnergyDevice
+import ua.kpi.energyforecast.ui.forecast.ForecastUiState
 import ua.kpi.energyforecast.ui.screens.ApplianceForecastScreen
 import ua.kpi.energyforecast.ui.screens.ForecastScreen
 import ua.kpi.energyforecast.ui.screens.MainMenuScreen
 
 /**
- * Зіставляє маршрути з екранами.
- * Параметр days читається як Int і задає початковий період форми.
+ * Зіставляє маршрути з екранами та передає стан і дії від власника ViewModel.
+ * Аргумент days визначає початковий період форми швидкого прогнозу.
  */
 @Composable
 fun AppNavHost(
     navController: NavHostController,
+    forecastState: ForecastUiState,
+    onDaysChange: (String) -> Unit,
+    onSaveDevice: (EnergyDevice) -> Unit,
+    onDeleteDevice: (String) -> Unit,
     lastForecast: String?,
     onForecastCalculated: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -45,12 +52,19 @@ fun AppNavHost(
                     navController.navigate(AppRoutes.DEMO) {
                         launchSingleTop = true
                     }
-                }
+                },
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         composable(AppRoutes.APPLIANCES) {
-            ApplianceForecastScreen()
+            ApplianceForecastScreen(
+                state = forecastState,
+                onDaysChange = onDaysChange,
+                onSaveDevice = onSaveDevice,
+                onDeleteDevice = onDeleteDevice,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         composable(
@@ -68,12 +82,15 @@ fun AppNavHost(
 
             ForecastScreen(
                 initialDays = days,
-                onCalculated = onForecastCalculated
+                onCalculated = onForecastCalculated,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
         composable(AppRoutes.DEMO) {
-            EnergyDashboard()
+            EnergyDashboard(
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }

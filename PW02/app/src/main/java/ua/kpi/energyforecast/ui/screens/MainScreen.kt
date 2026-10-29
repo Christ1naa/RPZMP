@@ -13,6 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import ua.kpi.energyforecast.model.DemoUser
 import ua.kpi.energyforecast.ui.navigation.AppNavHost
 import ua.kpi.energyforecast.ui.navigation.AppRoutes
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ua.kpi.energyforecast.ui.forecast.ForecastViewModel
 
 /**
  * Створює навігацію авторизованого користувача.
@@ -24,6 +27,13 @@ fun MainScreen(
     onLogout: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // MainScreen викликається поза NavHost: ViewModel належить Activity.
+// Окремий ключ не дозволяє змішувати прилади різних навчальних акаунтів.
+    val forecastViewModel: ForecastViewModel = viewModel(
+        key = "forecast_${user.id}"
+    )
+
+    val forecastState by forecastViewModel.uiState.collectAsStateWithLifecycle()
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val route = backStackEntry?.destination?.route
@@ -62,6 +72,10 @@ fun MainScreen(
 
         AppNavHost(
             navController = navController,
+            forecastState = forecastState,
+            onDaysChange = forecastViewModel::updateDays,
+            onSaveDevice = forecastViewModel::saveDevice,
+            onDeleteDevice = forecastViewModel::deleteDevice,
             lastForecast = lastForecast,
             onForecastCalculated = { lastForecast = it },
             modifier = Modifier
