@@ -38,7 +38,7 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     // MainScreen викликається поза NavHost: ViewModel належить Activity.
-// Окремий ключ не дозволяє змішувати прилади різних навчальних акаунтів.
+    // Окремий ключ не дозволяє змішувати прилади різних навчальних акаунтів.
     val applicationContext = LocalContext.current.applicationContext
 
     val ownerKey = remember(user.email) {
@@ -65,7 +65,7 @@ fun MainScreen(
         }
     }
 
-// Email залишається однаковим після повторного створення навчального акаунта.
+    // Email залишається однаковим після повторного створення навчального акаунта.
     val forecastViewModel: ForecastViewModel = viewModel(
         key = "forecast_$ownerKey",
         factory = forecastFactory

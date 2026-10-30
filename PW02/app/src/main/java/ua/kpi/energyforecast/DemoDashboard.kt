@@ -18,7 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -29,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import ua.kpi.energyforecast.ui.theme.EnergyForecastTheme
 import java.util.Locale
 import kotlin.random.Random
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 
 /**
  * Демонстраційні показники; споживання задано у кВт·год за добу.
@@ -64,17 +65,16 @@ fun EnergyDashboard(
 ) {
     // Відновлюємо показники та лічильник після відтворення Activity.
     var dailyConsumption by rememberSaveable {
-        mutableStateOf(8.4f)
+        mutableFloatStateOf(8.4f)
     }
 
     var activeDevices by rememberSaveable {
-        mutableStateOf(6)
+        mutableIntStateOf(6)
     }
 
     var updateCount by rememberSaveable {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
-
     val ukrainianLocale = remember {
         Locale.forLanguageTag("uk-UA")
     }
