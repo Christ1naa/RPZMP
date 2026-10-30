@@ -14,6 +14,7 @@ import ua.kpi.energyforecast.ui.forecast.ForecastUiState
 import ua.kpi.energyforecast.ui.screens.ApplianceForecastScreen
 import ua.kpi.energyforecast.ui.screens.ForecastScreen
 import ua.kpi.energyforecast.ui.screens.MainMenuScreen
+import ua.kpi.energyforecast.ui.forecast.DeviceSort
 
 /**
  * Зіставляє маршрути з екранами та передає стан і дії від власника ViewModel.
@@ -26,6 +27,8 @@ fun AppNavHost(
     onDaysChange: (String) -> Unit,
     onSaveDevice: (EnergyDevice) -> Unit,
     onDeleteDevice: (String) -> Unit,
+    onSearchQueryChange: (String) -> Unit,
+    onSortChange: (DeviceSort) -> Unit,
     lastForecast: String?,
     onForecastCalculated: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -63,6 +66,8 @@ fun AppNavHost(
                 onDaysChange = onDaysChange,
                 onSaveDevice = onSaveDevice,
                 onDeleteDevice = onDeleteDevice,
+                onSearchQueryChange = onSearchQueryChange,
+                onSortChange = onSortChange,
                 modifier = Modifier.fillMaxSize()
             )
         }

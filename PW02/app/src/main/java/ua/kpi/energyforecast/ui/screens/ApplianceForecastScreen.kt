@@ -19,6 +19,7 @@ import ua.kpi.energyforecast.ui.components.ConsumptionChart
 import ua.kpi.energyforecast.ui.components.DeviceCard
 import ua.kpi.energyforecast.ui.components.DeviceEditorDialog
 import ua.kpi.energyforecast.ui.forecast.ForecastUiState
+import ua.kpi.energyforecast.ui.forecast.DeviceSort
 
 /**
  * Відображає стан прогнозу й передає дії користувача назовні.
@@ -30,9 +31,16 @@ fun ApplianceForecastScreen(
     onDaysChange: (String) -> Unit,
     onSaveDevice: (EnergyDevice) -> Unit,
     onDeleteDevice: (String) -> Unit,
+    onSearchQueryChange: (String) -> Unit,
+    onSortChange: (DeviceSort) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val devices = state.devices
+    val visibleDevices = state.visibleDevices
+
+    var sortMenuExpanded by remember {
+        mutableStateOf(false)
+    }
     val forecastDays = state.forecastDays
     val result = state.result
 
@@ -153,14 +161,102 @@ fun ApplianceForecastScreen(
                 }
             }
 
+            item(key = "search_and_sort") {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    OutlinedTextField(
+                        value = state.searchQuery,
+                        onValueChange = onSearchQueryChange,
+                        modifier = Modifier.fillMaxWidth(),
+                        label = {
+                            Text("Пошук за назвою")
+                        },
+                        singleLine = true,
+                        trailingIcon = {
+                            if (state.searchQuery.isNotEmpty()) {
+                                TextButton(
+                                    onClick = {
+                                        onSearchQueryChange("")
+                                    }
+                                ) {
+                                    Text("Очистити")
+                                }
+                            }
+                        }
+                    )
+
+                    Box {
+                        OutlinedButton(
+                            onClick = {
+                                sortMenuExpanded = true
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(state.sort.title)
+                        }
+
+                        DropdownMenu(
+                            expanded = sortMenuExpanded,
+                            onDismissRequest = {
+                                sortMenuExpanded = false
+                            }
+                        ) {
+                            DeviceSort.entries.forEach { option ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(option.title)
+                                    },
+                                    onClick = {
+                                        onSortChange(option)
+                                        sortMenuExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    Text(
+                        text = "Показано позицій: ${visibleDevices.size} " +
+                                "із ${devices.size}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    Text(
+                        text = "Прогноз і графік враховують усі прилади профілю.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
             if (devices.isEmpty()) {
                 item(key = "empty_state") {
                     EmptyDeviceList()
                 }
+            } else if (visibleDevices.isEmpty()) {
+                item(key = "no_search_results") {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "За цим запитом приладів не знайдено",
+                            style = MaterialTheme.typography.titleMedium
+                        )
+
+                        TextButton(
+                            onClick = {
+                                onSearchQueryChange("")
+                            }
+                        ) {
+                            Text("Очистити пошук")
+                        }
+                    }
+                }
             }
 
             items(
-                items = devices,
+                items = visibleDevices,
                 key = { device -> "device_${device.id}" }
             ) { device ->
                 DeviceCard(

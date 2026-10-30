@@ -207,6 +207,25 @@ class ForecastViewModelTest {
         assertTrue(viewModel.uiState.value.devices.isEmpty())
         assertNotNull(viewModel.uiState.value.error)
     }
+
+    @Test
+    fun searchAndSortDoNotChangeTotalForecast() = runTest(dispatcher) {
+        viewModel.saveDevice(device())
+        advanceUntilIdle()
+
+        val originalResult = viewModel.uiState.value.result
+
+        viewModel.updateSearchQuery("Немає збігів")
+        viewModel.updateSort(DeviceSort.CONSUMPTION_DESC)
+
+        val state = viewModel.uiState.value
+
+        assertTrue(state.visibleDevices.isEmpty())
+        assertEquals(1, state.devices.size)
+        assertEquals(originalResult, state.result)
+        assertFalse(state.isLoading)
+    }
+
     private fun device() = EnergyDevice(
         id = "device-1",
         name = "Обігрівач",

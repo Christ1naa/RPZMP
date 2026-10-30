@@ -97,6 +97,19 @@ class ForecastViewModel(
         }
     }
 
+    /** Змінює відображення списку без запису в Room і перерахунку прогнозу. */
+    fun updateSearchQuery(value: String) {
+        mutableUiState.value = mutableUiState.value.copy(
+            searchQuery = value
+        )
+    }
+
+    fun updateSort(value: DeviceSort) {
+        mutableUiState.value = mutableUiState.value.copy(
+            sort = value
+        )
+    }
+
     /** Невалідне введення показується у формі, але не записується у базу. */
     fun updateDays(value: String) {
         daysEdited = true

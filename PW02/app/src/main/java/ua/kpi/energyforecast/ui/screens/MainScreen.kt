@@ -109,6 +109,8 @@ fun MainScreen(
             onDeleteDevice = forecastViewModel::deleteDevice,
             lastForecast = lastForecast,
             onForecastCalculated = { lastForecast = it },
+            onSearchQueryChange = forecastViewModel::updateSearchQuery,
+            onSortChange = forecastViewModel::updateSort,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
