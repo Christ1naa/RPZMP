@@ -86,17 +86,32 @@ object EnergyCalculator {
             calculateDeviceDaily(device)
         }
 
-        val periodConsumption = dailyConsumption * forecastDays
+        return calculateFromDaily(dailyConsumption, forecastDays)
+    }
 
-        require(
-            dailyConsumption.isFinite() &&
-                    periodConsumption.isFinite()
-        ) {
+    /**
+     * Використовує готовий добовий підсумок, зокрема обчислений у Room.
+     * Період перевіряється до множення; округлення виконує лише UI.
+     */
+    fun calculateFromDaily(
+        dailyConsumptionKwh: Double,
+        forecastDays: Int
+    ): ForecastResult {
+        require(forecastDays in 1..365) {
+            "Період прогнозування має бути від 1 до 365 днів"
+        }
+        require(dailyConsumptionKwh.isFinite() && dailyConsumptionKwh >= 0.0) {
+            "Добове споживання має бути скінченним невід’ємним числом"
+        }
+
+        val periodConsumption = dailyConsumptionKwh * forecastDays
+
+        require(periodConsumption.isFinite()) {
             "Результат розрахунку завеликий"
         }
 
         return ForecastResult(
-            dailyConsumptionKwh = dailyConsumption,
+            dailyConsumptionKwh = dailyConsumptionKwh,
             periodConsumptionKwh = periodConsumption,
             forecastDays = forecastDays
         )

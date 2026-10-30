@@ -143,4 +143,49 @@ class EnergyCalculatorTest {
             )
         )
     }
+
+    @Test
+    fun dailyAggregateProducesExpectedPeriodWithoutRounding() {
+        val result = EnergyCalculator.calculateFromDaily(2.76, 10)
+
+        assertEquals(2.76, result.dailyConsumptionKwh, 1e-9)
+        assertEquals(27.6, result.periodConsumptionKwh, 1e-9)
+        assertEquals(10, result.forecastDays)
+    }
+
+    @Test
+    fun zeroDailyAggregateIsValidAtPeriodBoundaries() {
+        listOf(1, 365).forEach { days ->
+            val result = EnergyCalculator.calculateFromDaily(0.0, days)
+            assertEquals(0.0, result.dailyConsumptionKwh, 0.0)
+            assertEquals(0.0, result.periodConsumptionKwh, 0.0)
+            assertEquals(days, result.forecastDays)
+        }
+    }
+
+    @Test
+    fun invalidDailyAggregateIsRejected() {
+        listOf(-0.1, Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY)
+            .forEach { daily ->
+                assertThrows(IllegalArgumentException::class.java) {
+                    EnergyCalculator.calculateFromDaily(daily, 10)
+                }
+            }
+    }
+
+    @Test
+    fun dailyAggregateRejectsInvalidPeriods() {
+        listOf(0, 366).forEach { days ->
+            assertThrows(IllegalArgumentException::class.java) {
+                EnergyCalculator.calculateFromDaily(0.0, days)
+            }
+        }
+    }
+
+    @Test
+    fun dailyAggregateRejectsPeriodOverflow() {
+        assertThrows(IllegalArgumentException::class.java) {
+            EnergyCalculator.calculateFromDaily(Double.MAX_VALUE, 365)
+        }
+    }
 }

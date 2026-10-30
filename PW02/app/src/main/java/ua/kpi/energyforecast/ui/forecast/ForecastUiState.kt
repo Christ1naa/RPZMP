@@ -8,6 +8,7 @@ import ua.kpi.energyforecast.data.source.DemoScenario
 
 /**
  * Зберігає повний список профілю та параметри його відображення.
+ * Добовий підсумок надходить із SQL разом зі списком приладів.
  * Пошук і сортування не змінюють дані загального прогнозу.
  */
 data class ForecastUiState(
@@ -23,7 +24,8 @@ data class ForecastUiState(
     val isLoadingDemos: Boolean = false,
     val isImportingDemo: Boolean = false,
     val demoError: String? = null,
-    val demoMessage: String? = null
+    val demoMessage: String? = null,
+    val dailyConsumptionKwh: Double = 0.0
 ) {
     val forecastDays: Int?
         get() = DeviceValidator.parseForecastDays(daysText)

@@ -8,7 +8,8 @@ import ua.kpi.energyforecast.model.ForecastResult
 /** Збережені параметри профілю без залежності від класів Room. */
 data class SavedEnergyProfile(
     val devices: List<EnergyDevice> = emptyList(),
-    val forecastDays: Int = 30
+    val forecastDays: Int = 30,
+    val dailyConsumptionKwh: Double = 0.0
 )
 
 /** Об’єднує збережений профіль, джерело прикладів і розрахунок прогнозу. */
@@ -30,6 +31,12 @@ interface EnergyRepository {
         ownerKey: String,
         scenarioId: String
     )
+
+    /** Формує прогноз за добовим підсумком, отриманим зі сховища. */
+    fun calculateForecastFromDaily(
+        dailyConsumptionKwh: Double,
+        forecastDays: Int
+    ): ForecastResult
 
     fun calculateForecast(
         devices: List<EnergyDevice>,

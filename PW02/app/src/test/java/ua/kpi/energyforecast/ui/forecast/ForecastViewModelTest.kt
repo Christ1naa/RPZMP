@@ -300,6 +300,65 @@ class ForecastViewModelTest {
         assertEquals(3, repository.readSubscriptions)
     }
 
+    @Test
+    fun forecastUsesRepositoryDailyTotalWhenPeriodChanges() = runTest(dispatcher) {
+        // Значення відрізняється від суми приладів: перевіряємо саме джерело результату.
+        repository.emitProfile(
+            "demo@energy.test",
+            SavedEnergyProfile(
+                devices = listOf(device()),
+                forecastDays = 10,
+                dailyConsumptionKwh = 7.5
+            )
+        )
+        advanceUntilIdle()
+
+        val initial = viewModel.uiState.value
+        assertEquals(7.5, initial.dailyConsumptionKwh, 0.000001)
+        assertEquals(
+            75.0,
+            requireNotNull(initial.result).periodConsumptionKwh,
+            0.000001
+        )
+
+        viewModel.updateDays("7")
+        advanceUntilIdle()
+
+        val result = requireNotNull(viewModel.uiState.value.result)
+        assertEquals(7.5, result.dailyConsumptionKwh, 0.000001)
+        assertEquals(52.5, result.periodConsumptionKwh, 0.000001)
+        assertEquals(7, result.forecastDays)
+    }
+
+    @Test
+    fun newRepositoryTotalUpdatesForecastWithoutChangingDeviceList() = runTest(dispatcher) {
+        val saved = SavedEnergyProfile(
+            devices = listOf(device()),
+            forecastDays = 10,
+            dailyConsumptionKwh = 2.0
+        )
+        repository.emitProfile("demo@energy.test", saved)
+        advanceUntilIdle()
+        assertEquals(
+            20.0,
+            requireNotNull(viewModel.uiState.value.result).periodConsumptionKwh,
+            0.000001
+        )
+
+        repository.emitProfile(
+            "demo@energy.test",
+            saved.copy(dailyConsumptionKwh = 3.0)
+        )
+        advanceUntilIdle()
+
+        val state = viewModel.uiState.value
+        assertEquals(saved.devices, state.devices)
+        assertEquals(3.0, requireNotNull(state.result).dailyConsumptionKwh, 0.000001)
+        assertEquals(30.0, requireNotNull(state.result).periodConsumptionKwh, 0.000001)
+        assertFalse(state.isLoading)
+        assertNull(state.error)
+    }
+
     private fun device() = EnergyDevice(
         id = "device-1",
         name = "Обігрівач",
@@ -326,6 +385,10 @@ private class FakeEnergyRepository : EnergyRepository {
         profiles.getOrPut(ownerKey) {
             MutableStateFlow(SavedEnergyProfile())
         }
+
+    fun emitProfile(ownerKey: String, saved: SavedEnergyProfile) {
+        profile(ownerKey).value = saved
+    }
 
     override fun observeProfile(
         ownerKey: String
@@ -359,7 +422,12 @@ private class FakeEnergyRepository : EnergyRepository {
             current.devices + device
         }
 
-        flow.value = current.copy(devices = devices)
+        flow.value = current.copy(
+            devices = devices,
+            dailyConsumptionKwh = devices.sumOf {
+                EnergyCalculator.calculateDeviceDaily(it)
+            }
+        )
     }
 
     override suspend fun deleteDevice(
@@ -369,8 +437,12 @@ private class FakeEnergyRepository : EnergyRepository {
         check(!failWrites) { "Test write failure" }
 
         val flow = profile(ownerKey)
+        val devices = flow.value.devices.filterNot { it.id == deviceId }
         flow.value = flow.value.copy(
-            devices = flow.value.devices.filterNot { it.id == deviceId }
+            devices = devices,
+            dailyConsumptionKwh = devices.sumOf {
+                EnergyCalculator.calculateDeviceDaily(it)
+            }
         )
     }
 
@@ -394,6 +466,16 @@ private class FakeEnergyRepository : EnergyRepository {
         scenarioId: String
     ) {
         error("Імпорт не налаштований у цьому тестовому сховищі.")
+    }
+
+    override fun calculateForecastFromDaily(
+        dailyConsumptionKwh: Double,
+        forecastDays: Int
+    ): ForecastResult {
+        return EnergyCalculator.calculateFromDaily(
+            dailyConsumptionKwh = dailyConsumptionKwh,
+            forecastDays = forecastDays
+        )
     }
 
     override fun calculateForecast(

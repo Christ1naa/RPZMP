@@ -18,7 +18,7 @@ import ua.kpi.energyforecast.logic.DeviceValidator
 import ua.kpi.energyforecast.model.EnergyDevice
 
 /**
- * Отримує збережений список через Repository.
+ * Отримує збережений список і SQL-підсумок через Repository.
  * Введення періоду залишається локальним, а валідні значення записуються у сховище.
  */
 class ForecastViewModel(
@@ -101,6 +101,7 @@ class ForecastViewModel(
                     recalculate(
                         current.copy(
                             devices = saved.devices,
+                            dailyConsumptionKwh = saved.dailyConsumptionKwh,
                             daysText = daysText,
                             loadError = null
                         )
@@ -292,8 +293,8 @@ class ForecastViewModel(
         calculationJob = viewModelScope.launch {
             try {
                 val result = withContext(calculationDispatcher) {
-                    repository.calculateForecast(
-                        devices = next.devices,
+                    repository.calculateForecastFromDaily(
+                        dailyConsumptionKwh = next.dailyConsumptionKwh,
                         forecastDays = days
                     )
                 }

@@ -37,7 +37,8 @@ class RoomEnergyRepository(
                     ?.map { it.toModel() }
                     ?.sortedBy { it.id }
                     .orEmpty(),
-                forecastDays = saved?.profile?.forecastDays ?: 30
+                forecastDays = saved?.profile?.forecastDays ?: 30,
+                dailyConsumptionKwh = saved?.dailyConsumptionKwh ?: 0.0
             )
         }
     }
@@ -140,6 +141,16 @@ class RoomEnergyRepository(
                 dao.saveDevice(device.toEntity(ownerKey))
             }
         }
+    }
+
+    override fun calculateForecastFromDaily(
+        dailyConsumptionKwh: Double,
+        forecastDays: Int
+    ): ForecastResult {
+        return EnergyCalculator.calculateFromDaily(
+            dailyConsumptionKwh = dailyConsumptionKwh,
+            forecastDays = forecastDays
+        )
     }
 
     override fun calculateForecast(
