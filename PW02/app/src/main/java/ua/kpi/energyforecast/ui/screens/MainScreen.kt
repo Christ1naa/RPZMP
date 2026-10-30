@@ -22,6 +22,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import ua.kpi.energyforecast.data.RoomEnergyRepository
 import ua.kpi.energyforecast.data.local.EnergyDatabase
 import java.util.Locale
+import ua.kpi.energyforecast.data.source.AssetDemoScenarioSource
+import ua.kpi.energyforecast.data.source.CachedDemoScenarioSource
 
 /**
  * Створює навігацію авторизованого користувача.
@@ -43,7 +45,10 @@ fun MainScreen(
 
     val repository = remember(applicationContext) {
         RoomEnergyRepository(
-            EnergyDatabase.getInstance(applicationContext)
+            database = EnergyDatabase.getInstance(applicationContext),
+            demoSource = CachedDemoScenarioSource(
+                AssetDemoScenarioSource(applicationContext.assets)
+            )
         )
     }
 
@@ -112,6 +117,8 @@ fun MainScreen(
             onSearchQueryChange = forecastViewModel::updateSearchQuery,
             onSortChange = forecastViewModel::updateSort,
             onRetryLoad = forecastViewModel::retryLoad,
+            onLoadDemoScenarios = forecastViewModel::loadDemoScenarios,
+            onImportDemoScenario = forecastViewModel::importDemoScenario,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()

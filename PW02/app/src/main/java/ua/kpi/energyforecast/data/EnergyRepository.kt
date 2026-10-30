@@ -1,7 +1,9 @@
 package ua.kpi.energyforecast.data
 
 import kotlinx.coroutines.flow.Flow
+import ua.kpi.energyforecast.data.source.DemoScenario
 import ua.kpi.energyforecast.model.EnergyDevice
+import ua.kpi.energyforecast.model.ForecastResult
 
 /** Збережені параметри профілю без залежності від класів Room. */
 data class SavedEnergyProfile(
@@ -9,8 +11,9 @@ data class SavedEnergyProfile(
     val forecastDays: Int = 30
 )
 
-/** Контракт сховища, який можна замінити тестовою реалізацією. */
+/** Об’єднує збережений профіль, джерело прикладів і розрахунок прогнозу. */
 interface EnergyRepository {
+
     fun observeProfile(ownerKey: String): Flow<SavedEnergyProfile>
 
     suspend fun saveDevice(ownerKey: String, device: EnergyDevice)
@@ -18,4 +21,18 @@ interface EnergyRepository {
     suspend fun deleteDevice(ownerKey: String, deviceId: String)
 
     suspend fun saveForecastDays(ownerKey: String, days: Int)
+
+    suspend fun loadDemoScenarios(
+        refresh: Boolean = false
+    ): List<DemoScenario>
+
+    suspend fun importDemoScenario(
+        ownerKey: String,
+        scenarioId: String
+    )
+
+    fun calculateForecast(
+        devices: List<EnergyDevice>,
+        forecastDays: Int
+    ): ForecastResult
 }

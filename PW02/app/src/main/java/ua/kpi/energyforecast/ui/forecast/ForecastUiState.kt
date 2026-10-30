@@ -4,6 +4,7 @@ import ua.kpi.energyforecast.logic.DeviceValidator
 import ua.kpi.energyforecast.model.EnergyDevice
 import ua.kpi.energyforecast.model.ForecastResult
 import java.util.Locale
+import ua.kpi.energyforecast.data.source.DemoScenario
 
 /**
  * Зберігає повний список профілю та параметри його відображення.
@@ -17,7 +18,12 @@ data class ForecastUiState(
     val error: String? = null,
     val loadError: String? = null,
     val searchQuery: String = "",
-    val sort: DeviceSort = DeviceSort.NAME
+    val sort: DeviceSort = DeviceSort.NAME,
+    val demoScenarios: List<DemoScenario> = emptyList(),
+    val isLoadingDemos: Boolean = false,
+    val isImportingDemo: Boolean = false,
+    val demoError: String? = null,
+    val demoMessage: String? = null
 ) {
     val forecastDays: Int?
         get() = DeviceValidator.parseForecastDays(daysText)

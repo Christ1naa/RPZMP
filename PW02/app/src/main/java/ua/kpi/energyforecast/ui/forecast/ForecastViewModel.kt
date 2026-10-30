@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ua.kpi.energyforecast.data.EnergyRepository
 import ua.kpi.energyforecast.logic.DeviceValidator
-import ua.kpi.energyforecast.logic.EnergyCalculator
 import ua.kpi.energyforecast.model.EnergyDevice
 
 /**
@@ -120,6 +119,95 @@ class ForecastViewModel(
         }
     }
 
+    /** Звичайне завантаження використовує кеш, оновлення перечитує джерело. */
+    fun loadDemoScenarios(refresh: Boolean = false) {
+        val current = mutableUiState.value
+
+        if (current.isLoadingDemos || current.isImportingDemo) return
+
+        mutableUiState.value = current.copy(
+            isLoadingDemos = true,
+            demoError = null,
+            demoMessage = null
+        )
+
+        viewModelScope.launch {
+            try {
+                val scenarios = repository.loadDemoScenarios(refresh)
+
+                mutableUiState.value = mutableUiState.value.copy(
+                    demoScenarios = scenarios,
+                    isLoadingDemos = false
+                )
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (exception: Exception) {
+                mutableUiState.value = mutableUiState.value.copy(
+                    isLoadingDemos = false,
+                    demoError = "Не вдалося завантажити приклади. Спробуйте ще раз."
+                )
+            }
+        }
+    }
+
+    /**
+     * Імпорт виконується в черзі записів.
+     * Повторне натискання блокується до завершення операції.
+     */
+    fun importDemoScenario(scenarioId: String) {
+        val current = mutableUiState.value
+
+        if (
+            current.isImportingDemo ||
+            current.isLoadingDemos ||
+            current.isLoading ||
+            current.loadError != null
+        ) return
+
+        val scenario = current.demoScenarios.firstOrNull {
+            it.id == scenarioId
+        }
+
+        if (scenario == null) {
+            mutableUiState.value = current.copy(
+                demoError = "Приклад не знайдено. Оновіть список."
+            )
+            return
+        }
+
+        mutableUiState.value = current.copy(
+            isImportingDemo = true,
+            demoError = null,
+            demoMessage = null
+        )
+
+        enqueueWrite {
+            try {
+                repository.importDemoScenario(ownerKey, scenarioId)
+
+                mutableUiState.value = mutableUiState.value.copy(
+                    searchQuery = "",
+                    demoMessage = "Прилади з прикладу «${scenario.name}» додано."
+                )
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (exception: IllegalArgumentException) {
+                mutableUiState.value = mutableUiState.value.copy(
+                    demoError = exception.message
+                        ?: "Не вдалося імпортувати приклад."
+                )
+            } catch (exception: Exception) {
+                mutableUiState.value = mutableUiState.value.copy(
+                    demoError = "Не вдалося імпортувати приклад. Спробуйте ще раз."
+                )
+            } finally {
+                mutableUiState.value = mutableUiState.value.copy(
+                    isImportingDemo = false
+                )
+            }
+        }
+    }
+
     /** Змінює відображення списку без запису в Room і перерахунку прогнозу. */
     fun updateSearchQuery(value: String) {
         mutableUiState.value = mutableUiState.value.copy(
@@ -204,7 +292,7 @@ class ForecastViewModel(
         calculationJob = viewModelScope.launch {
             try {
                 val result = withContext(calculationDispatcher) {
-                    EnergyCalculator.calculateTotal(
+                    repository.calculateForecast(
                         devices = next.devices,
                         forecastDays = days
                     )

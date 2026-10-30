@@ -36,6 +36,8 @@ fun AppNavHost(
     lastForecast: String?,
     onForecastCalculated: (String) -> Unit,
     onRetryLoad: () -> Unit,
+    onLoadDemoScenarios: (Boolean) -> Unit,
+    onImportDemoScenario: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -74,6 +76,8 @@ fun AppNavHost(
                 onSearchQueryChange = onSearchQueryChange,
                 onSortChange = onSortChange,
                 onRetryLoad = onRetryLoad,
+                onLoadDemoScenarios = onLoadDemoScenarios,
+                onImportDemoScenario = onImportDemoScenario,
                 modifier = Modifier.fillMaxSize()
             )
         }

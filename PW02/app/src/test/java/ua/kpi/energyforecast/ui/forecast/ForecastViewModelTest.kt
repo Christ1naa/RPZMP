@@ -20,6 +20,9 @@ import ua.kpi.energyforecast.data.EnergyRepository
 import ua.kpi.energyforecast.data.SavedEnergyProfile
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import ua.kpi.energyforecast.data.source.DemoScenario
+import ua.kpi.energyforecast.logic.EnergyCalculator
+import ua.kpi.energyforecast.model.ForecastResult
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ForecastViewModelTest {
@@ -381,4 +384,26 @@ private class FakeEnergyRepository : EnergyRepository {
         val flow = profile(ownerKey)
         flow.value = flow.value.copy(forecastDays = days)
     }
+
+    override suspend fun loadDemoScenarios(
+        refresh: Boolean
+    ): List<DemoScenario> = emptyList()
+
+    override suspend fun importDemoScenario(
+        ownerKey: String,
+        scenarioId: String
+    ) {
+        error("Імпорт не налаштований у цьому тестовому сховищі.")
+    }
+
+    override fun calculateForecast(
+        devices: List<EnergyDevice>,
+        forecastDays: Int
+    ): ForecastResult {
+        return EnergyCalculator.calculateTotal(
+            devices = devices,
+            forecastDays = forecastDays
+        )
+    }
+
 }

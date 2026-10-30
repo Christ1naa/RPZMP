@@ -20,6 +20,7 @@ import ua.kpi.energyforecast.ui.components.DeviceCard
 import ua.kpi.energyforecast.ui.components.DeviceEditorDialog
 import ua.kpi.energyforecast.ui.forecast.ForecastUiState
 import ua.kpi.energyforecast.ui.forecast.DeviceSort
+import ua.kpi.energyforecast.ui.components.DemoScenariosCard
 
 /**
  * Відображає стан прогнозу й передає дії користувача назовні.
@@ -34,6 +35,8 @@ fun ApplianceForecastScreen(
     onSearchQueryChange: (String) -> Unit,
     onSortChange: (DeviceSort) -> Unit,
     onRetryLoad: () -> Unit,
+    onLoadDemoScenarios: (Boolean) -> Unit,
+    onImportDemoScenario: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val devices = state.devices
@@ -180,6 +183,14 @@ fun ApplianceForecastScreen(
                         )
                     }
                 }
+            }
+
+            item(key = "demo_scenarios") {
+                DemoScenariosCard(
+                    state = state,
+                    onLoad = onLoadDemoScenarios,
+                    onImport = onImportDemoScenario
+                )
             }
 
             item(key = "search_and_sort") {
