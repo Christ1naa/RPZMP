@@ -12,14 +12,34 @@ import kotlinx.coroutines.flow.Flow
 abstract class EnergyDao {
 
     /**
-     * Room читає профіль і пов’язаний список в одній транзакції,
-     * щоб спостерігач отримував узгоджений набір даних.
+     * Повертає профіль, його прилади та добове споживання,
+     * обчислене засобами SQL.
+     *
+     * Потужність переводиться з ватів у кіловати. COALESCE повертає
+     * нуль для профілю без приладів. Підсумок обмежений ownerKey.
+     *
+     * Транзакція забезпечує узгоджене читання профілю,
+     * розрахованого значення та пов’язаного списку приладів.
      */
     @Transaction
     @Query(
         """
-        SELECT * FROM energy_profiles
-        WHERE ownerKey = :ownerKey
+        SELECT energy_profiles.*,
+               (
+                   SELECT COALESCE(
+                       SUM(
+                           energy_devices.powerWatts / 1000.0 *
+                           energy_devices.hoursPerDay *
+                           energy_devices.deviceCount
+                       ),
+                       0.0
+                   )
+                   FROM energy_devices
+                   WHERE energy_devices.ownerKey =
+                         energy_profiles.ownerKey
+               ) AS dailyConsumptionKwh
+        FROM energy_profiles
+        WHERE energy_profiles.ownerKey = :ownerKey
         """
     )
     abstract fun observeProfile(
@@ -37,8 +57,9 @@ abstract class EnergyDao {
     )
 
     /**
-     * Профіль створюється перед приладом.
-     * IGNORE зберігає раніше встановлений період прогнозу.
+     * Створює профіль перед збереженням приладу.
+     * IGNORE зберігає період прогнозу наявного профілю.
+     * Обидві операції виконуються в одній транзакції.
      */
     @Transaction
     open suspend fun saveDevice(device: EnergyDeviceEntity) {
@@ -71,6 +92,10 @@ abstract class EnergyDao {
         days: Int
     )
 
+    /**
+     * Зберігає допустимий період прогнозу.
+     * Якщо профілю ще немає, створює його в цій самій транзакції.
+     */
     @Transaction
     open suspend fun saveForecastDays(
         ownerKey: String,
@@ -85,30 +110,4 @@ abstract class EnergyDao {
         )
         updateForecastDays(ownerKey, days)
     }
-
-    /**
-     * Пошук обмежений профілем власника.
-     * Сортування за споживанням використовує розрахунковий SQL-вираз.
-     */
-    @Query(
-        """
-        SELECT * FROM energy_devices
-        WHERE ownerKey = :ownerKey
-          AND (
-              :search = ''
-              OR instr(lower(name), lower(:search)) > 0
-          )
-        ORDER BY
-            CASE WHEN :sortByConsumption = 1
-                THEN powerWatts * hoursPerDay * deviceCount
-            END DESC,
-            name COLLATE NOCASE ASC,
-            id ASC
-        """
-    )
-    abstract fun observeDevices(
-        ownerKey: String,
-        search: String,
-        sortByConsumption: Boolean
-    ): Flow<List<EnergyDeviceEntity>>
 }
