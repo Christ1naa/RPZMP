@@ -24,6 +24,8 @@ import ua.kpi.energyforecast.data.local.EnergyDatabase
 import java.util.Locale
 import ua.kpi.energyforecast.data.source.AssetDemoScenarioSource
 import ua.kpi.energyforecast.data.source.CachedDemoScenarioSource
+import ua.kpi.energyforecast.data.RoomForecastHistoryRepository
+import ua.kpi.energyforecast.ui.history.ForecastHistoryViewModel
 
 /**
  * Створює навігацію авторизованого користувача.
@@ -69,6 +71,28 @@ fun MainScreen(
         factory = forecastFactory
     )
 
+    val historyRepository = remember(applicationContext) {
+        RoomForecastHistoryRepository(
+            database = EnergyDatabase.getInstance(applicationContext)
+        )
+    }
+
+    val historyFactory = remember(historyRepository, ownerKey) {
+        viewModelFactory {
+            initializer {
+                ForecastHistoryViewModel(
+                    repository = historyRepository,
+                    ownerKey = ownerKey
+                )
+            }
+        }
+    }
+
+    val historyViewModel: ForecastHistoryViewModel = viewModel(
+        key = "forecast_history_$ownerKey",
+        factory = historyFactory
+    )
+
     val forecastState by forecastViewModel.uiState.collectAsStateWithLifecycle()
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -102,7 +126,7 @@ fun MainScreen(
             TextButton(
                 onClick = { navController.popBackStack() }
             ) {
-                Text("Назад до меню")
+                Text("Назад")
             }
         }
 
@@ -119,6 +143,7 @@ fun MainScreen(
             onRetryLoad = forecastViewModel::retryLoad,
             onLoadDemoScenarios = forecastViewModel::loadDemoScenarios,
             onImportDemoScenario = forecastViewModel::importDemoScenario,
+            historyViewModel = historyViewModel,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()

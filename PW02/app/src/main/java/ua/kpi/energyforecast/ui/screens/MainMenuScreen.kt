@@ -19,6 +19,7 @@ fun MainMenuScreen(
     onAppliances: () -> Unit,
     onQuickForecast: (Int) -> Unit,
     onDemo: () -> Unit,
+    onHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -47,6 +48,13 @@ fun MainMenuScreen(
                 description = "Список електроприладів і загальний прогноз.",
                 buttonText = "Відкрити прилади",
                 onClick = onAppliances
+            )
+
+            MenuSection(
+                title = "Історія прогнозів",
+                description = "Збережені результати та параметри приладів.",
+                buttonText = "Відкрити історію",
+                onClick = onHistory
             )
 
             Card(modifier = Modifier.fillMaxWidth()) {

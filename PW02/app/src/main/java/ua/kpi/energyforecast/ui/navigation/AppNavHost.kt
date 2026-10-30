@@ -19,6 +19,9 @@ import ua.kpi.energyforecast.ui.forecast.QuickForecastViewModel
 import ua.kpi.energyforecast.ui.screens.ApplianceForecastScreen
 import ua.kpi.energyforecast.ui.screens.ForecastScreen
 import ua.kpi.energyforecast.ui.screens.MainMenuScreen
+import ua.kpi.energyforecast.ui.history.ForecastHistoryViewModel
+import ua.kpi.energyforecast.ui.screens.ForecastHistoryScreen
+import ua.kpi.energyforecast.ui.screens.ForecastDetailsScreen
 
 /**
  * Зіставляє маршрути з екранами та передає стан і дії основного прогнозу.
@@ -38,8 +41,12 @@ fun AppNavHost(
     onRetryLoad: () -> Unit,
     onLoadDemoScenarios: (Boolean) -> Unit,
     onImportDemoScenario: (String) -> Unit,
+    historyViewModel: ForecastHistoryViewModel,
     modifier: Modifier = Modifier
 ) {
+
+    val historyState by historyViewModel.uiState.collectAsStateWithLifecycle()
+
     NavHost(
         navController = navController,
         startDestination = AppRoutes.MENU,
@@ -63,6 +70,12 @@ fun AppNavHost(
                         launchSingleTop = true
                     }
                 },
+                onHistory = {
+                    navController.navigate(AppRoutes.HISTORY) {
+                        launchSingleTop = true
+                    }
+                },
+
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -78,6 +91,24 @@ fun AppNavHost(
                 onRetryLoad = onRetryLoad,
                 onLoadDemoScenarios = onLoadDemoScenarios,
                 onImportDemoScenario = onImportDemoScenario,
+                historyState = historyState,
+                onSaveForecast = { title ->
+                    val days = forecastState.forecastDays
+
+                    if (
+                        days != null &&
+                        forecastState.result != null &&
+                        !forecastState.isLoading &&
+                        forecastState.loadError == null &&
+                        !forecastState.isImportingDemo
+                    ) {
+                        historyViewModel.saveForecast(
+                            title = title,
+                            devices = forecastState.devices,
+                            forecastDays = days
+                        )
+                    }
+                },
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -109,6 +140,46 @@ fun AppNavHost(
 
         composable(AppRoutes.DEMO) {
             EnergyDashboard(
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        composable(AppRoutes.HISTORY) {
+            ForecastHistoryScreen(
+                state = historyState,
+                onSearchChange = historyViewModel::updateSearchQuery,
+                onFilterChange = historyViewModel::updatePeriodFilter,
+                onSortChange = historyViewModel::updateSort,
+                onOpenForecast = { id ->
+                    navController.navigate(AppRoutes.forecastDetails(id)) {
+                        launchSingleTop = true
+                    }
+                },
+                onDeleteForecast = historyViewModel::deleteForecast,
+                onRetry = historyViewModel::retryLoad,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        composable(
+            route = AppRoutes.FORECAST_DETAILS,
+            arguments = listOf(
+                navArgument(AppRoutes.FORECAST_ID) {
+                    type = NavType.StringType
+                }
+            )
+        ) { entry ->
+            val forecastId = requireNotNull(
+                entry.arguments?.getString(AppRoutes.FORECAST_ID)
+            )
+
+            ForecastDetailsScreen(
+                forecast = historyState.forecasts.firstOrNull {
+                    it.id == forecastId
+                },
+                isLoading = historyState.isLoading,
+                loadError = historyState.loadError,
+                onRetry = historyViewModel::retryLoad,
                 modifier = Modifier.fillMaxSize()
             )
         }

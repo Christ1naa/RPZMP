@@ -21,6 +21,8 @@ import ua.kpi.energyforecast.ui.components.DeviceEditorDialog
 import ua.kpi.energyforecast.ui.forecast.ForecastUiState
 import ua.kpi.energyforecast.ui.forecast.DeviceSort
 import ua.kpi.energyforecast.ui.components.DemoScenariosCard
+import ua.kpi.energyforecast.ui.components.SaveForecastCard
+import ua.kpi.energyforecast.ui.history.ForecastHistoryUiState
 
 /**
  * Відображає стан прогнозу й передає дії користувача назовні.
@@ -37,6 +39,8 @@ fun ApplianceForecastScreen(
     onRetryLoad: () -> Unit,
     onLoadDemoScenarios: (Boolean) -> Unit,
     onImportDemoScenario: (String) -> Unit,
+    historyState: ForecastHistoryUiState,
+    onSaveForecast: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val devices = state.devices
@@ -158,6 +162,19 @@ fun ApplianceForecastScreen(
                 item(key = "result") {
                     ForecastResultCard(result = result)
                 }
+            }
+
+            item(key = "save_forecast") {
+                SaveForecastCard(
+                    enabled = result != null &&
+                            !state.isLoading &&
+                            state.loadError == null &&
+                            !state.isImportingDemo,
+                    isSaving = historyState.isSaving,
+                    message = historyState.message,
+                    error = historyState.operationError,
+                    onSave = onSaveForecast
+                )
             }
 
             item(key = "add_button") {
