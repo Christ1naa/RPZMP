@@ -303,8 +303,7 @@ class ForecastViewModelTest {
     @Test
     fun forecastUsesRepositoryDailyTotalWhenPeriodChanges() = runTest(dispatcher) {
         // Значення відрізняється від суми приладів: перевіряємо саме джерело результату.
-        repository.emitProfile(
-            "demo@energy.test",
+        restoreViewModelWithProfile(
             SavedEnergyProfile(
                 devices = listOf(device()),
                 forecastDays = 10,
@@ -314,6 +313,7 @@ class ForecastViewModelTest {
         advanceUntilIdle()
 
         val initial = viewModel.uiState.value
+        assertEquals("10", initial.daysText)
         assertEquals(7.5, initial.dailyConsumptionKwh, 0.000001)
         assertEquals(
             75.0,
@@ -337,8 +337,9 @@ class ForecastViewModelTest {
             forecastDays = 10,
             dailyConsumptionKwh = 2.0
         )
-        repository.emitProfile("demo@energy.test", saved)
+        restoreViewModelWithProfile(saved)
         advanceUntilIdle()
+        assertEquals("10", viewModel.uiState.value.daysText)
         assertEquals(
             20.0,
             requireNotNull(viewModel.uiState.value.result).periodConsumptionKwh,
@@ -357,6 +358,17 @@ class ForecastViewModelTest {
         assertEquals(30.0, requireNotNull(state.result).periodConsumptionKwh, 0.000001)
         assertFalse(state.isLoading)
         assertNull(state.error)
+    }
+
+    /** Профіль має існувати до першої відповіді підписки ViewModel. */
+    private fun restoreViewModelWithProfile(saved: SavedEnergyProfile) {
+        viewModel.viewModelScope.cancel()
+        repository.emitProfile("demo@energy.test", saved)
+        viewModel = ForecastViewModel(
+            repository = repository,
+            ownerKey = "demo@energy.test",
+            calculationDispatcher = dispatcher
+        )
     }
 
     private fun device() = EnergyDevice(
