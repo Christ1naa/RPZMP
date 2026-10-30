@@ -15,6 +15,7 @@ data class ForecastUiState(
     val result: ForecastResult? = null,
     val isLoading: Boolean = false,
     val error: String? = null,
+    val loadError: String? = null,
     val searchQuery: String = "",
     val sort: DeviceSort = DeviceSort.NAME
 ) {

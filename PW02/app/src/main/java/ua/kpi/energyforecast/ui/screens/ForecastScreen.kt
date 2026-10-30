@@ -14,58 +14,29 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import ua.kpi.energyforecast.logic.EnergyCalculator
 import ua.kpi.energyforecast.logic.ForecastValidator
 import ua.kpi.energyforecast.model.ForecastResult
 import ua.kpi.energyforecast.ui.components.ConsumptionChart
 import java.util.Locale
+import ua.kpi.energyforecast.ui.forecast.QuickForecastUiState
 
 /**
- * Окремий екран розрахунку для одного типу приладів; основна навігація використовує список.
- * Зберігає введення через rememberSaveable, а зміна поля приховує попередній результат.
+ * Відображає стан швидкого прогнозу та передає введення у ViewModel.
+ * Форматування підсумку для головного меню залишається відповідальністю UI.
  */
 @Composable
 fun ForecastScreen(
+    state: QuickForecastUiState,
+    onFieldChange: (String, String) -> Unit,
+    onCalculate: () -> ForecastResult?,
     modifier: Modifier = Modifier,
-    initialDays: Int = 30,
     onCalculated: (String) -> Unit = {}
 ) {
-    var powerText by rememberSaveable { mutableStateOf("1000") }
-    var hoursText by rememberSaveable { mutableStateOf("2") }
-    var countText by rememberSaveable { mutableStateOf("1") }
-    var daysText by rememberSaveable(initialDays) {
-        mutableStateOf(initialDays.toString())
-    }
-    var showErrors by rememberSaveable { mutableStateOf(false) }
-    var hasCalculated by rememberSaveable { mutableStateOf(false) }
-
-    val validation = ForecastValidator.validate(
-        powerText = powerText,
-        hoursText = hoursText,
-        countText = countText,
-        daysText = daysText
-    )
-
-    val errors = if (showErrors) {
-        validation.errors
-    } else {
-        emptyMap()
-    }
-
-    val result = if (hasCalculated) {
-        validation.parameters?.let { parameters ->
-            EnergyCalculator.calculate(parameters)
-        }
-    } else {
-        null
-    }
+    val errors = state.errors
+    val result = state.result
 
     Column(
         modifier = modifier
@@ -86,10 +57,9 @@ fun ForecastScreen(
         )
 
         NumericInput(
-            value = powerText,
+            value = state.powerText,
             onValueChange = {
-                powerText = it
-                hasCalculated = false
+                onFieldChange(ForecastValidator.POWER, it)
             },
             label = "Потужність одного приладу, Вт",
             error = errors[ForecastValidator.POWER],
@@ -97,10 +67,9 @@ fun ForecastScreen(
         )
 
         NumericInput(
-            value = hoursText,
+            value = state.hoursText,
             onValueChange = {
-                hoursText = it
-                hasCalculated = false
+                onFieldChange(ForecastValidator.HOURS, it)
             },
             label = "Час роботи на добу, год",
             error = errors[ForecastValidator.HOURS],
@@ -108,10 +77,9 @@ fun ForecastScreen(
         )
 
         NumericInput(
-            value = countText,
+            value = state.countText,
             onValueChange = {
-                countText = it
-                hasCalculated = false
+                onFieldChange(ForecastValidator.COUNT, it)
             },
             label = "Кількість однакових приладів",
             error = errors[ForecastValidator.COUNT],
@@ -119,10 +87,9 @@ fun ForecastScreen(
         )
 
         NumericInput(
-            value = daysText,
+            value = state.daysText,
             onValueChange = {
-                daysText = it
-                hasCalculated = false
+                onFieldChange(ForecastValidator.DAYS, it)
             },
             label = "Період прогнозування, днів",
             error = errors[ForecastValidator.DAYS],
@@ -131,14 +98,7 @@ fun ForecastScreen(
 
         Button(
             onClick = {
-                showErrors = true
-                val parameters = validation.parameters
-                hasCalculated = parameters != null
-
-                if (parameters != null) {
-                    val calculated = EnergyCalculator.calculate(parameters)
-
-                    // Передаємо підсумок власнику стану для оновлення головного меню.
+                onCalculate()?.let { calculated ->
                     onCalculated(
                         "За ${calculated.forecastDays} днів: " +
                                 "${formatEnergy(calculated.periodConsumptionKwh)} кВт·год"

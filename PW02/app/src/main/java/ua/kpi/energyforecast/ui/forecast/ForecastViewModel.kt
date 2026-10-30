@@ -10,7 +10,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,6 +35,8 @@ class ForecastViewModel(
     val uiState: StateFlow<ForecastUiState> = mutableUiState.asStateFlow()
 
     private var calculationJob: Job? = null
+
+    private var observationJob: Job? = null
     private var profileReceived = false
     private var daysEdited = false
 
@@ -62,23 +63,34 @@ class ForecastViewModel(
             }
         }
 
-        viewModelScope.launch {
-            repository.observeProfile(ownerKey)
-                .catch { exception ->
-                    if (exception is CancellationException) {
-                        throw exception
-                    }
+        observeProfile()
+    }
 
-                    calculationJob?.cancel()
-                    mutableUiState.value = mutableUiState.value.copy(
-                        isLoading = false,
-                        error = "Не вдалося завантажити збережені дані."
-                    )
-                }
-                .collect { saved ->
+    /** Створює нову підписку після помилки читання зі сховища. */
+    fun retryLoad() {
+        if (mutableUiState.value.loadError == null) return
+        observeProfile()
+    }
+
+    /**
+     * Одночасно працює лише одна підписка на профіль.
+     * Повторне завантаження зберігає введення користувача та параметри списку.
+     */
+    private fun observeProfile() {
+        observationJob?.cancel()
+        calculationJob?.cancel()
+
+        mutableUiState.value = mutableUiState.value.copy(
+            isLoading = true,
+            loadError = null
+        )
+
+        observationJob = viewModelScope.launch {
+            try {
+                repository.observeProfile(ownerKey).collect { saved ->
                     val current = mutableUiState.value
 
-                    // Пізня відповідь бази не повинна стирати введення користувача.
+                    // Перша відповідь не повинна стирати вже введений період.
                     val daysText = if (!profileReceived && !daysEdited) {
                         saved.forecastDays.toString()
                     } else {
@@ -90,10 +102,21 @@ class ForecastViewModel(
                     recalculate(
                         current.copy(
                             devices = saved.devices,
-                            daysText = daysText
+                            daysText = daysText,
+                            loadError = null
                         )
                     )
                 }
+            } catch (exception: CancellationException) {
+                throw exception
+            } catch (exception: Exception) {
+                calculationJob?.cancel()
+
+                mutableUiState.value = mutableUiState.value.copy(
+                    isLoading = false,
+                    loadError = "Не вдалося завантажити збережені дані."
+                )
+            }
         }
     }
 

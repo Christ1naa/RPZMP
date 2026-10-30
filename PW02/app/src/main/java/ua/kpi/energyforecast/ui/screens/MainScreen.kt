@@ -111,6 +111,7 @@ fun MainScreen(
             onForecastCalculated = { lastForecast = it },
             onSearchQueryChange = forecastViewModel::updateSearchQuery,
             onSortChange = forecastViewModel::updateSort,
+            onRetryLoad = forecastViewModel::retryLoad,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()

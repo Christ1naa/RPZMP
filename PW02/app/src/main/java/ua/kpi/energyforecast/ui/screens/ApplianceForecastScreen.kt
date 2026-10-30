@@ -33,6 +33,7 @@ fun ApplianceForecastScreen(
     onDeleteDevice: (String) -> Unit,
     onSearchQueryChange: (String) -> Unit,
     onSortChange: (DeviceSort) -> Unit,
+    onRetryLoad: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val devices = state.devices
@@ -110,6 +111,26 @@ fun ApplianceForecastScreen(
                     LinearProgressIndicator(
                         modifier = Modifier.fillMaxWidth()
                     )
+                }
+            }
+
+            state.loadError?.let { message ->
+                item(key = "load_error") {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = message,
+                            color = MaterialTheme.colorScheme.error
+                        )
+
+                        OutlinedButton(
+                            onClick = onRetryLoad,
+                            enabled = !state.isLoading
+                        ) {
+                            Text("Повторити завантаження")
+                        }
+                    }
                 }
             }
 

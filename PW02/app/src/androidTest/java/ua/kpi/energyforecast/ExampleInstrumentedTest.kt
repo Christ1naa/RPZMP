@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("ua.kpi.energyforecast", appContext.packageName)
+        assertEquals("ua.kpi.energyforecast.pw02", appContext.packageName)
     }
 }

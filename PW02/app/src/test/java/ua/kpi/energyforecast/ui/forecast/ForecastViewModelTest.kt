@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import ua.kpi.energyforecast.data.EnergyRepository
 import ua.kpi.energyforecast.data.SavedEnergyProfile
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ForecastViewModelTest {
@@ -226,6 +228,75 @@ class ForecastViewModelTest {
         assertFalse(state.isLoading)
     }
 
+    @Test
+    fun retryLoadRecoversAndContinuesObserving() = runTest(dispatcher) {
+        // Прибираємо ViewModel, створену в setUp.
+        viewModel.viewModelScope.cancel()
+
+        // Налаштовуємо помилку до створення нової підписки.
+        repository = FakeEnergyRepository().apply {
+            failReads = true
+        }
+
+        viewModel = ForecastViewModel(
+            repository = repository,
+            ownerKey = "demo@energy.test",
+            calculationDispatcher = dispatcher
+        )
+
+        advanceUntilIdle()
+
+        assertNotNull(viewModel.uiState.value.loadError)
+        assertFalse(viewModel.uiState.value.isLoading)
+        assertEquals(1, repository.readSubscriptions)
+
+        // Невдала повторна спроба також залишає можливість повторити.
+        viewModel.retryLoad()
+        advanceUntilIdle()
+
+        assertNotNull(viewModel.uiState.value.loadError)
+        assertEquals(2, repository.readSubscriptions)
+
+        // Дані стають доступними.
+        repository.failReads = false
+        repository.saveDevice("demo@energy.test", device())
+
+        viewModel.retryLoad()
+        advanceUntilIdle()
+
+        val state = viewModel.uiState.value
+
+        assertNull(state.loadError)
+        assertFalse(state.isLoading)
+        assertEquals(1, state.devices.size)
+        assertEquals(
+            60.0,
+            requireNotNull(state.result).periodConsumptionKwh,
+            0.000001
+        )
+        assertEquals(3, repository.readSubscriptions)
+
+        // Перевіряємо, що після retry працює саме тривале спостереження.
+        repository.saveDevice(
+            "demo@energy.test",
+            device().copy(deviceCount = 2)
+        )
+        advanceUntilIdle()
+
+        assertEquals(
+            120.0,
+            requireNotNull(viewModel.uiState.value.result)
+                .periodConsumptionKwh,
+            0.000001
+        )
+
+        // Без помилки повторне натискання не створює зайвої підписки.
+        viewModel.retryLoad()
+        advanceUntilIdle()
+
+        assertEquals(3, repository.readSubscriptions)
+    }
+
     private fun device() = EnergyDevice(
         id = "device-1",
         name = "Обігрівач",
@@ -243,6 +314,11 @@ private class FakeEnergyRepository : EnergyRepository {
 
     var failWrites: Boolean = false
 
+    var failReads: Boolean = false
+
+    var readSubscriptions: Int = 0
+        private set
+
     private fun profile(ownerKey: String) =
         profiles.getOrPut(ownerKey) {
             MutableStateFlow(SavedEnergyProfile())
@@ -250,7 +326,15 @@ private class FakeEnergyRepository : EnergyRepository {
 
     override fun observeProfile(
         ownerKey: String
-    ): Flow<SavedEnergyProfile> = profile(ownerKey)
+    ): Flow<SavedEnergyProfile> = flow {
+        readSubscriptions += 1
+
+        check(!failReads) {
+            "Test read failure"
+        }
+
+        emitAll(profile(ownerKey))
+    }
 
     override suspend fun saveDevice(
         ownerKey: String,
