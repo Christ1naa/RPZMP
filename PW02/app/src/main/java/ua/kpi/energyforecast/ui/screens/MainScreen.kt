@@ -16,6 +16,12 @@ import ua.kpi.energyforecast.ui.navigation.AppRoutes
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ua.kpi.energyforecast.ui.forecast.ForecastViewModel
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import ua.kpi.energyforecast.data.RoomEnergyRepository
+import ua.kpi.energyforecast.data.local.EnergyDatabase
+import java.util.Locale
 
 /**
  * Створює навігацію авторизованого користувача.
@@ -29,8 +35,33 @@ fun MainScreen(
 ) {
     // MainScreen викликається поза NavHost: ViewModel належить Activity.
 // Окремий ключ не дозволяє змішувати прилади різних навчальних акаунтів.
+    val applicationContext = LocalContext.current.applicationContext
+
+    val ownerKey = remember(user.email) {
+        user.email.trim().lowercase(Locale.ROOT)
+    }
+
+    val repository = remember(applicationContext) {
+        RoomEnergyRepository(
+            EnergyDatabase.getInstance(applicationContext)
+        )
+    }
+
+    val forecastFactory = remember(repository, ownerKey) {
+        viewModelFactory {
+            initializer {
+                ForecastViewModel(
+                    repository = repository,
+                    ownerKey = ownerKey
+                )
+            }
+        }
+    }
+
+// Email залишається однаковим після повторного створення навчального акаунта.
     val forecastViewModel: ForecastViewModel = viewModel(
-        key = "forecast_${user.id}"
+        key = "forecast_$ownerKey",
+        factory = forecastFactory
     )
 
     val forecastState by forecastViewModel.uiState.collectAsStateWithLifecycle()
