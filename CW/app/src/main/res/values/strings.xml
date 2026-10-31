@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">DocTrack</string>
+
+    <string name="nav_records">Записи</string>
+    <string name="nav_deadlines">Терміни</string>
+    <string name="nav_server">Сервер</string>
+
+    <string name="records_empty_title">Документів і рахунків поки немає</string>
+    <string name="records_empty_description">Тут відображатимуться збережені записи.</string>
+
+    <string name="deadlines_empty_title">Термінів для перегляду поки немає</string>
+    <string name="deadlines_empty_description">Тут відображатимуться важливі дати документів і неоплачених рахунків.</string>
+
+    <string name="server_empty_title">Серверна демонстрація</string>
+    <string name="server_empty_description">Обмін тестовими записами із сервером додамо на наступних етапах.</string>
+
+    <string name="records_demo_notice">Демонстраційні записи</string>
+    <string name="record_type_document">Документ</string>
+    <string name="record_type_bill">Рахунок</string>
+    <string name="record_valid_until">Діє до: %1$s</string>
+    <string name="record_pay_until">Оплатити до: %1$s</string>
+    <string name="record_paid">Оплачено</string>
+    <string name="record_unpaid">Не оплачено</string>
+</resources>
