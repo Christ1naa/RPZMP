@@ -29,4 +29,12 @@
     <string name="status_bill_due_today">Оплатити сьогодні</string>
     <string name="status_expired">Термін минув</string>
     <string name="status_overdue">Прострочено</string>
+
+    <string name="details_back">Назад</string>
+    <string name="details_title">Деталі запису</string>
+    <string name="details_not_found">Запис не знайдено</string>
+    <string name="details_issuer">Організація: %1$s</string>
+    <string name="details_issued_on">Дата видачі: %1$s</string>
+    <string name="details_amount">Сума: %1$s</string>
+    <string name="details_note">Примітка</string>
 </resources>
