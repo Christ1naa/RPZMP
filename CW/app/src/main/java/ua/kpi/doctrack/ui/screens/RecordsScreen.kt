@@ -22,6 +22,9 @@ import java.util.Currency
 import ua.kpi.doctrack.R
 import ua.kpi.doctrack.model.DocumentRecord
 import ua.kpi.doctrack.model.RecordType
+import java.time.LocalDate
+import ua.kpi.doctrack.model.RecordStatus
+import ua.kpi.doctrack.model.statusOn
 
 private val recordDateFormatter =
     DateTimeFormatter.ofPattern("dd.MM.yyyy")
@@ -76,6 +79,37 @@ private fun RecordCard(
     modifier: Modifier = Modifier
 ) {
     val isBill = record.type == RecordType.BILL
+    
+    val status = record.statusOn(LocalDate.now())
+
+val statusLabel = when (status) {
+    RecordStatus.ACTIVE ->
+        if (isBill) R.string.status_bill_active
+        else R.string.status_active
+
+    RecordStatus.DUE_SOON ->
+        if (isBill) R.string.status_bill_due_soon
+        else R.string.status_due_soon
+
+    RecordStatus.DUE_TODAY ->
+        if (isBill) R.string.status_bill_due_today
+        else R.string.status_due_today
+
+    RecordStatus.EXPIRED -> R.string.status_expired
+    RecordStatus.OVERDUE -> R.string.status_overdue
+    RecordStatus.PAID -> R.string.record_paid
+}
+
+val statusColor = when (status) {
+    RecordStatus.EXPIRED,
+    RecordStatus.OVERDUE -> MaterialTheme.colorScheme.error
+
+    RecordStatus.DUE_TODAY,
+    RecordStatus.DUE_SOON -> MaterialTheme.colorScheme.tertiary
+
+    RecordStatus.PAID,
+    RecordStatus.ACTIVE -> MaterialTheme.colorScheme.primary
+}
 
     val typeLabel = if (isBill) {
         R.string.record_type_bill
@@ -138,17 +172,14 @@ private fun RecordCard(
                     )
                 }
 
-                Text(
-                    text = stringResource(
-                        if (record.isPaid) {
-                            R.string.record_paid
-                        } else {
-                            R.string.record_unpaid
-                        }
-                    ),
-                    style = MaterialTheme.typography.labelLarge
-                )
             }
-        }
+
+            Text(
+                text = stringResource(statusLabel),
+                style = MaterialTheme.typography.labelLarge,
+                color = statusColor
+            )
+            
+         }
     }
 }

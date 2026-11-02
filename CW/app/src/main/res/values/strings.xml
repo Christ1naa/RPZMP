@@ -21,4 +21,12 @@
     <string name="record_pay_until">Оплатити до: %1$s</string>
     <string name="record_paid">Оплачено</string>
     <string name="record_unpaid">Не оплачено</string>
+    <string name="status_active">Діє</string>
+    <string name="status_bill_active">До оплати</string>
+    <string name="status_due_soon">Скоро завершується</string>
+    <string name="status_bill_due_soon">Скоро оплатити</string>
+    <string name="status_due_today">Завершується сьогодні</string>
+    <string name="status_bill_due_today">Оплатити сьогодні</string>
+    <string name="status_expired">Термін минув</string>
+    <string name="status_overdue">Прострочено</string>
 </resources>
