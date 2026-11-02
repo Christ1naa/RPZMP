@@ -32,6 +32,7 @@ private val recordDateFormatter =
 @Composable
 fun RecordsScreen(
     records: List<DocumentRecord>,
+    onRecordClick: (DocumentRecord) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (records.isEmpty()) {
@@ -67,7 +68,10 @@ fun RecordsScreen(
                 items = records,
                 key = { record -> record.id }
             ) { record ->
-                RecordCard(record = record)
+                RecordCard(
+                    record = record,
+                    onClick = { onRecordClick(record) }
+                )
             }
         }
     }
@@ -76,40 +80,41 @@ fun RecordsScreen(
 @Composable
 private fun RecordCard(
     record: DocumentRecord,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val isBill = record.type == RecordType.BILL
-    
+
     val status = record.statusOn(LocalDate.now())
 
-val statusLabel = when (status) {
-    RecordStatus.ACTIVE ->
-        if (isBill) R.string.status_bill_active
-        else R.string.status_active
+    val statusLabel = when (status) {
+        RecordStatus.ACTIVE ->
+            if (isBill) R.string.status_bill_active
+            else R.string.status_active
 
-    RecordStatus.DUE_SOON ->
-        if (isBill) R.string.status_bill_due_soon
-        else R.string.status_due_soon
+        RecordStatus.DUE_SOON ->
+            if (isBill) R.string.status_bill_due_soon
+            else R.string.status_due_soon
 
-    RecordStatus.DUE_TODAY ->
-        if (isBill) R.string.status_bill_due_today
-        else R.string.status_due_today
+        RecordStatus.DUE_TODAY ->
+            if (isBill) R.string.status_bill_due_today
+            else R.string.status_due_today
 
-    RecordStatus.EXPIRED -> R.string.status_expired
-    RecordStatus.OVERDUE -> R.string.status_overdue
-    RecordStatus.PAID -> R.string.record_paid
-}
+        RecordStatus.EXPIRED -> R.string.status_expired
+        RecordStatus.OVERDUE -> R.string.status_overdue
+        RecordStatus.PAID -> R.string.record_paid
+    }
 
-val statusColor = when (status) {
-    RecordStatus.EXPIRED,
-    RecordStatus.OVERDUE -> MaterialTheme.colorScheme.error
+    val statusColor = when (status) {
+        RecordStatus.EXPIRED,
+        RecordStatus.OVERDUE -> MaterialTheme.colorScheme.error
 
-    RecordStatus.DUE_TODAY,
-    RecordStatus.DUE_SOON -> MaterialTheme.colorScheme.tertiary
+        RecordStatus.DUE_TODAY,
+        RecordStatus.DUE_SOON -> MaterialTheme.colorScheme.tertiary
 
-    RecordStatus.PAID,
-    RecordStatus.ACTIVE -> MaterialTheme.colorScheme.primary
-}
+        RecordStatus.PAID,
+        RecordStatus.ACTIVE -> MaterialTheme.colorScheme.primary
+    }
 
     val typeLabel = if (isBill) {
         R.string.record_type_bill
@@ -123,7 +128,10 @@ val statusColor = when (status) {
         R.string.record_valid_until
     }
 
-    Card(modifier = modifier.fillMaxWidth()) {
+    Card(
+        onClick = onClick,
+        modifier = modifier.fillMaxWidth()
+    ) {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -179,7 +187,7 @@ val statusColor = when (status) {
                 style = MaterialTheme.typography.labelLarge,
                 color = statusColor
             )
-            
-         }
+
+        }
     }
 }
