@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import java.time.LocalDate
 import ua.kpi.doctrack.R
@@ -42,6 +44,7 @@ fun DeadlinesScreen(
             item(key = "title") {
                 Text(
                     text = stringResource(R.string.nav_deadlines),
+                    modifier = Modifier.semantics { heading() },
                     style = MaterialTheme.typography.headlineSmall
                 )
             }
@@ -64,6 +67,7 @@ fun DeadlinesScreen(
                             R.string.deadlines_group_count,
                             stringResource(labelRes), section.records.size
                         ),
+                        modifier = Modifier.semantics { heading() },
                         style = MaterialTheme.typography.titleMedium
                     )
                 }

@@ -12,6 +12,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -55,6 +57,7 @@ fun RecordDetailsScreen(
             val isBill = record.type == RecordType.BILL
             Text(
                 text = stringResource(R.string.details_title),
+                modifier = Modifier.semantics { heading() },
                 style = MaterialTheme.typography.titleLarge
             )
             Text(
