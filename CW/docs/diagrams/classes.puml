@@ -1,0 +1,83 @@
+@startuml
+!pragma layout smetana
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 13
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam roundcorner 8
+skinparam ArrowColor #475569
+skinparam classBackgroundColor #F8FAFC
+skinparam classBorderColor #64748B
+hide empty members
+
+title DocTrack — класи та типи моделі
+
+class DocumentRecord <<data class>> {
+  +id: String
+  +title: String
+  +type: RecordType
+  +deadline: LocalDate
+  +issuer: String?
+  +issuedOn: LocalDate?
+  +amountMinor: Long?
+  +currency: RecordCurrency?
+  +isPaid: Boolean
+  +note: String?
+  +imagePath: String?
+  +recognizedText: String?
+}
+enum RecordType {
+  DOCUMENT
+  BILL
+}
+enum RecordCurrency {
+  EUR
+  UAH
+  USD
+}
+class RecordValidator <<object>> {
+  +MAX_TITLE_LENGTH: Int = 120
+  +validate(record: DocumentRecord): List<RecordValidationError>
+}
+enum RecordValidationError {
+  TITLE_REQUIRED
+  TITLE_TOO_LONG
+  DEADLINE_YEAR_OUT_OF_RANGE
+  ISSUE_DATE_YEAR_OUT_OF_RANGE
+  DEADLINE_BEFORE_ISSUE_DATE
+  AMOUNT_REQUIRED
+  AMOUNT_MUST_BE_POSITIVE
+  CURRENCY_REQUIRED
+  DOCUMENT_HAS_AMOUNT
+  DOCUMENT_HAS_CURRENCY
+  DOCUMENT_IS_PAID
+}
+class RecordDates <<object>> {
+  +formatter: DateTimeFormatter
+  +isSupported(date: LocalDate): Boolean
+  +parse(text: String): LocalDate?
+}
+enum RecordStatus {
+  ACTIVE
+  DUE_SOON
+  DUE_TODAY
+  EXPIRED
+  OVERDUE
+  PAID
+}
+
+DocumentRecord --> RecordType : type
+DocumentRecord --> RecordCurrency : currency (необов'язкова)
+RecordValidator ..> DocumentRecord : перевіряє
+RecordValidator ..> RecordValidationError : повертає
+RecordValidator ..> RecordDates : діапазон років
+DocumentRecord ..> RecordStatus : statusOn(today)
+note bottom of DocumentRecord
+  statusOn(today) — функція-розширення,
+  оголошена у RecordStatus.kt.
+  Статус не зберігається як поле.
+  imagePath і recognizedText — резервні поля;
+  OCR та завантаження зображень ще не реалізовані.
+end note
+@enduml
