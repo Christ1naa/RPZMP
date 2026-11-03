@@ -1,9 +1,11 @@
 package ua.kpi.doctrack.ui
 
 import android.net.Uri
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -11,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -36,11 +39,12 @@ private const val RECORD_DETAILS_ROUTE = "record_details/{recordId}"
 
 private enum class TopLevelDestination(
     val route: String,
-    @param:StringRes val labelRes: Int
+    @param:StringRes val labelRes: Int,
+    @param:DrawableRes val iconRes: Int
 ) {
-    RECORDS("records", R.string.nav_records),
-    DEADLINES("deadlines", R.string.nav_deadlines),
-    SERVER("server", R.string.nav_server)
+    RECORDS("records", R.string.nav_records, R.drawable.ic_records),
+    DEADLINES("deadlines", R.string.nav_deadlines, R.drawable.ic_deadlines),
+    SERVER("server", R.string.nav_server, R.drawable.ic_server)
 }
 
 @Composable
@@ -74,7 +78,10 @@ fun DocTrackApp() {
                                 }
                             },
                             icon = {
-                                Text(text = label.take(1))
+                                Icon(
+                                    painter = painterResource(destination.iconRes),
+                                    contentDescription = null
+                                )
                             },
                             label = {
                                 Text(text = label)
