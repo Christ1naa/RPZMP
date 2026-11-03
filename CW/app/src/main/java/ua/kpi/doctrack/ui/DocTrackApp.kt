@@ -164,7 +164,14 @@ fun DocTrackApp() {
             }
 
             composable(TopLevelDestination.DEADLINES.route) {
-                DeadlinesScreen()
+                DeadlinesScreen(
+                    records = records,
+                    onRecordClick = { record ->
+                        navController.navigate("record_details/${Uri.encode(record.id)}") {
+                            launchSingleTop = true
+                        }
+                    }
+                )
             }
 
             composable(TopLevelDestination.SERVER.route) {

@@ -15,15 +15,6 @@ import androidx.compose.ui.unit.dp
 import ua.kpi.doctrack.R
 
 @Composable
-fun DeadlinesScreen(modifier: Modifier = Modifier) {
-    EmptyState(
-        title = stringResource(R.string.deadlines_empty_title),
-        description = stringResource(R.string.deadlines_empty_description),
-        modifier = modifier
-    )
-}
-
-@Composable
 fun ServerScreen(modifier: Modifier = Modifier) {
     EmptyState(
         title = stringResource(R.string.server_empty_title),
@@ -33,7 +24,7 @@ fun ServerScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun EmptyState(
+internal fun EmptyState(
     title: String,
     description: String,
     modifier: Modifier = Modifier
