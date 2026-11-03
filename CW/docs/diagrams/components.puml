@@ -1,0 +1,47 @@
+@startuml
+!pragma layout smetana
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam componentStyle uml2
+skinparam ArrowColor #475569
+skinparam componentBackgroundColor #F8FAFC
+skinparam componentBorderColor #64748B
+
+title DocTrack — компоненти поточної реалізації
+
+package "Android-застосунок CW" {
+  component "DocTrackApp\nСтан List<DocumentRecord>\nта обробники дій" as App
+  component "ui.screens\nСписок, деталі, форма,\nтерміни, сервер-заглушка" as Screens
+  component "ui.form\nRecordFormInput\nvalidateRecordForm" as Form
+  component "model\nDocumentRecord, RecordValidator,\nRecordDates, statusOn, групування" as Model
+  component "Допоміжні UI-компоненти\nrememberCurrentDate\nRecordListSaver, RecordStatusText" as Support
+  component "data.demo\ncreateDemoRecords" as Demo
+}
+component "Android / AndroidX\nCompose, Material 3, Navigation,\nLifecycle, Bundle" as Platform
+
+App --> Screens : дані та callbacks
+Screens ..> App : виклик callbacks
+App --> Demo : початкові записи
+App --> Support : дата та збережений стан
+Screens --> Support : відображення статусу
+Screens --> Form : введення та перевірка
+Form --> Model : типізовані дані та правила
+Screens --> Model : групування термінів
+Demo --> Model
+Support --> Model
+App ..> Platform
+Screens ..> Platform
+Support ..> Platform
+
+note bottom of App
+  Зміни записів виконуються в пам'яті.
+  ViewModel і Repository ще відсутні.
+end note
+note bottom of Platform
+  Room, OCR, нагадування та серверне API
+  заплановані на наступні етапи
+  й не включені до цієї діаграми реалізації.
+end note
+@enduml

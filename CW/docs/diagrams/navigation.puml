@@ -1,0 +1,45 @@
+@startuml
+!pragma layout smetana
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam stateBackgroundColor #F8FAFC
+skinparam stateBorderColor #64748B
+skinparam ArrowColor #475569
+
+title DocTrack — меню та переходи
+state "Записи\nrecords" as Records
+state "Терміни\ndeadlines" as Deadlines
+state "Сервер\nserver" as Server
+state "Деталі\nrecord_details/{recordId}" as Details
+state "Новий запис\nrecord_new" as New
+state "Редагування\nrecord_edit/{recordId}" as Edit
+
+[*] --> Records
+Records --> Deadlines : нижня панель
+Deadlines --> Records : нижня панель
+Deadlines --> Server : нижня панель
+Server --> Deadlines : нижня панель
+Server --> Records : нижня панель
+Records --> Server : нижня панель
+Records --> Details : натиснути картку
+Deadlines --> Details : натиснути картку
+Records --> New : «Додати запис»
+Details --> Edit : «Редагувати»
+New --> Records : зберегти / скасувати
+Edit --> Details : зберегти / скасувати
+Details --> Records : назад, якщо відкрито із записів
+Details --> Deadlines : назад, якщо відкрито з термінів
+
+note bottom of Details
+  У маршруті передається ID.
+  Нижня панель прихована
+  в деталях і формах.
+end note
+note bottom of New
+  Для незбережених змін обидві форми
+  показують підтвердження скасування.
+  Діалог не є окремим маршрутом.
+end note
+@enduml

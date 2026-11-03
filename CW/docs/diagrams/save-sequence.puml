@@ -1,0 +1,47 @@
+@startuml
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam sequenceMessageAlign center
+skinparam ParticipantBackgroundColor #F8FAFC
+skinparam ParticipantBorderColor #64748B
+skinparam ArrowColor #475569
+
+title DocTrack — перевірка та збереження запису в пам'яті
+actor "Користувач" as User
+participant "RecordFormScreen" as Form
+participant "validateRecordForm" as Input
+participant "RecordValidator" as Validator
+participant "DocTrackApp" as App
+
+User -> Form : заповнити поля
+Form -> Form : змінити RecordFormInput
+Form -> Input : validateRecordForm(input, original, newId)
+note over Form, Input
+  Результат обчислюється при зміні введення через remember.
+  Натискання «Зберегти» показує помилки або викликає onSave.
+end note
+Input -> Input : RecordDates.parse; parseAmountMinor
+Input -> Input : сформувати candidate; зберегти ID і метадані
+Input -> Validator : validate(candidate)
+Validator --> Input : List<RecordValidationError>
+Input --> Form : RecordFormResult(record?, errors)
+User -> Form : натиснути «Зберегти»
+alt Є помилки введення або моделі
+  Form -> Form : submitted = true; показати помилки біля полів
+  Form --> User : виправити введення; список не змінено
+else Дані коректні
+  Form -> App : onSave(record)
+  alt Створення
+    App -> App : records = records + record
+  else Редагування
+    App -> App : замінити запис за незмінним ID
+  end
+  App -> App : navController.popBackStack()
+  App --> User : список або деталі з оновленими даними
+end
+note over App
+  Постійного запису до БД та HTTP-запиту немає.
+end note
+@enduml
