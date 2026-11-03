@@ -30,6 +30,7 @@ private val detailsDateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 fun RecordDetailsScreen(
     record: DocumentRecord?,
     onBack: () -> Unit,
+    onEdit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -49,6 +50,9 @@ fun RecordDetailsScreen(
                 style = MaterialTheme.typography.titleLarge
             )
         } else {
+            TextButton(onClick = onEdit) {
+                Text(stringResource(R.string.form_edit_action))
+            }
             val isBill = record.type == RecordType.BILL
             val status = record.statusOn(LocalDate.now())
             val statusLabel = when (status) {
@@ -153,3 +157,4 @@ fun RecordDetailsScreen(
         }
     }
 }
+

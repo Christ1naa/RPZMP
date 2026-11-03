@@ -1,6 +1,7 @@
 package ua.kpi.doctrack.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,45 +35,59 @@ private val recordDateFormatter =
 fun RecordsScreen(
     records: List<DocumentRecord>,
     onRecordClick: (DocumentRecord) -> Unit,
+    onAddRecord: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (records.isEmpty()) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(R.string.records_empty_title),
-                style = MaterialTheme.typography.titleLarge
-            )
-            Text(
-                text = stringResource(R.string.records_empty_description),
-                modifier = Modifier.padding(top = 12.dp)
-            )
-        }
-    } else {
-        LazyColumn(
-            modifier = modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item {
-                Text(
-                    text = stringResource(R.string.records_demo_notice),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
+    Column(modifier = modifier.fillMaxSize()) {
+        Button(
+            onClick = onAddRecord,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        ) { Text(stringResource(R.string.form_add_action)) }
+        Text(
+            text = stringResource(R.string.records_memory_notice),
+            modifier = Modifier.padding(horizontal = 16.dp),
+            style = MaterialTheme.typography.bodySmall
+        )
+        Box(modifier = Modifier.weight(1f)) {
+            if (records.isEmpty()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(24.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.records_empty_title),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Text(
+                        text = stringResource(R.string.records_empty_description),
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    item {
+                        Text(
+                            text = stringResource(R.string.records_title),
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
 
-            items(
-                items = records,
-                key = { record -> record.id }
-            ) { record ->
-                RecordCard(
-                    record = record,
-                    onClick = { onRecordClick(record) }
-                )
+                    items(
+                        items = records,
+                        key = { record -> record.id }
+                    ) { record ->
+                        RecordCard(
+                            record = record,
+                            onClick = { onRecordClick(record) }
+                        )
+                    }
+                }
             }
         }
     }
@@ -191,3 +207,4 @@ private fun RecordCard(
         }
     }
 }
+
