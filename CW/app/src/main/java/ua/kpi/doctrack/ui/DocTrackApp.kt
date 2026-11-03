@@ -21,12 +21,17 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ua.kpi.doctrack.R
 import ua.kpi.doctrack.ui.screens.DeadlinesScreen
+import ua.kpi.doctrack.ui.screens.RecordFormScreen
 import ua.kpi.doctrack.ui.screens.RecordDetailsScreen
 import ua.kpi.doctrack.ui.screens.RecordsScreen
 import ua.kpi.doctrack.ui.screens.ServerScreen
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import ua.kpi.doctrack.data.demo.createDemoRecords
 
+private const val RECORD_NEW_ROUTE = "record_new"
+private const val RECORD_EDIT_ROUTE = "record_edit/{recordId}"
 private const val RECORD_DETAILS_ROUTE = "record_details/{recordId}"
 
 private enum class TopLevelDestination(
@@ -43,8 +48,8 @@ fun DocTrackApp() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
-    val demoRecords = remember {
-        createDemoRecords()
+    var records by rememberSaveable(stateSaver = recordListSaver) {
+        mutableStateOf(createDemoRecords())
     }
 
     Scaffold(
@@ -89,7 +94,8 @@ fun DocTrackApp() {
         ) {
             composable(TopLevelDestination.RECORDS.route) {
                 RecordsScreen(
-                    records = demoRecords,
+                    records = records,
+                    onAddRecord = { navController.navigate(RECORD_NEW_ROUTE) { launchSingleTop = true } },
                     onRecordClick = { record ->
                         navController.navigate("record_details/${Uri.encode(record.id)}") {
                             launchSingleTop = true
@@ -107,12 +113,54 @@ fun DocTrackApp() {
                 )
             ) { entry ->
                 val recordId = entry.arguments?.getString("recordId")
-                val record = demoRecords.find { it.id == recordId }
+                val record = records.find { it.id == recordId }
 
                 RecordDetailsScreen(
                     record = record,
-                    onBack = { navController.popBackStack() }
+                    onBack = { navController.popBackStack() },
+                    onEdit = {
+                        if (record != null) {
+                            navController.navigate("record_edit/${Uri.encode(record.id)}") {
+                                launchSingleTop = true
+                            }
+                        }
+                    }
                 )
+            }
+
+            composable(RECORD_NEW_ROUTE) {
+                RecordFormScreen(
+                    record = null,
+                    onSave = { record ->
+                        records = records + record
+                        navController.popBackStack()
+                    },
+                    onCancel = { navController.popBackStack() }
+                )
+            }
+
+            composable(
+                route = RECORD_EDIT_ROUTE,
+                arguments = listOf(navArgument("recordId") { type = NavType.StringType })
+            ) { entry ->
+                val recordId = entry.arguments?.getString("recordId")
+                val record = records.find { it.id == recordId }
+                if (record == null) {
+                    RecordDetailsScreen(
+                        record = null,
+                        onBack = { navController.popBackStack() },
+                        onEdit = {}
+                    )
+                } else {
+                    RecordFormScreen(
+                        record = record,
+                        onSave = { updated ->
+                            records = records.map { if (it.id == updated.id) updated else it }
+                            navController.popBackStack()
+                        },
+                        onCancel = { navController.popBackStack() }
+                    )
+                }
             }
 
             composable(TopLevelDestination.DEADLINES.route) {
@@ -125,3 +173,4 @@ fun DocTrackApp() {
         }
     }
 }
+

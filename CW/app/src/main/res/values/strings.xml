@@ -37,4 +37,33 @@
     <string name="details_issued_on">Дата видачі: %1$s</string>
     <string name="details_amount">Сума: %1$s</string>
     <string name="details_note">Примітка</string>
+    <string name="records_title">Документи та рахунки</string>
+    <string name="records_memory_notice">Навчальний режим: зміни тимчасові. Постійне збереження ще не підключено.</string>
+    <string name="form_add_action">Додати запис</string>
+    <string name="form_edit_action">Редагувати</string>
+    <string name="form_create_title">Новий запис</string>
+    <string name="form_edit_title">Редагування запису</string>
+    <string name="form_type">Тип запису</string>
+    <string name="form_title">Назва *</string>
+    <string name="form_issuer">Організація</string>
+    <string name="form_issued_on">Дата видачі (дд.мм.рррр)</string>
+    <string name="form_valid_until">Діє до * (дд.мм.рррр)</string>
+    <string name="form_pay_until">Оплатити до * (дд.мм.рррр)</string>
+    <string name="form_amount">Сума *</string>
+    <string name="form_currency">Валюта</string>
+    <string name="form_note">Примітка</string>
+    <string name="form_save">Зберегти</string>
+    <string name="form_cancel">Скасувати</string>
+    <string name="form_discard_title">Скасувати зміни?</string>
+    <string name="form_discard_message">Незбережене введення буде втрачено.</string>
+    <string name="form_discard">Скасувати зміни</string>
+    <string name="form_keep_editing">Продовжити редагування</string>
+    <string name="form_error_required">Заповніть обов’язкове поле.</string>
+    <string name="form_error_title_length">Назва має містити не більше 120 символів.</string>
+    <string name="form_error_date">Введіть дійсну дату у форматі дд.мм.рррр.</string>
+    <string name="form_error_date_order">Кінцева дата не може передувати даті видачі.</string>
+    <string name="form_error_amount">Введіть суму з максимум двома десятковими знаками, без пробілів усередині та без перевищення діапазону.</string>
+    <string name="form_error_positive_amount">Сума має бути більшою за нуль.</string>
+    <string name="form_error_document_fields">Фінансові поля дозволені лише для рахунку.</string>
 </resources>
+
