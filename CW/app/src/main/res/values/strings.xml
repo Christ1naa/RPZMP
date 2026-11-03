@@ -8,8 +8,8 @@
     <string name="records_empty_title">Документів і рахунків поки немає</string>
     <string name="records_empty_description">Тут відображатимуться збережені записи.</string>
 
-    <string name="deadlines_empty_title">Термінів для перегляду поки немає</string>
-    <string name="deadlines_empty_description">Тут відображатимуться важливі дати документів і неоплачених рахунків.</string>
+    <string name="deadlines_empty_title">Немає термінів для контролю</string>
+    <string name="deadlines_empty_description">Додайте документ або неоплачений рахунок у вкладці «Записи». Оплачені рахунки тут не показуються.</string>
 
     <string name="server_empty_title">Серверна демонстрація</string>
     <string name="server_empty_description">Обмін тестовими записами із сервером додамо на наступних етапах.</string>
@@ -65,5 +65,11 @@
     <string name="form_error_amount">Введіть суму з максимум двома десятковими знаками, без пробілів усередині та без перевищення діапазону.</string>
     <string name="form_error_positive_amount">Сума має бути більшою за нуль.</string>
     <string name="form_error_document_fields">Фінансові поля дозволені лише для рахунку.</string>
+    <string name="deadlines_description">Документи та неоплачені рахунки за кінцевою датою. Оплачені рахунки залишаються у вкладці «Записи».</string>
+    <string name="deadlines_group_past">Минулі терміни</string>
+    <string name="deadlines_group_today">Сьогодні</string>
+    <string name="deadlines_group_soon">Наступні 7 днів</string>
+    <string name="deadlines_group_later">Пізніше</string>
+    <string name="deadlines_group_count">%1$s (%2$d)</string>
 </resources>
 

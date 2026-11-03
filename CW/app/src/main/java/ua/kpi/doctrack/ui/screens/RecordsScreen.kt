@@ -94,14 +94,15 @@ fun RecordsScreen(
 }
 
 @Composable
-private fun RecordCard(
+internal fun RecordCard(
     record: DocumentRecord,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    today: LocalDate = LocalDate.now()
 ) {
     val isBill = record.type == RecordType.BILL
 
-    val status = record.statusOn(LocalDate.now())
+    val status = record.statusOn(today)
 
     val statusLabel = when (status) {
         RecordStatus.ACTIVE ->
