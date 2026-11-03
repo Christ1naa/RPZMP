@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.error as semanticsError
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -114,6 +117,7 @@ fun RecordFormScreen(
             text = stringResource(
                 if (record == null) R.string.form_create_title else R.string.form_edit_title
             ),
+            modifier = Modifier.semantics { heading() },
             style = MaterialTheme.typography.headlineSmall
         )
         Text(stringResource(R.string.records_memory_notice))
@@ -201,18 +205,21 @@ private fun FormTextField(
     singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
+    val errorMessage = error?.let { stringResource(it.messageRes()) }
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(stringResource(labelRes)) },
         isError = error != null,
         supportingText = {
-            if (error != null) Text(stringResource(error.messageRes()))
+            if (errorMessage != null) Text(errorMessage)
         },
         singleLine = singleLine,
         minLines = if (singleLine) 1 else 3,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().semantics {
+            if (errorMessage != null) semanticsError(errorMessage)
+        }
     )
 }
 

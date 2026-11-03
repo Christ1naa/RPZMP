@@ -1,7 +1,6 @@
 package ua.kpi.doctrack.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -36,57 +37,46 @@ fun RecordsScreen(
     onAddRecord: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.fillMaxSize()) {
-        Button(
-            onClick = onAddRecord,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-        ) { Text(stringResource(R.string.form_add_action)) }
-        Text(
-            text = stringResource(R.string.records_memory_notice),
-            modifier = Modifier.padding(horizontal = 16.dp),
-            style = MaterialTheme.typography.bodySmall
-        )
-        Box(modifier = Modifier.weight(1f)) {
-            if (records.isEmpty()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(24.dp),
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = stringResource(R.string.records_empty_title),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                    Text(
-                        text = stringResource(R.string.records_empty_description),
-                        modifier = Modifier.padding(top = 12.dp)
-                    )
-                }
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    item {
-                        Text(
-                            text = stringResource(R.string.records_title),
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                    }
-
-                    items(
-                        items = records,
-                        key = { record -> record.id }
-                    ) { record ->
-                        RecordCard(
-                            record = record,
-                            onClick = { onRecordClick(record) },
-                            today = today
-                        )
-                    }
-                }
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        item(key = "header_title") {
+            Text(
+                text = stringResource(R.string.records_title),
+                modifier = Modifier.semantics { heading() },
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
+        item(key = "header_add") {
+            Button(onClick = onAddRecord) {
+                Text(stringResource(R.string.form_add_action))
+            }
+        }
+        item(key = "header_notice") {
+            Text(
+                text = stringResource(R.string.records_memory_notice),
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+        if (records.isEmpty()) {
+            item(key = "empty_title") {
+                Text(
+                    text = stringResource(R.string.records_empty_title),
+                    style = MaterialTheme.typography.titleLarge
+                )
+            }
+            item(key = "empty_description") {
+                Text(stringResource(R.string.records_empty_description))
+            }
+        } else {
+            items(records, key = { "record_${it.id}" }) { record ->
+                RecordCard(
+                    record = record,
+                    onClick = { onRecordClick(record) },
+                    today = today
+                )
             }
         }
     }
