@@ -60,7 +60,7 @@
     <string name="form_keep_editing">Продовжити редагування</string>
     <string name="form_error_required">Заповніть обов’язкове поле.</string>
     <string name="form_error_title_length">Назва має містити не більше 120 символів.</string>
-    <string name="form_error_date">Введіть дійсну дату у форматі дд.мм.рррр.</string>
+    <string name="form_error_date">Введіть дійсну дату у форматі дд.мм.рррр, рік від 0001 до 9999.</string>
     <string name="form_error_date_order">Кінцева дата не може передувати даті видачі.</string>
     <string name="form_error_amount">Введіть суму з максимум двома десятковими знаками, без пробілів усередині та без перевищення діапазону.</string>
     <string name="form_error_positive_amount">Сума має бути більшою за нуль.</string>

@@ -108,4 +108,20 @@ class RecordFormInputTest {
         assertNull(record.issuer)
         assertEquals("Note", record.note)
     }
+    @Test fun rejectsYearZeroInBothDateFields() {
+        assertEquals(RecordFormError.INVALID_DATE,
+            validateRecordForm(validInput().copy(deadline = "01.01.0000"))
+                .errors[RecordFormField.DEADLINE])
+        assertEquals(RecordFormError.INVALID_DATE,
+            validateRecordForm(validInput().copy(issuedOn = "01.01.0000"))
+                .errors[RecordFormField.ISSUED_ON])
+    }
+
+    @Test fun supportedDateBoundariesSurviveFormRoundTrip() {
+        val input = validInput().copy(issuedOn = "01.01.0001", deadline = "31.12.9999")
+        val record = validateRecordForm(input).record!!
+        val restored = RecordFormInput.from(record)
+        assertEquals(input.issuedOn, restored.issuedOn)
+        assertEquals(input.deadline, restored.deadline)
+    }
 }

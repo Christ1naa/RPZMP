@@ -5,6 +5,12 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -52,6 +58,7 @@ private val formInputSaver = listSaver<RecordFormInput, String>(
     }
 )
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RecordFormScreen(
     record: DocumentRecord?,
@@ -111,7 +118,10 @@ fun RecordFormScreen(
         )
         Text(stringResource(R.string.records_memory_notice))
         Text(stringResource(R.string.form_type), style = MaterialTheme.typography.titleMedium)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
             RecordType.entries.forEach { type ->
                 FilterChip(
                     selected = input.type == type,
@@ -141,7 +151,10 @@ fun RecordFormScreen(
                 keyboardType = KeyboardType.Decimal)
             Text(stringResource(R.string.form_currency),
                 style = MaterialTheme.typography.titleMedium)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 RecordCurrency.entries.forEach { currency ->
                     FilterChip(
                         selected = input.currency == currency,
@@ -150,14 +163,18 @@ fun RecordFormScreen(
                     )
                 }
             }
-            Row {
-                Checkbox(
-                    checked = input.isPaid,
-                    onCheckedChange = { input = input.copy(isPaid = it) }
-                )
-                TextButton(onClick = { input = input.copy(isPaid = !input.isPaid) }) {
-                    Text(stringResource(R.string.record_paid))
-                }
+            Row(
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                    .toggleable(
+                        value = input.isPaid,
+                        role = Role.Checkbox,
+                        onValueChange = { input = input.copy(isPaid = it) }
+                    ).padding(horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Checkbox(checked = input.isPaid, onCheckedChange = null)
+                Text(stringResource(R.string.record_paid))
             }
         }
         FormTextField(input.note, { input = input.copy(note = it) },

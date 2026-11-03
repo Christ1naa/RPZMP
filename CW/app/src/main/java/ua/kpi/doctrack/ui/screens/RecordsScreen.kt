@@ -19,21 +19,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import java.math.BigDecimal
 import java.text.NumberFormat
-import java.time.format.DateTimeFormatter
 import java.util.Currency
+import ua.kpi.doctrack.model.RecordDates
+import ua.kpi.doctrack.ui.RecordStatusText
 import ua.kpi.doctrack.R
 import ua.kpi.doctrack.model.DocumentRecord
 import ua.kpi.doctrack.model.RecordType
 import java.time.LocalDate
-import ua.kpi.doctrack.model.RecordStatus
-import ua.kpi.doctrack.model.statusOn
 
-private val recordDateFormatter =
-    DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
 @Composable
 fun RecordsScreen(
     records: List<DocumentRecord>,
+    today: LocalDate,
     onRecordClick: (DocumentRecord) -> Unit,
     onAddRecord: () -> Unit,
     modifier: Modifier = Modifier
@@ -84,7 +82,8 @@ fun RecordsScreen(
                     ) { record ->
                         RecordCard(
                             record = record,
-                            onClick = { onRecordClick(record) }
+                            onClick = { onRecordClick(record) },
+                            today = today
                         )
                     }
                 }
@@ -98,40 +97,9 @@ internal fun RecordCard(
     record: DocumentRecord,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    today: LocalDate = LocalDate.now()
+    today: LocalDate
 ) {
     val isBill = record.type == RecordType.BILL
-
-    val status = record.statusOn(today)
-
-    val statusLabel = when (status) {
-        RecordStatus.ACTIVE ->
-            if (isBill) R.string.status_bill_active
-            else R.string.status_active
-
-        RecordStatus.DUE_SOON ->
-            if (isBill) R.string.status_bill_due_soon
-            else R.string.status_due_soon
-
-        RecordStatus.DUE_TODAY ->
-            if (isBill) R.string.status_bill_due_today
-            else R.string.status_due_today
-
-        RecordStatus.EXPIRED -> R.string.status_expired
-        RecordStatus.OVERDUE -> R.string.status_overdue
-        RecordStatus.PAID -> R.string.record_paid
-    }
-
-    val statusColor = when (status) {
-        RecordStatus.EXPIRED,
-        RecordStatus.OVERDUE -> MaterialTheme.colorScheme.error
-
-        RecordStatus.DUE_TODAY,
-        RecordStatus.DUE_SOON -> MaterialTheme.colorScheme.tertiary
-
-        RecordStatus.PAID,
-        RecordStatus.ACTIVE -> MaterialTheme.colorScheme.primary
-    }
 
     val typeLabel = if (isBill) {
         R.string.record_type_bill
@@ -174,7 +142,7 @@ internal fun RecordCard(
             Text(
                 text = stringResource(
                     deadlineLabel,
-                    record.deadline.format(recordDateFormatter)
+                    record.deadline.format(RecordDates.formatter)
                 ),
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -199,11 +167,7 @@ internal fun RecordCard(
 
             }
 
-            Text(
-                text = stringResource(statusLabel),
-                style = MaterialTheme.typography.labelLarge,
-                color = statusColor
-            )
+            RecordStatusText(record = record, today = today)
 
         }
     }

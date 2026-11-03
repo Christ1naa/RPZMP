@@ -2,10 +2,9 @@ package ua.kpi.doctrack.ui.form
 
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.ResolverStyle
 import java.util.UUID
 import ua.kpi.doctrack.model.DocumentRecord
+import ua.kpi.doctrack.model.RecordDates
 import ua.kpi.doctrack.model.RecordCurrency
 import ua.kpi.doctrack.model.RecordType
 import ua.kpi.doctrack.model.RecordValidationError
@@ -28,8 +27,8 @@ data class RecordFormInput(
                 title = record.title,
                 type = record.type,
                 issuer = record.issuer.orEmpty(),
-                issuedOn = record.issuedOn?.format(formDateFormatter).orEmpty(),
-                deadline = record.deadline.format(formDateFormatter),
+                issuedOn = record.issuedOn?.format(RecordDates.formatter).orEmpty(),
+                deadline = record.deadline.format(RecordDates.formatter),
                 amount = record.amountMinor?.let {
                     BigDecimal.valueOf(it, 2).toPlainString()
                 }.orEmpty(),
@@ -52,14 +51,6 @@ data class RecordFormResult(
     val errors: Map<RecordFormField, RecordFormError>
 )
 
-private val formDateFormatter = DateTimeFormatter.ofPattern("dd.MM.uuuu")
-    .withResolverStyle(ResolverStyle.STRICT)
-
-private fun parseFormDate(text: String): LocalDate? {
-    if (!Regex("[0-9]{2}\\.[0-9]{2}\\.[0-9]{4}").matches(text)) return null
-    return runCatching { LocalDate.parse(text, formDateFormatter) }.getOrNull()
-}
-
 /** Converts decimal input to minor units exactly, accepting either a comma or a dot. */
 fun parseAmountMinor(text: String): Long? {
     val value = text.trim()
@@ -80,12 +71,8 @@ fun validateRecordForm(
     val errors = mutableMapOf<RecordFormField, RecordFormError>()
     val deadlineText = input.deadline.trim()
     val issuedText = input.issuedOn.trim()
-    val deadline = parseFormDate(deadlineText)
-    val issuedOn = if (issuedText.isEmpty()) null else parseFormDate(issuedText)
-    if (input.title.trim().length > 120) {
-        errors[RecordFormField.TITLE] = RecordFormError.TITLE_TOO_LONG
-    }
-    if (input.title.isBlank()) errors[RecordFormField.TITLE] = RecordFormError.REQUIRED
+    val deadline = RecordDates.parse(deadlineText)
+    val issuedOn = if (issuedText.isEmpty()) null else RecordDates.parse(issuedText)
     if (deadline == null) {
         errors[RecordFormField.DEADLINE] = if (deadlineText.isEmpty()) {
             RecordFormError.REQUIRED
@@ -122,6 +109,12 @@ fun validateRecordForm(
         when (error) {
             RecordValidationError.TITLE_REQUIRED ->
                 errors.putIfAbsent(RecordFormField.TITLE, RecordFormError.REQUIRED)
+            RecordValidationError.TITLE_TOO_LONG ->
+                errors.putIfAbsent(RecordFormField.TITLE, RecordFormError.TITLE_TOO_LONG)
+            RecordValidationError.DEADLINE_YEAR_OUT_OF_RANGE ->
+                errors.putIfAbsent(RecordFormField.DEADLINE, RecordFormError.INVALID_DATE)
+            RecordValidationError.ISSUE_DATE_YEAR_OUT_OF_RANGE ->
+                errors.putIfAbsent(RecordFormField.ISSUED_ON, RecordFormError.INVALID_DATE)
             RecordValidationError.DEADLINE_BEFORE_ISSUE_DATE ->
                 errors.putIfAbsent(
                     RecordFormField.DEADLINE, RecordFormError.DEADLINE_BEFORE_ISSUE_DATE
