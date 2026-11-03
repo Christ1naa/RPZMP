@@ -50,6 +50,7 @@ private enum class TopLevelDestination(
 @Composable
 fun DocTrackApp() {
     val navController = rememberNavController()
+    val today by rememberCurrentDate()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
     var records by rememberSaveable(stateSaver = recordListSaver) {
@@ -102,6 +103,7 @@ fun DocTrackApp() {
             composable(TopLevelDestination.RECORDS.route) {
                 RecordsScreen(
                     records = records,
+                    today = today,
                     onAddRecord = { navController.navigate(RECORD_NEW_ROUTE) { launchSingleTop = true } },
                     onRecordClick = { record ->
                         navController.navigate("record_details/${Uri.encode(record.id)}") {
@@ -124,6 +126,7 @@ fun DocTrackApp() {
 
                 RecordDetailsScreen(
                     record = record,
+                    today = today,
                     onBack = { navController.popBackStack() },
                     onEdit = {
                         if (record != null) {
@@ -155,6 +158,7 @@ fun DocTrackApp() {
                 if (record == null) {
                     RecordDetailsScreen(
                         record = null,
+                        today = today,
                         onBack = { navController.popBackStack() },
                         onEdit = {}
                     )
@@ -173,6 +177,7 @@ fun DocTrackApp() {
             composable(TopLevelDestination.DEADLINES.route) {
                 DeadlinesScreen(
                     records = records,
+                    today = today,
                     onRecordClick = { record ->
                         navController.navigate("record_details/${Uri.encode(record.id)}") {
                             launchSingleTop = true

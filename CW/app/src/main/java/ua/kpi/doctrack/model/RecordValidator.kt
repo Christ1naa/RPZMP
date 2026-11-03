@@ -2,6 +2,9 @@ package ua.kpi.doctrack.model
 
 enum class RecordValidationError {
     TITLE_REQUIRED,
+    TITLE_TOO_LONG,
+    DEADLINE_YEAR_OUT_OF_RANGE,
+    ISSUE_DATE_YEAR_OUT_OF_RANGE,
     DEADLINE_BEFORE_ISSUE_DATE,
     AMOUNT_REQUIRED,
     AMOUNT_MUST_BE_POSITIVE,
@@ -13,10 +16,22 @@ enum class RecordValidationError {
 
 /** Перевіряє дані перед збереженням і повертає всі знайдені помилки для форми. */
 object RecordValidator {
+    const val MAX_TITLE_LENGTH = 120
+
     fun validate(record: DocumentRecord): List<RecordValidationError> = buildList {
         if (record.title.isBlank()) add(RecordValidationError.TITLE_REQUIRED)
 
+        if (record.title.trim().length > MAX_TITLE_LENGTH) {
+            add(RecordValidationError.TITLE_TOO_LONG)
+        }
+        if (!RecordDates.isSupported(record.deadline)) {
+            add(RecordValidationError.DEADLINE_YEAR_OUT_OF_RANGE)
+        }
+
         val issuedOn = record.issuedOn
+        if (issuedOn != null && !RecordDates.isSupported(issuedOn)) {
+            add(RecordValidationError.ISSUE_DATE_YEAR_OUT_OF_RANGE)
+        }
         if (issuedOn != null && record.deadline.isBefore(issuedOn)) {
             add(RecordValidationError.DEADLINE_BEFORE_ISSUE_DATE)
         }

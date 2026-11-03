@@ -58,6 +58,27 @@ class RecordValidatorTest {
         createDemoRecords(date).forEach { assertTrue(RecordValidator.validate(it).isEmpty()) }
     }
 
+    @Test fun titleLimitAppliesToDocumentsAndBills() {
+        listOf(document, bill).forEach { record ->
+            assertTrue(RecordValidator.validate(record.copy(title = " " + "a".repeat(120) + " ")).isEmpty())
+            errors(record.copy(title = "a".repeat(121)), RecordValidationError.TITLE_TOO_LONG)
+        }
+    }
+
+    @Test fun rejectsUnsupportedDeadlineYears() {
+        listOf(-1, 0, 10000).forEach { year ->
+            errors(document.copy(deadline = LocalDate.of(year, 1, 1)),
+                RecordValidationError.DEADLINE_YEAR_OUT_OF_RANGE)
+        }
+    }
+
+    @Test fun rejectsUnsupportedIssueYears() {
+        listOf(-1, 0, 10000).forEach { year ->
+            val result = RecordValidator.validate(document.copy(issuedOn = LocalDate.of(year, 1, 1)))
+            assertTrue(result.contains(RecordValidationError.ISSUE_DATE_YEAR_OUT_OF_RANGE))
+        }
+    }
+
     private fun errors(record: DocumentRecord, vararg expected: RecordValidationError) {
         assertEquals(expected.toList(), RecordValidator.validate(record))
     }
