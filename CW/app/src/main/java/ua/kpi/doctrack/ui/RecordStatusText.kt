@@ -12,7 +12,7 @@ import ua.kpi.doctrack.model.RecordStatus
 import ua.kpi.doctrack.model.RecordType
 import ua.kpi.doctrack.model.statusOn
 
-/** Uses identical status wording and semantic colors in cards and record details. */
+/** Використовує ідентичні формулювання статусів і семантичні кольори в картках та деталях записів. */
 @Composable
 internal fun RecordStatusText(
     record: DocumentRecord,

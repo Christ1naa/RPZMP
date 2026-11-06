@@ -7,7 +7,7 @@ import ua.kpi.doctrack.model.DocumentRecord
 import ua.kpi.doctrack.model.RecordCurrency
 import ua.kpi.doctrack.model.RecordType
 
-/** Temporary demo state across activity recreation; Room will replace this list. */
+/** Тимчасовий демонстраційний стан у контексті відтворення активності; «Room» замінить цей список. */
 internal val recordListSaver = listSaver<List<DocumentRecord>, Bundle>(
     save = { records ->
         records.map { record ->

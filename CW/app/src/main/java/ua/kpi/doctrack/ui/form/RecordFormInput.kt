@@ -51,7 +51,7 @@ data class RecordFormResult(
     val errors: Map<RecordFormField, RecordFormError>
 )
 
-/** Converts decimal input to minor units exactly, accepting either a comma or a dot. */
+/** Точно перетворює десяткове значення на дрібні одиниці; допускається використання як коми, так і крапки. */
 fun parseAmountMinor(text: String): Long? {
     val value = text.trim()
     if (value.length > 20 || !Regex("[0-9]+([.,][0-9]{1,2})?").matches(value)) {
@@ -62,7 +62,7 @@ fun parseAmountMinor(text: String): Long? {
     }.getOrNull()
 }
 
-/** Keeps OCR/image metadata and identity when editing; clears bill fields for documents. */
+/** Зберігає метадані OCR/зображення та ідентифікаційні дані під час редагування; очищує поля рахунків у документах. */
 fun validateRecordForm(
     input: RecordFormInput,
     original: DocumentRecord? = null,
@@ -88,7 +88,7 @@ fun validateRecordForm(
         errors[RecordFormField.AMOUNT] = RecordFormError.INVALID_AMOUNT
     }
 
-    // A placeholder date permits the model validator to report other errors together.
+    // Дата-заповнювач дозволяє валідатору моделі повідомляти про інші помилки разом.
     val base = original ?: DocumentRecord(
         id = newId, title = input.title.trim(), type = input.type,
         deadline = deadline ?: LocalDate.MIN

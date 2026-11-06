@@ -9,7 +9,7 @@ data class DeadlineSection(
     val records: List<DocumentRecord>
 )
 
-/** Groups actionable deadlines using the same date rules as record status labels. */
+/** Групує терміни виконання завдань, застосовуючи ті самі правила визначення дат, що й для міток стану записів. */
 fun groupDeadlineRecords(
     records: List<DocumentRecord>,
     today: LocalDate

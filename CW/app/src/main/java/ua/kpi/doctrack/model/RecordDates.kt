@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.ResolverStyle
 
-/** One calendar convention for form input, validation and displayed record dates. */
+/** Єдиний підхід до роботи з датами: у формах введення, при перевірці даних та під час відображення дат у записах. */
 object RecordDates {
     val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.uuuu")
         .withResolverStyle(ResolverStyle.STRICT)

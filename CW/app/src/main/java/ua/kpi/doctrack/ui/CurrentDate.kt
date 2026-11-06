@@ -12,7 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import java.time.LocalDate
 import kotlinx.coroutines.delay
 
-/** Shared by all date-sensitive screens; polling stops while the app is in the background. */
+/** Використовується всіма екранами, що залежать від дати; опитування припиняється, коли програма перебуває у фоновому режимі. */
 @Composable
 internal fun rememberCurrentDate(): State<LocalDate> {
     val today = remember { mutableStateOf(LocalDate.now()) }
