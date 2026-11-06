@@ -1,0 +1,254 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "54a6074e718663a0b6e852fe1fcef1bb",
+    "entities": [
+      {
+        "tableName": "energy_profiles",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerKey` TEXT NOT NULL, `forecastDays` INTEGER NOT NULL, PRIMARY KEY(`ownerKey`))",
+        "fields": [
+          {
+            "fieldPath": "ownerKey",
+            "columnName": "ownerKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "forecastDays",
+            "columnName": "forecastDays",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ownerKey"
+          ]
+        }
+      },
+      {
+        "tableName": "energy_devices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerKey` TEXT NOT NULL, `id` TEXT NOT NULL, `name` TEXT NOT NULL, `powerWatts` REAL NOT NULL, `hoursPerDay` REAL NOT NULL, `deviceCount` INTEGER NOT NULL, PRIMARY KEY(`ownerKey`, `id`), FOREIGN KEY(`ownerKey`) REFERENCES `energy_profiles`(`ownerKey`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "ownerKey",
+            "columnName": "ownerKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "powerWatts",
+            "columnName": "powerWatts",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hoursPerDay",
+            "columnName": "hoursPerDay",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceCount",
+            "columnName": "deviceCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ownerKey",
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_energy_devices_ownerKey",
+            "unique": false,
+            "columnNames": [
+              "ownerKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_energy_devices_ownerKey` ON `${TABLE_NAME}` (`ownerKey`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "energy_profiles",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "ownerKey"
+            ],
+            "referencedColumns": [
+              "ownerKey"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "forecast_records",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `ownerKey` TEXT NOT NULL, `title` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `forecastDays` INTEGER NOT NULL, `dailyConsumptionKwh` REAL NOT NULL, `periodConsumptionKwh` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownerKey",
+            "columnName": "ownerKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "forecastDays",
+            "columnName": "forecastDays",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dailyConsumptionKwh",
+            "columnName": "dailyConsumptionKwh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "periodConsumptionKwh",
+            "columnName": "periodConsumptionKwh",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_forecast_records_ownerKey",
+            "unique": false,
+            "columnNames": [
+              "ownerKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_forecast_records_ownerKey` ON `${TABLE_NAME}` (`ownerKey`)"
+          }
+        ]
+      },
+      {
+        "tableName": "forecast_items",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`forecastId` TEXT NOT NULL, `position` INTEGER NOT NULL, `deviceId` TEXT NOT NULL, `name` TEXT NOT NULL, `powerWatts` REAL NOT NULL, `hoursPerDay` REAL NOT NULL, `deviceCount` INTEGER NOT NULL, PRIMARY KEY(`forecastId`, `position`), FOREIGN KEY(`forecastId`) REFERENCES `forecast_records`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "forecastId",
+            "columnName": "forecastId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "deviceId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "powerWatts",
+            "columnName": "powerWatts",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hoursPerDay",
+            "columnName": "hoursPerDay",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceCount",
+            "columnName": "deviceCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "forecastId",
+            "position"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_forecast_items_forecastId",
+            "unique": false,
+            "columnNames": [
+              "forecastId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_forecast_items_forecastId` ON `${TABLE_NAME}` (`forecastId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "forecast_records",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "forecastId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54a6074e718663a0b6e852fe1fcef1bb')"
+    ]
+  }
+}

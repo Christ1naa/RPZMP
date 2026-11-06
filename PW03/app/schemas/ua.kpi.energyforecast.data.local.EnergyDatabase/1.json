@@ -1,0 +1,110 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "4011f0da1c81020ffb089b0b518a3088",
+    "entities": [
+      {
+        "tableName": "energy_profiles",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerKey` TEXT NOT NULL, `forecastDays` INTEGER NOT NULL, PRIMARY KEY(`ownerKey`))",
+        "fields": [
+          {
+            "fieldPath": "ownerKey",
+            "columnName": "ownerKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "forecastDays",
+            "columnName": "forecastDays",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ownerKey"
+          ]
+        }
+      },
+      {
+        "tableName": "energy_devices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ownerKey` TEXT NOT NULL, `id` TEXT NOT NULL, `name` TEXT NOT NULL, `powerWatts` REAL NOT NULL, `hoursPerDay` REAL NOT NULL, `deviceCount` INTEGER NOT NULL, PRIMARY KEY(`ownerKey`, `id`), FOREIGN KEY(`ownerKey`) REFERENCES `energy_profiles`(`ownerKey`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "ownerKey",
+            "columnName": "ownerKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "powerWatts",
+            "columnName": "powerWatts",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hoursPerDay",
+            "columnName": "hoursPerDay",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceCount",
+            "columnName": "deviceCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ownerKey",
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_energy_devices_ownerKey",
+            "unique": false,
+            "columnNames": [
+              "ownerKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_energy_devices_ownerKey` ON `${TABLE_NAME}` (`ownerKey`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "energy_profiles",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "ownerKey"
+            ],
+            "referencedColumns": [
+              "ownerKey"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4011f0da1c81020ffb089b0b518a3088')"
+    ]
+  }
+}

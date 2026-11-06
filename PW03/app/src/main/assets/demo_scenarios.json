@@ -1,0 +1,51 @@
+[
+  {
+    "id": "home",
+    "name": "Побутові прилади",
+    "forecastDays": 30,
+    "devices": [
+      {
+        "id": "kettle",
+        "name": "Електрочайник",
+        "powerWatts": 2000,
+        "hoursPerDay": 0.25,
+        "deviceCount": 1
+      },
+      {
+        "id": "laptop",
+        "name": "Ноутбук",
+        "powerWatts": 65,
+        "hoursPerDay": 8,
+        "deviceCount": 1
+      },
+      {
+        "id": "lighting",
+        "name": "LED-лампи",
+        "powerWatts": 10,
+        "hoursPerDay": 5,
+        "deviceCount": 6
+      }
+    ]
+  },
+  {
+    "id": "workspace",
+    "name": "Робоче місце",
+    "forecastDays": 7,
+    "devices": [
+      {
+        "id": "computer",
+        "name": "Комп’ютер",
+        "powerWatts": 200,
+        "hoursPerDay": 8,
+        "deviceCount": 1
+      },
+      {
+        "id": "monitor",
+        "name": "Монітор",
+        "powerWatts": 30,
+        "hoursPerDay": 8,
+        "deviceCount": 2
+      }
+    ]
+  }
+]
