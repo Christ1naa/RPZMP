@@ -9,34 +9,43 @@ object ApiClient {
 
     const val EMULATOR_BASE_URL = "http://10.0.2.2:5156/"
 
-    /**
-     * Отримує актуальний токен перед кожним захищеним запитом.
-     * Постійне сховище сесії підключимо на етапі автентифікації.
-     */
     fun create(
         baseUrl: String,
-        tokenProvider: () -> String? = { null }
+        tokenProvider: () -> String? = { null },
+        onUnauthorized: (String?) -> Unit = {}
     ): EnergyApi {
         val client = OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .callTimeout(12, TimeUnit.SECONDS)
-            // Контрольовані повтори додамо окремою політикою.
             .retryOnConnectionFailure(false)
             .addInterceptor { chain ->
                 val original = chain.request()
                 val builder = original.newBuilder()
                 val isLogin = original.url.encodedPath == "/auth/login"
 
-                if (!isLogin) {
-                    val token = tokenProvider()
-
-                    if (!token.isNullOrBlank()) {
-                        builder.header("Authorization", "Bearer $token")
-                    }
+                val requestToken = if (isLogin) {
+                    null
+                } else {
+                    tokenProvider()
                 }
 
-                chain.proceed(builder.build())
+                if (!requestToken.isNullOrBlank()) {
+                    builder.header(
+                        "Authorization",
+                        "Bearer $requestToken"
+                    )
+                }
+
+                val response = chain.proceed(builder.build())
+
+                // Неправильний пароль не прирівнюємо
+                // до відмови захищеного запиту.
+                if (!isLogin && response.code == 401) {
+                    onUnauthorized(requestToken)
+                }
+
+                response
             }
             .build()
 

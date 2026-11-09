@@ -79,6 +79,8 @@ dependencies {
     // Узгоджує runtime застосунку з JSON-серіалізацією Room MigrationTestHelper.
     implementation(platform("org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.1"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core")
+
+    implementation("androidx.datastore:datastore-preferences:1.2.0")
 }
 
 ksp {

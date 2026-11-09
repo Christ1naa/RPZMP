@@ -22,6 +22,11 @@ import ua.kpi.energyforecast.ui.screens.MainMenuScreen
 import ua.kpi.energyforecast.ui.history.ForecastHistoryViewModel
 import ua.kpi.energyforecast.ui.screens.ForecastHistoryScreen
 import ua.kpi.energyforecast.ui.screens.ForecastDetailsScreen
+import androidx.compose.runtime.LaunchedEffect
+import ua.kpi.energyforecast.ui.scenarios.ScenarioViewModel
+import ua.kpi.energyforecast.ui.screens.ScenarioCatalogScreen
+import ua.kpi.energyforecast.ui.screens.ScenarioDetailsScreen
+import ua.kpi.energyforecast.ui.rememberLocalNetworkAction
 
 /**
  * Зіставляє маршрути з екранами та передає стан і дії основного прогнозу.
@@ -42,10 +47,17 @@ fun AppNavHost(
     onLoadDemoScenarios: (Boolean) -> Unit,
     onImportDemoScenario: (String) -> Unit,
     historyViewModel: ForecastHistoryViewModel,
+    scenarioViewModel: ScenarioViewModel,
     modifier: Modifier = Modifier
 ) {
 
     val historyState by historyViewModel.uiState.collectAsStateWithLifecycle()
+    val scenarioState by scenarioViewModel.uiState.collectAsStateWithLifecycle()
+
+    val refreshScenarios = rememberLocalNetworkAction(
+        onAllowed = scenarioViewModel::refresh,
+        onDenied = scenarioViewModel::networkPermissionDenied
+    )
 
     NavHost(
         navController = navController,
@@ -72,6 +84,11 @@ fun AppNavHost(
                 },
                 onHistory = {
                     navController.navigate(AppRoutes.HISTORY) {
+                        launchSingleTop = true
+                    }
+                },
+                onScenarios = {
+                    navController.navigate(AppRoutes.SCENARIOS) {
                         launchSingleTop = true
                     }
                 },
@@ -157,6 +174,55 @@ fun AppNavHost(
                 },
                 onDeleteForecast = historyViewModel::deleteForecast,
                 onRetry = historyViewModel::retryLoad,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        composable(AppRoutes.SCENARIOS) {
+            ScenarioCatalogScreen(
+                state = scenarioState,
+                onQueryChange = scenarioViewModel::updateQuery,
+                onCategoryChange = scenarioViewModel::updateCategory,
+                onSortChange = scenarioViewModel::updateSort,
+                onRefresh = refreshScenarios,
+                onRetryCache = scenarioViewModel::retryCache,
+                onOpenScenario = { id ->
+                    scenarioViewModel.selectScenario(id)
+
+                    navController.navigate(AppRoutes.scenarioDetails(id)) {
+                        launchSingleTop = true
+                    }
+                },
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+
+        composable(
+            route = AppRoutes.SCENARIO_DETAILS,
+            arguments = listOf(
+                navArgument(AppRoutes.SCENARIO_ID) {
+                    type = NavType.StringType
+                }
+            )
+        ) { entry ->
+            val scenarioId = requireNotNull(
+                entry.arguments?.getString(AppRoutes.SCENARIO_ID)
+            )
+
+            // Відновлює вибір також після відновлення маршруту.
+            LaunchedEffect(scenarioId) {
+                scenarioViewModel.selectScenario(scenarioId)
+            }
+
+            ScenarioDetailsScreen(
+                state = scenarioState,
+                onDaysChange = scenarioViewModel::updateDays,
+                onImport = scenarioViewModel::importScenario,
+                onOpenAppliances = {
+                    navController.navigate(AppRoutes.APPLIANCES) {
+                        launchSingleTop = true
+                    }
+                },
                 modifier = Modifier.fillMaxSize()
             )
         }

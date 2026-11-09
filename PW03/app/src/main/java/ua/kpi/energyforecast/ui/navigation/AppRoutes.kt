@@ -26,4 +26,13 @@ object AppRoutes {
         require(days in 1..365)
         return "quick_forecast/$days"
     }
+
+    const val SCENARIOS = "scenarios"
+    const val SCENARIO_ID = "scenarioId"
+    const val SCENARIO_DETAILS = "scenario_details/{$SCENARIO_ID}"
+
+    fun scenarioDetails(id: String): String {
+        require(id.isNotBlank())
+        return "scenario_details/${Uri.encode(id)}"
+    }
 }

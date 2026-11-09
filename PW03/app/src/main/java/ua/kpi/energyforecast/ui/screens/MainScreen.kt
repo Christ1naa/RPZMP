@@ -26,6 +26,13 @@ import ua.kpi.energyforecast.data.source.AssetDemoScenarioSource
 import ua.kpi.energyforecast.data.source.CachedDemoScenarioSource
 import ua.kpi.energyforecast.data.RoomForecastHistoryRepository
 import ua.kpi.energyforecast.ui.history.ForecastHistoryViewModel
+import ua.kpi.energyforecast.data.RoomScenarioRepository
+import ua.kpi.energyforecast.data.ScenarioImportRepository
+import ua.kpi.energyforecast.data.local.LocalScenarioDataSource
+import ua.kpi.energyforecast.data.remote.ApiClient
+import ua.kpi.energyforecast.data.remote.RemoteScenarioDataSource
+import ua.kpi.energyforecast.ui.scenarios.ScenarioViewModel
+import ua.kpi.energyforecast.data.auth.ApiSessionRepository
 
 /**
  * Створює навігацію авторизованого користувача.
@@ -34,6 +41,7 @@ import ua.kpi.energyforecast.ui.history.ForecastHistoryViewModel
 @Composable
 fun MainScreen(
     user: DemoUser,
+    sessionRepository: ApiSessionRepository,
     onLogout: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -93,6 +101,49 @@ fun MainScreen(
         factory = historyFactory
     )
 
+    val scenarioRepository = remember(
+        applicationContext,
+        ownerKey,
+        sessionRepository
+    ) {
+        val database = EnergyDatabase.getInstance(applicationContext)
+
+        RoomScenarioRepository(
+            local = LocalScenarioDataSource(database),
+            remote = RemoteScenarioDataSource(
+                sessionRepository.api
+            )
+        )
+    }
+
+    val scenarioImporter = remember(scenarioRepository) {
+        ScenarioImportRepository(
+            database = EnergyDatabase.getInstance(applicationContext),
+            scenarios = scenarioRepository
+        )
+    }
+
+    val scenarioFactory = remember(
+        scenarioRepository,
+        scenarioImporter,
+        ownerKey
+    ) {
+        viewModelFactory {
+            initializer {
+                ScenarioViewModel(
+                    repository = scenarioRepository,
+                    importer = scenarioImporter,
+                    ownerKey = ownerKey
+                )
+            }
+        }
+    }
+
+    val scenarioViewModel: ScenarioViewModel = viewModel(
+        key = "scenarios_$ownerKey",
+        factory = scenarioFactory
+    )
+
     val forecastState by forecastViewModel.uiState.collectAsStateWithLifecycle()
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -144,6 +195,7 @@ fun MainScreen(
             onLoadDemoScenarios = forecastViewModel::loadDemoScenarios,
             onImportDemoScenario = forecastViewModel::importDemoScenario,
             historyViewModel = historyViewModel,
+            scenarioViewModel = scenarioViewModel,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
