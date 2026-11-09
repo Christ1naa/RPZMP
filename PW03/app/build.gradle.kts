@@ -35,6 +35,9 @@ android {
     buildFeatures {
         compose = true
     }
+    sourceSets {
+        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -48,7 +51,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     testImplementation(libs.junit)
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -63,6 +65,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.8.4")
     implementation("androidx.room:room-ktx:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
+    androidTestImplementation("androidx.room:room-testing:2.8.4")
 
     // REST API та перетворення JSON.
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
@@ -72,6 +75,10 @@ dependencies {
 
 // Контрольовані HTTP-відповіді для локальних тестів.
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+
+    // Узгоджує runtime застосунку з JSON-серіалізацією Room MigrationTestHelper.
+    implementation(platform("org.jetbrains.kotlinx:kotlinx-serialization-bom:1.8.1"))
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core")
 }
 
 ksp {

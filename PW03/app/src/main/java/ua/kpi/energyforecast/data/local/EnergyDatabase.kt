@@ -12,9 +12,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         EnergyProfileEntity::class,
         EnergyDeviceEntity::class,
         ForecastRecordEntity::class,
-        ForecastItemEntity::class
+        ForecastItemEntity::class,
+        ScenarioCacheMetaEntity::class,
+        CachedScenarioEntity::class,
+        CachedScenarioDeviceEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = true
 )
 abstract class EnergyDatabase : RoomDatabase() {
@@ -22,6 +25,8 @@ abstract class EnergyDatabase : RoomDatabase() {
     abstract fun energyDao(): EnergyDao
 
     abstract fun forecastHistoryDao(): ForecastHistoryDao
+
+    abstract fun scenarioCacheDao(): ScenarioCacheDao
 
     companion object {
         @Volatile
@@ -90,7 +95,10 @@ abstract class EnergyDatabase : RoomDatabase() {
                     EnergyDatabase::class.java,
                     "energy_forecast.db"
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(
+                        MIGRATION_1_2,
+                        ScenarioCacheMigration.MIGRATION_2_3
+                    )
                     .build()
                     .also {
                         instance = it
