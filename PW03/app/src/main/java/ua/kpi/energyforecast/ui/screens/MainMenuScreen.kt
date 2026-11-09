@@ -21,6 +21,8 @@ fun MainMenuScreen(
     onDemo: () -> Unit,
     onHistory: () -> Unit,
     onScenarios: () -> Unit,
+    isAdmin: Boolean,
+    onAdmin: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -64,6 +66,15 @@ fun MainMenuScreen(
                 buttonText = "Відкрити каталог",
                 onClick = onScenarios
             )
+
+            if (isAdmin) {
+                MenuSection(
+                    title = "Адміністрування",
+                    description = "Статистика серверного каталогу.",
+                    buttonText = "Відкрити статистику",
+                    onClick = onAdmin
+                )
+            }
 
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(

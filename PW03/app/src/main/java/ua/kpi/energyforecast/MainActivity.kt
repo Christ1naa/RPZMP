@@ -112,6 +112,7 @@ class MainActivity : ComponentActivity() {
 
                                         MainScreen(
                                             user = session.user,
+                                            role = session.role,
                                             sessionRepository =
                                                 authViewModel.repository,
                                             onLogout = authViewModel::logout,

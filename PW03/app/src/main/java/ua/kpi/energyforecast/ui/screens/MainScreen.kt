@@ -33,6 +33,7 @@ import ua.kpi.energyforecast.data.remote.ApiClient
 import ua.kpi.energyforecast.data.remote.RemoteScenarioDataSource
 import ua.kpi.energyforecast.ui.scenarios.ScenarioViewModel
 import ua.kpi.energyforecast.data.auth.ApiSessionRepository
+import ua.kpi.energyforecast.data.auth.UserRole
 
 /**
  * Створює навігацію авторизованого користувача.
@@ -41,6 +42,7 @@ import ua.kpi.energyforecast.data.auth.ApiSessionRepository
 @Composable
 fun MainScreen(
     user: DemoUser,
+    role: UserRole,
     sessionRepository: ApiSessionRepository,
     onLogout: () -> Unit,
     modifier: Modifier = Modifier
@@ -196,6 +198,8 @@ fun MainScreen(
             onImportDemoScenario = forecastViewModel::importDemoScenario,
             historyViewModel = historyViewModel,
             scenarioViewModel = scenarioViewModel,
+            role = role,
+            api = sessionRepository.api,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()

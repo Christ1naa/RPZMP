@@ -27,6 +27,14 @@ import ua.kpi.energyforecast.ui.scenarios.ScenarioViewModel
 import ua.kpi.energyforecast.ui.screens.ScenarioCatalogScreen
 import ua.kpi.energyforecast.ui.screens.ScenarioDetailsScreen
 import ua.kpi.energyforecast.ui.rememberLocalNetworkAction
+import androidx.compose.material3.Text
+import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import ua.kpi.energyforecast.data.auth.UserRole
+import ua.kpi.energyforecast.data.remote.EnergyApi
+import ua.kpi.energyforecast.ui.admin.AdminViewModel
+import ua.kpi.energyforecast.ui.screens.AdminScreen
 
 /**
  * Зіставляє маршрути з екранами та передає стан і дії основного прогнозу.
@@ -48,6 +56,8 @@ fun AppNavHost(
     onImportDemoScenario: (String) -> Unit,
     historyViewModel: ForecastHistoryViewModel,
     scenarioViewModel: ScenarioViewModel,
+    role: UserRole,
+    api: EnergyApi,
     modifier: Modifier = Modifier
 ) {
 
@@ -93,8 +103,53 @@ fun AppNavHost(
                     }
                 },
 
+                isAdmin = role == UserRole.ADMIN,
+                onAdmin = {
+                    if (role == UserRole.ADMIN) {
+                        navController.navigate(AppRoutes.ADMIN) {
+                            launchSingleTop = true
+                        }
+                    }
+                },
+
                 modifier = Modifier.fillMaxSize()
             )
+        }
+
+        composable(AppRoutes.ADMIN) { entry ->
+            if (role != UserRole.ADMIN) {
+                Text("Цей розділ доступний лише адміністратору.")
+            } else {
+                val factory = remember(api, role) {
+                    viewModelFactory {
+                        initializer {
+                            AdminViewModel(
+                                api = api,
+                                role = role
+                            )
+                        }
+                    }
+                }
+
+                val adminViewModel: AdminViewModel = viewModel(
+                    viewModelStoreOwner = entry,
+                    factory = factory
+                )
+
+                val adminState by adminViewModel.uiState
+                    .collectAsStateWithLifecycle()
+
+                val refreshAdmin = rememberLocalNetworkAction(
+                    onAllowed = adminViewModel::refresh,
+                    onDenied = adminViewModel::networkPermissionDenied
+                )
+
+                AdminScreen(
+                    state = adminState,
+                    onRefresh = refreshAdmin,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
 
         composable(AppRoutes.APPLIANCES) {

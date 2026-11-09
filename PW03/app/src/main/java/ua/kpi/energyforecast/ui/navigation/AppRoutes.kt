@@ -17,6 +17,8 @@ object AppRoutes {
     const val FORECAST_ID = "forecastId"
     const val FORECAST_DETAILS = "forecast_details/{$FORECAST_ID}"
 
+    const val ADMIN = "admin"
+
     fun forecastDetails(id: String): String {
         require(id.isNotBlank())
         return "forecast_details/${Uri.encode(id)}"
