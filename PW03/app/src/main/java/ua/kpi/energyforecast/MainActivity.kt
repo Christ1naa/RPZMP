@@ -26,6 +26,12 @@ import ua.kpi.energyforecast.ui.auth.ApiAuthViewModel
 import ua.kpi.energyforecast.ui.screens.ApiLoginScreen
 import ua.kpi.energyforecast.ui.screens.MainScreen
 import ua.kpi.energyforecast.ui.theme.EnergyForecastTheme
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import kotlinx.coroutines.flow.collectLatest
+import ua.kpi.energyforecast.ui.UiMessages
 
 class MainActivity : ComponentActivity() {
 
@@ -36,6 +42,16 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             EnergyForecastTheme {
+                val snackbarHostState = remember {
+                    SnackbarHostState()
+                }
+
+                LaunchedEffect(snackbarHostState) {
+                    UiMessages.messages.collectLatest { message ->
+                        snackbarHostState.showSnackbar(message)
+                    }
+                }
+
                 val authViewModel: ApiAuthViewModel = viewModel()
 
                 val sessionState by authViewModel.sessionState
@@ -61,7 +77,10 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Scaffold(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
+                    snackbarHost = {
+                        SnackbarHost(hostState = snackbarHostState)
+                    }
                 ) { innerPadding ->
                     val contentModifier = Modifier
                         .fillMaxSize()

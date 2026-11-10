@@ -13,6 +13,8 @@ import retrofit2.HttpException
 import ua.kpi.energyforecast.data.ScenarioImportRepository
 import ua.kpi.energyforecast.data.ScenarioRepository
 import ua.kpi.energyforecast.model.ScenarioCategory
+import ua.kpi.energyforecast.data.remote.NetworkErrors
+import ua.kpi.energyforecast.ui.UiMessages
 
 class ScenarioViewModel(
     private val repository: ScenarioRepository,
@@ -86,14 +88,10 @@ class ScenarioViewModel(
             } catch (exception: CancellationException) {
                 throw exception
             } catch (exception: Exception) {
-                val message = when {
-                    exception is HttpException && exception.code() == 401 ->
-                        "Сервер не підтвердив авторизацію."
+                val message = NetworkErrors.message(exception) +
+                        " Збережений каталог не змінено."
 
-                    else ->
-                        "Не вдалося оновити каталог. " +
-                                "Збережені дані залишаються доступними."
-                }
+                UiMessages.show(message)
 
                 mutableState.update {
                     it.copy(

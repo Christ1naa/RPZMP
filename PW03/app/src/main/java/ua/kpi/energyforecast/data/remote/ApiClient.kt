@@ -12,7 +12,9 @@ object ApiClient {
     fun create(
         baseUrl: String,
         tokenProvider: () -> String? = { null },
-        onUnauthorized: (String?) -> Unit = {}
+        onUnauthorized: (String?) -> Unit = {},
+        networkAvailable: () -> Boolean = { true },
+        networkLogger: (NetworkLogEntry) -> Unit = {}
     ): EnergyApi {
         val client = OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.SECONDS)
@@ -49,7 +51,7 @@ object ApiClient {
             }
             .build()
 
-        return Retrofit.Builder()
+        val retrofitApi = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
             .addConverterFactory(
@@ -57,5 +59,13 @@ object ApiClient {
             )
             .build()
             .create(EnergyApi::class.java)
+
+        return ManagedEnergyApi(
+            delegate = retrofitApi,
+            executor = NetworkExecutor(
+                networkAvailable = networkAvailable,
+                logger = networkLogger
+            )
+        )
     }
 }

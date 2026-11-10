@@ -14,6 +14,8 @@ import ua.kpi.energyforecast.data.remote.AdminSummary
 import ua.kpi.energyforecast.data.remote.EnergyApi
 import ua.kpi.energyforecast.data.remote.InvalidApiDataException
 import ua.kpi.energyforecast.data.remote.toSummary
+import ua.kpi.energyforecast.data.remote.NetworkErrors
+import ua.kpi.energyforecast.ui.UiMessages
 
 data class AdminUiState(
     val isLoading: Boolean = false,
@@ -57,29 +59,20 @@ class AdminViewModel(
                 )
             } catch (exception: CancellationException) {
                 throw exception
-            } catch (exception: HttpException) {
-                val message = when (exception.code()) {
-                    401 -> "Сесію завершено. Увійдіть повторно."
-                    403 -> "Сервер відхилив доступ до статистики."
-                    else -> "Не вдалося отримати статистику сервера."
-                }
+            } catch (exception: Exception) {
+                val message = NetworkErrors.message(exception)
 
-                // Після відмови в доступі попередні показники прибираємо.
-                if (exception.code() in listOf(401, 403)) {
+                UiMessages.show(message)
+
+                val code = (exception as? HttpException)?.code()
+
+                if (code == 401 || code == 403) {
                     mutableState.value = AdminUiState(
                         error = message
                     )
                 } else {
                     showError(message)
                 }
-            } catch (exception: InvalidApiDataException) {
-                showError("Сервер повернув некоректні показники.")
-            } catch (exception: IOException) {
-                showError(
-                    "Немає зв’язку із сервером. Спробуйте ще раз."
-                )
-            } catch (exception: Exception) {
-                showError("Не вдалося прочитати статистику.")
             }
         }
     }

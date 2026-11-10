@@ -17,6 +17,8 @@ import ua.kpi.energyforecast.data.auth.ApiSessionRepository
 import ua.kpi.energyforecast.data.auth.ApiSessionState
 import ua.kpi.energyforecast.logic.AuthValidator
 import ua.kpi.energyforecast.model.AuthField
+import ua.kpi.energyforecast.data.remote.NetworkErrors
+import ua.kpi.energyforecast.ui.UiMessages
 
 data class ApiLoginUiState(
     val email: String = "",
@@ -128,20 +130,12 @@ class ApiAuthViewModel(
             } catch (exception: CancellationException) {
                 throw exception
             } catch (exception: Exception) {
-                val message = when (exception) {
-                    is HttpException -> when (exception.code()) {
-                        401 -> "Неправильний email або пароль."
-                        400 -> "Перевірте введені дані."
-                        else -> "Сервер тимчасово не може виконати вхід."
-                    }
+                val message = NetworkErrors.message(
+                    error = exception,
+                    isLogin = true
+                )
 
-                    is IOException ->
-                        "Не вдалося підключитися до сервера. " +
-                                "Перевірте його запуск і підключення."
-
-                    else ->
-                        "Не вдалося відкрити або зберегти сесію."
-                }
+                UiMessages.show(message)
 
                 mutableForm.update {
                     it.copy(

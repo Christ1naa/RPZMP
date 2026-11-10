@@ -15,6 +15,9 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import ua.kpi.energyforecast.data.remote.ApiClient
 import ua.kpi.energyforecast.data.remote.LoginRequestDto
+import ua.kpi.energyforecast.data.remote.AndroidNetworkProbe
+import ua.kpi.energyforecast.data.remote.FileNetworkLogger
+import ua.kpi.energyforecast.data.remote.NetworkLogEntry
 
 /**
  * Єдиний власник серверної сесії в процесі.
@@ -24,6 +27,8 @@ class ApiSessionRepository(
     private val store: TokenStore,
     private val scope: CoroutineScope,
     baseUrl: String = ApiClient.EMULATOR_BASE_URL,
+    networkAvailable: () -> Boolean = { true },
+    networkLogger: (NetworkLogEntry) -> Unit = {},
     private val clockSeconds: () -> Long = {
         System.currentTimeMillis() / 1000
     }
@@ -44,7 +49,9 @@ class ApiSessionRepository(
                 token,
                 "Сесію завершено. Увійдіть повторно."
             )
-        }
+        },
+        networkAvailable = networkAvailable,
+        networkLogger = networkLogger
     )
 
     init {
@@ -253,14 +260,20 @@ class ApiSessionRepository(
 
         fun getInstance(context: Context): ApiSessionRepository {
             return instance ?: synchronized(this) {
-                instance ?: ApiSessionRepository(
-                    store = PreferencesTokenStore(
-                        context.applicationContext
-                    ),
-                    scope = CoroutineScope(
-                        SupervisorJob() + Dispatchers.Default
+                instance ?: run {
+                    val applicationContext = context.applicationContext
+                    val probe = AndroidNetworkProbe(applicationContext)
+                    val logger = FileNetworkLogger(applicationContext)
+
+                    ApiSessionRepository(
+                        store = PreferencesTokenStore(applicationContext),
+                        scope = CoroutineScope(
+                            SupervisorJob() + Dispatchers.Default
+                        ),
+                        networkAvailable = probe::isAvailable,
+                        networkLogger = logger::write
                     )
-                ).also {
+                }.also {
                     instance = it
                 }
             }
