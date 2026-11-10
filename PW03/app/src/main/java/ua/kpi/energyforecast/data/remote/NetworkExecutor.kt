@@ -132,6 +132,7 @@ class NetworkExecutor(
 }
 
 /** Додає спільну політику до вже створеного Retrofit API. */
+/** Перевіряє відповіді до запису успіху в журнал. */
 class ManagedEnergyApi(
     private val delegate: EnergyApi,
     private val executor: NetworkExecutor
@@ -147,19 +148,35 @@ class ManagedEnergyApi(
 
     override suspend fun getScenarios(): ScenarioListDto {
         return executor.execute(ApiOperation.SCENARIOS) {
-            delegate.getScenarios()
+            delegate.getScenarios().also { response ->
+                response.toModels()
+            }
         }
     }
 
     override suspend fun getScenario(id: String): ScenarioDto {
+        require(id.isNotBlank()) {
+            "ID сценарію не може бути порожнім"
+        }
+
         return executor.execute(ApiOperation.SCENARIO_DETAILS) {
-            delegate.getScenario(id)
+            delegate.getScenario(id).also { response ->
+                val scenario = response.toModel()
+
+                if (scenario.id != id) {
+                    throw InvalidApiDataException(
+                        "ID отриманого сценарію не відповідає запиту"
+                    )
+                }
+            }
         }
     }
 
     override suspend fun getAdminSummary(): AdminSummaryDto {
         return executor.execute(ApiOperation.ADMIN_SUMMARY) {
-            delegate.getAdminSummary()
+            delegate.getAdminSummary().also { response ->
+                response.toSummary()
+            }
         }
     }
 }
