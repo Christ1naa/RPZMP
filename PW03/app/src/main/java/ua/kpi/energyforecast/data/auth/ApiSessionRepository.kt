@@ -18,6 +18,7 @@ import ua.kpi.energyforecast.data.remote.LoginRequestDto
 import ua.kpi.energyforecast.data.remote.AndroidNetworkProbe
 import ua.kpi.energyforecast.data.remote.FileNetworkLogger
 import ua.kpi.energyforecast.data.remote.NetworkLogEntry
+import ua.kpi.energyforecast.data.remote.LoginResponseValidator
 
 /**
  * Єдиний власник серверної сесії в процесі.
@@ -51,7 +52,8 @@ class ApiSessionRepository(
             )
         },
         networkAvailable = networkAvailable,
-        networkLogger = networkLogger
+        networkLogger = networkLogger,
+        clockSeconds = clockSeconds
     )
 
     init {
@@ -119,22 +121,11 @@ class ApiSessionRepository(
             )
         )
 
-        require(response.tokenType == "Bearer") {
-            "Сервер повернув непідтримуваний тип токена."
-        }
-
-        val session = JwtSessionParser.parse(
-            token = requireNotNull(response.accessToken),
+        val session = LoginResponseValidator.validate(
+            response = response,
+            expectedEmail = normalizedEmail,
             nowSeconds = clockSeconds()
         )
-
-        require(response.expiresAt == session.expiresAtSeconds) {
-            "Сервер повернув неузгоджений строк дії."
-        }
-
-        require(session.user.email == normalizedEmail) {
-            "Сервер повернув сесію іншого користувача."
-        }
 
         mutex.withLock {
             check(revision == startRevision) {

@@ -131,18 +131,26 @@ class NetworkExecutor(
     }
 }
 
-/** Додає спільну політику до вже створеного Retrofit API. */
-/** Перевіряє відповіді до запису успіху в журнал. */
+/** Перевіряє відповіді та застосовує спільну політику запитів. */
 class ManagedEnergyApi(
     private val delegate: EnergyApi,
-    private val executor: NetworkExecutor
+    private val executor: NetworkExecutor,
+    private val clockSeconds: () -> Long = {
+        System.currentTimeMillis() / 1000
+    }
 ) : EnergyApi {
 
     override suspend fun login(
         request: LoginRequestDto
     ): LoginResponseDto {
         return executor.execute(ApiOperation.LOGIN) {
-            delegate.login(request)
+            delegate.login(request).also { response ->
+                LoginResponseValidator.validate(
+                    response = response,
+                    expectedEmail = request.email,
+                    nowSeconds = clockSeconds()
+                )
+            }
         }
     }
 

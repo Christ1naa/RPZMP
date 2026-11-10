@@ -225,21 +225,21 @@ class RemoteScenarioDataSourceTest {
 
     @Test
     fun loginDoesNotSendExistingToken() = runBlocking {
-        enqueueJson(
-            """
-            {
-              "accessToken": "new-token",
-              "tokenType": "Bearer",
-              "expiresAt": 1900000000
-            }
-            """.trimIndent()
+        val response = LoginTestFixtures.response()
+
+        enqueueJson(ApiJson.create().toJson(response))
+
+        val loginApi = ApiClient.create(
+            baseUrl = server.url("/").toString(),
+            tokenProvider = { "existing-token" },
+            clockSeconds = { LoginTestFixtures.NOW }
         )
 
-        val result = api.login(
+        val result = loginApi.login(
             LoginRequestDto("demo@energy.test", "Demo1234")
         )
 
-        assertEquals("new-token", result.accessToken)
+        assertEquals(response.accessToken, result.accessToken)
 
         val request = server.takeRequest()
 

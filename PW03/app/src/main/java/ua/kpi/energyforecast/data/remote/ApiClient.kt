@@ -14,7 +14,10 @@ object ApiClient {
         tokenProvider: () -> String? = { null },
         onUnauthorized: (String?) -> Unit = {},
         networkAvailable: () -> Boolean = { true },
-        networkLogger: (NetworkLogEntry) -> Unit = {}
+        networkLogger: (NetworkLogEntry) -> Unit = {},
+        clockSeconds: () -> Long = {
+            System.currentTimeMillis() / 1000
+        }
     ): EnergyApi {
         val client = OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.SECONDS)
@@ -65,7 +68,8 @@ object ApiClient {
             executor = NetworkExecutor(
                 networkAvailable = networkAvailable,
                 logger = networkLogger
-            )
+            ),
+            clockSeconds = clockSeconds
         )
     }
 }
