@@ -11,12 +11,16 @@ import ua.kpi.energyforecast.logic.DeviceValidator
  * Переносить прилади з каталогу сценаріїв до особистого профілю.
  * Період профілю та наявні прилади залишаються незмінними.
  */
+fun interface ScenarioImporter {
+    suspend fun importScenario(ownerKey: String, scenarioId: String)
+}
+
 class ScenarioImportRepository(
     private val database: EnergyDatabase,
     private val scenarios: ScenarioRepository
-) {
+) : ScenarioImporter {
 
-    suspend fun importScenario(
+    override suspend fun importScenario(
         ownerKey: String,
         scenarioId: String
     ) {

@@ -9,8 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import ua.kpi.energyforecast.data.ScenarioImportRepository
+import ua.kpi.energyforecast.data.ScenarioImporter
 import ua.kpi.energyforecast.data.ScenarioRepository
 import ua.kpi.energyforecast.model.ScenarioCategory
 import ua.kpi.energyforecast.data.remote.NetworkErrors
@@ -18,7 +17,7 @@ import ua.kpi.energyforecast.ui.UiMessages
 
 class ScenarioViewModel(
     private val repository: ScenarioRepository,
-    private val importer: ScenarioImportRepository,
+    private val importer: ScenarioImporter,
     private val ownerKey: String
 ) : ViewModel() {
 
@@ -46,9 +45,16 @@ class ScenarioViewModel(
                     mutableState.update {
                         it.copy(
                             catalog = catalog,
+                            calculatedItems = catalog.scenarios.map { scenario ->
+                                ScenarioListItem(
+                                    scenario,
+                                    repository.calculateForecast(scenario, 1)
+                                        .dailyConsumptionKwh
+                                )
+                            },
                             isLoadingCache = false,
                             cacheError = null
-                        )
+                        ).withForecast()
                     }
                 }
             } catch (exception: CancellationException) {
@@ -117,12 +123,23 @@ class ScenarioViewModel(
 
     fun selectScenario(id: String) {
         mutableState.update {
-            it.copy(selectedScenarioId = id, message = null)
+            it.copy(selectedScenarioId = id, message = null).withForecast()
         }
     }
 
     fun updateDays(value: String) {
-        mutableState.update { it.copy(daysText = value) }
+        mutableState.update { it.copy(daysText = value).withForecast() }
+    }
+
+    /** UI отримує готовий результат; формули й агрегація належать Repository. */
+    private fun ScenarioUiState.withForecast(): ScenarioUiState {
+        val scenario = selectedScenario
+        val days = forecastDays
+        return copy(
+            selectedForecast = if (scenario != null && days != null) {
+                repository.calculateForecast(scenario, days)
+            } else null
+        )
     }
 
     fun importScenario(id: String) {

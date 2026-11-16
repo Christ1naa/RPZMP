@@ -1,9 +1,9 @@
 package ua.kpi.energyforecast.data.remote
 
-import java.net.ConnectException
-import java.net.SocketException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
+import com.google.gson.stream.MalformedJsonException
+import java.io.EOFException
+import java.io.IOException
+import javax.net.ssl.SSLException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
@@ -100,10 +100,15 @@ class NetworkExecutor(
             is HttpException ->
                 error.code() in setOf(502, 503, 504)
 
-            is SocketTimeoutException,
-            is ConnectException,
-            is UnknownHostException,
-            is SocketException -> true
+            // Помилки JSON, відсутність мережі та TLS не виправляються повтором.
+            is NoNetworkException,
+            is MalformedJsonException,
+            is EOFException,
+            is SSLException -> false
+
+            // OkHttp може повідомляти обрив застарілого keep-alive з'єднання
+            // звичайним IOException. Безпечний GET повторюємо новим викликом.
+            is IOException -> true
 
             else -> false
         }

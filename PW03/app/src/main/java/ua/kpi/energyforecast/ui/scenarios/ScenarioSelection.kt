@@ -2,7 +2,6 @@ package ua.kpi.energyforecast.ui.scenarios
 
 import java.text.Collator
 import java.util.Locale
-import ua.kpi.energyforecast.logic.EnergyCalculator
 import ua.kpi.energyforecast.model.EnergyScenario
 import ua.kpi.energyforecast.model.ScenarioCategory
 
@@ -23,7 +22,7 @@ data class ScenarioListItem(
  * Пошук і фільтри не змінюють збережені сценарії або їх прилади.
  */
 fun selectScenarios(
-    scenarios: List<EnergyScenario>,
+    scenarios: List<ScenarioListItem>,
     query: String,
     category: ScenarioCategory?,
     sort: ScenarioSort
@@ -32,24 +31,16 @@ fun selectScenarios(
 
     val items = scenarios
         .asSequence()
-        .filter { scenario ->
+        .filter { item ->
+            val scenario = item.scenario
             normalizedQuery.isEmpty() ||
                     scenario.name.contains(
                         normalizedQuery,
                         ignoreCase = true
                     )
         }
-        .filter { scenario ->
-            category == null || scenario.category == category
-        }
-        .map { scenario ->
-            ScenarioListItem(
-                scenario = scenario,
-                dailyConsumptionKwh = EnergyCalculator.calculateTotal(
-                    devices = scenario.devices,
-                    forecastDays = 1
-                ).dailyConsumptionKwh
-            )
+        .filter { item ->
+            category == null || item.scenario.category == category
         }
         .toList()
 

@@ -1,6 +1,10 @@
 package ua.kpi.energyforecast.data.remote
 
 import java.net.ConnectException
+import java.io.IOException
+import java.io.EOFException
+import javax.net.ssl.SSLHandshakeException
+import com.google.gson.stream.MalformedJsonException
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -10,6 +14,43 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 class NetworkExecutorTest {
+
+    @Test
+    fun retriesTransportIOExceptionForGetButNeverForLogin() = runTest {
+        var reads = 0
+        val result = NetworkExecutor().execute(ApiOperation.SCENARIOS) {
+            if (++reads == 1) throw IOException("unexpected end of stream")
+            "catalog"
+        }
+        assertEquals("catalog", result)
+        assertEquals(2, reads)
+
+        var logins = 0
+        val failure = runCatching {
+            NetworkExecutor().execute<Unit>(ApiOperation.LOGIN) {
+                logins++
+                throw IOException("unexpected end of stream")
+            }
+        }.exceptionOrNull()
+        assertTrue(failure is IOException)
+        assertEquals(1, logins)
+    }
+
+    @Test
+    fun doesNotRetryParsingTlsOrOfflineFailures() = runTest {
+        for (failure in listOf(NoNetworkException(), EOFException(),
+            MalformedJsonException("invalid JSON"), SSLHandshakeException("invalid certificate"))) {
+            var calls = 0
+            val caught = runCatching {
+                NetworkExecutor().execute<Unit>(ApiOperation.SCENARIOS) {
+                    calls++
+                    throw failure
+                }
+            }.exceptionOrNull()
+            assertSame(failure, caught)
+            assertEquals(1, calls)
+        }
+    }
 
     private fun httpError(code: Int): HttpException {
         return HttpException(

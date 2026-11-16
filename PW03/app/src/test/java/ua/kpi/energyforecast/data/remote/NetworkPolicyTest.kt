@@ -10,6 +10,7 @@ import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import okhttp3.mockwebserver.SocketPolicy
 import org.junit.Assert.*
 import org.junit.Test
 import retrofit2.HttpException
@@ -17,6 +18,22 @@ import retrofit2.Response
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class NetworkPolicyTest {
+
+    @Test
+    fun disconnectedSocketRecoversWithFreshGetAndLogsBothAttempts() = runBlocking {
+        val server = MockWebServer()
+        server.start()
+        try {
+            server.enqueue(MockResponse().setSocketPolicy(SocketPolicy.DISCONNECT_AT_START))
+            server.enqueue(MockResponse().setBody("""{"scenarioCount":3,"devicePositionCount":8}"""))
+            val entries = mutableListOf<NetworkLogEntry>()
+            val api = ApiClient.create(server.url("/").toString(), networkLogger = { entries.add(it) })
+            assertEquals(3, api.getAdminSummary().scenarioCount)
+            assertEquals(listOf(1, 2), entries.map { it.attempt })
+            assertEquals("SUCCESS", entries.last().result)
+            assertNotEquals("SUCCESS", entries.first().result)
+        } finally { server.shutdown() }
+    }
 
     private fun httpError(code: Int): HttpException {
         return HttpException(

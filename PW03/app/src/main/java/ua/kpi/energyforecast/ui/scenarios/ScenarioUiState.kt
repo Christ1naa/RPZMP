@@ -2,7 +2,6 @@ package ua.kpi.energyforecast.ui.scenarios
 
 import ua.kpi.energyforecast.data.ScenarioCatalog
 import ua.kpi.energyforecast.logic.DeviceValidator
-import ua.kpi.energyforecast.logic.EnergyCalculator
 import ua.kpi.energyforecast.model.EnergyScenario
 import ua.kpi.energyforecast.model.ForecastResult
 import ua.kpi.energyforecast.model.ScenarioCategory
@@ -19,12 +18,14 @@ data class ScenarioUiState(
     val selectedScenarioId: String? = null,
     val daysText: String = "30",
     val importingScenarioId: String? = null,
-    val message: String? = null
+    val message: String? = null,
+    val calculatedItems: List<ScenarioListItem> = emptyList(),
+    val selectedForecast: ForecastResult? = null
 ) {
 
     val visibleItems: List<ScenarioListItem>
         get() = selectScenarios(
-            scenarios = catalog.scenarios,
+            scenarios = calculatedItems,
             query = query,
             category = category,
             sort = sort
@@ -41,17 +42,6 @@ data class ScenarioUiState(
 
     val forecastDays: Int?
         get() = DeviceValidator.parseForecastDays(daysText)
-
-    val selectedForecast: ForecastResult?
-        get() {
-            val scenario = selectedScenario ?: return null
-            val days = forecastDays ?: return null
-
-            return EnergyCalculator.calculateTotal(
-                devices = scenario.devices,
-                forecastDays = days
-            )
-        }
 
     val hasCachedCatalog: Boolean
         get() = catalog.updatedAtMillis != null

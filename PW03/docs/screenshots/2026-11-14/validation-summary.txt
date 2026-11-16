@@ -1,0 +1,10 @@
+PW03 validation — 2026-11-14
+Unit tests: {'tests': 145, 'failures': 0, 'errors': 0, 'skipped': 0}
+Instrumented tests: {'tests': 30, 'failures': 0, 'errors': 0, 'skipped': 0}
+Lint errors: 0; warnings: 12
+Debug APK: BUILD SUCCESSFUL
+Backend: 16 tests passed in the preceding verification; server source unchanged during screenshot capture.
+Network regression: generic transport IOException is retried for GET, never for login; malformed JSON, EOF, TLS, and offline failures are not retried.
+Runtime screenshots: actual emulator app; no synthetic UI.
+Screenshots 42: 23 recommended core figures; remaining images are supplemental.
+Diagnostic/rejected frames are excluded from the report ZIP.

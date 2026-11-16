@@ -1,6 +1,8 @@
 package ua.kpi.energyforecast.data.auth
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -18,9 +20,10 @@ interface TokenStore {
 }
 
 /** Пароль не зберігається. Записується лише отриманий токен. */
-class PreferencesTokenStore(context: Context) : TokenStore {
-
-    private val dataStore = context.applicationContext.authDataStore
+class PreferencesTokenStore(
+    private val dataStore: DataStore<Preferences>
+) : TokenStore {
+    constructor(context: Context) : this(context.applicationContext.authDataStore)
 
     override suspend fun read(): String? {
         return dataStore.data.first()[TOKEN]

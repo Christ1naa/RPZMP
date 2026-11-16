@@ -1,0 +1,385 @@
+{
+  "captured": "2026-11-14",
+  "device": "Pixel_6 AVD, Android 16",
+  "clock": "GMT",
+  "screenshots": [
+    {
+      "id": 1,
+      "file": "01_login.png",
+      "caption": "Екран входу до застосунку EnergyForecast.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "cafd150878ee4e53e99d7c7fe873a0e18890b93c4a7706c54fab3cc33785bbd0"
+    },
+    {
+      "id": 2,
+      "file": "02_login_validation.png",
+      "caption": "Валідація порожніх полів email і пароля.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "15bd678668d2bc71a35c7b6a75b24f780d3dbb3640f13fe119905df86babc520"
+    },
+    {
+      "id": 3,
+      "file": "03_invalid_credentials.png",
+      "caption": "Повідомлення про неправильні облікові дані.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "3d8ed3fd97627d305a2ca01ef97f1fe177380b8ae410cd33fc476086e1e6e79e"
+    },
+    {
+      "id": 4,
+      "file": "04_user_menu.png",
+      "caption": "Головне меню авторизованого користувача USER.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "61452ad8f65100e467f2b41ec42da841eb8aafb3d340e10e78de2dc5dc4e0cee"
+    },
+    {
+      "id": 5,
+      "file": "05_catalog_empty.png",
+      "caption": "Початковий порожній каталог до першого завантаження з API.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "3c9dce7ec294266f390dce57755d8be2a5f9ab52f24bd0a14a7d4c4a0bcda221"
+    },
+    {
+      "id": 7,
+      "file": "07_catalog_refresh_success.png",
+      "caption": "Успішне завантаження каталогу з API та час оновлення кешу.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "41fc82a039ccc0613bdf9d77729d1e50d3ee43d84c03770420c332d2f7c8e304"
+    },
+    {
+      "id": 8,
+      "file": "08_catalog_office_filter.png",
+      "caption": "Фільтрація каталогу за категорією «Офіс»: один сценарій із трьох.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "d0aa2f0503a1ed6cb9b9ff7007d75dbb3f8c98be02be419e2789fac9cbea84c7"
+    },
+    {
+      "id": 9,
+      "file": "09_scenario_forecast.png",
+      "caption": "Контрольний прогноз сценарію «Домашній офіс»: 0,53 кВт·год на добу та 15,90 кВт·год за 30 днів.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "c9af163ff2ed70e37494cd8c10712cf3b1d96fae78306467fe1a3753da8bb83e"
+    },
+    {
+      "id": 10,
+      "file": "10_scenario_devices.png",
+      "caption": "Вкладений список приладів сценарію: ноутбук і лампа.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "e28d37c4730155b094c33e2a298d6bd6463022e0a77f2a17cbc88760614fa502"
+    },
+    {
+      "id": 11,
+      "file": "11_invalid_forecast_period.png",
+      "caption": "Відхилення періоду прогнозування 366 днів, що перевищує допустимий діапазон.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "141398c2d575ebbec2ec90c74b046701ff1567239b7db78576903dce764a4e48"
+    },
+    {
+      "id": 12,
+      "file": "12_import_success.png",
+      "caption": "Успішний імпорт приладів сценарію до персонального профілю.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "684e2e270d16a90c18e30c4a094de8671bdcaeac72b05e8dca16219778c77899"
+    },
+    {
+      "id": 13,
+      "file": "13_profile_forecast.png",
+      "caption": "Прогноз персонального профілю після імпорту двох приладів.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "11fb3d360f0b8a541008be2a9981a02ac97409b069641394938ed40c38fcf54d"
+    },
+    {
+      "id": 14,
+      "file": "14_save_forecast_dialog.png",
+      "caption": "Діалог збереження прогнозу з назвою для історії.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "a1b3d9e1c795ad121ebd6e5a82ad9b43a0ec7bb29725f15e06bda7442470eea3"
+    },
+    {
+      "id": 15,
+      "file": "15_device_validation.png",
+      "caption": "Валідація обов’язкових параметрів нового приладу.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "7bf8a1ce83306699465e6d5ce76ddeded957b33c84fdfdcdc641d4f225519695"
+    },
+    {
+      "id": 16,
+      "file": "16_device_editor.png",
+      "caption": "Заповнена форма приладу: 45 Вт, 4 години на добу, одна одиниця.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "87aad9b39c2e8ef92aeecd72a361fa74d0aa74a7b5e9f633f783947ea25f96f5"
+    },
+    {
+      "id": 17,
+      "file": "17_profile_devices.png",
+      "caption": "Персональний список приладів із діями редагування та видалення.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "65aaf19b433a3a300f8fa04e790d287b18951e2f610d7b7b8fe5b2a81388902a"
+    },
+    {
+      "id": 18,
+      "file": "18_consumption_chart.png",
+      "caption": "Графік накопиченого споживання трьох приладів: 21,30 кВт·год за 30 днів.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "18767b4a38c5f1d35cada3292d76bd1f77f73bf1aa997b7fbc68efcf4ed3584f"
+    },
+    {
+      "id": 20,
+      "file": "20_saved_forecast_details.png",
+      "caption": "Деталі збереженого прогнозу та параметри приладів на момент збереження.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "9679301decb8c311e8c379ac146fcd0c50d258add030f94f5c800f67ce4d3053"
+    },
+    {
+      "id": 21,
+      "file": "21_catalog_sort_options.png",
+      "caption": "Доступні режими сортування каталогу.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "8ff2cfb80f1134753f5177a6da576e65bb73c3d7aa488f01522b4825020eb1ed"
+    },
+    {
+      "id": 22,
+      "file": "22_catalog_sorted.png",
+      "caption": "Каталог, відсортований за спаданням добового споживання: 1,97; 0,88; 0,53 кВт·год.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "d2a98b6f942557d607daa2611fdead159d8c6ad74a7ff87c14881b86a59c752f"
+    },
+    {
+      "id": 23,
+      "file": "23_search_empty_result.png",
+      "caption": "Порожній результат пошуку без зміни збереженого каталогу.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "a0131cd1f0dd1ed6bd421f94d7351f03b0bf9e9464a03aeec56afed01347004b"
+    },
+    {
+      "id": 24,
+      "file": "24_offline_cache_error.png",
+      "caption": "Відсутність активної мережі: повідомлення про помилку та збережений каталог.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "f7be7bcdec5b8dff4e134ad3ebfc55e9b40a1ce2eb54f2c50631eede5d12cee0"
+    },
+    {
+      "id": 26,
+      "file": "26_catalog_landscape.png",
+      "caption": "Каталог у горизонтальній орієнтації: заголовок, оновлення та пошук.",
+      "recommended": false,
+      "width": 2400,
+      "height": 1080,
+      "sha256": "13f5c5125ee396821230497ef988854861c23054b12a740c961eabb22be5d972"
+    },
+    {
+      "id": 28,
+      "file": "28_logout.png",
+      "caption": "Екран входу після виходу з облікового запису.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "410fded115586d6db2440d95cc46b9f18d752b8e53c926a471ed44e073c5b6c8"
+    },
+    {
+      "id": 29,
+      "file": "29_admin_menu.png",
+      "caption": "Головне меню облікового запису ADMIN.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "64d81fff30faeb17c18e69599f7b34a6cd40f9345d0d47ae518ebc3ca69cccee"
+    },
+    {
+      "id": 30,
+      "file": "30_admin_access.png",
+      "caption": "Доступна лише ADMIN секція адміністрування.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "677702804109620c9584919a329830384da770e7c30bfa6f3061e85a4b041ccd"
+    },
+    {
+      "id": 32,
+      "file": "32_admin_separate_profile.png",
+      "caption": "Окремий порожній персональний профіль ADMIN без приладів користувача USER.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "69beb835603ff653dde2be764ccefba9007ebb73821fa3d28a8c679d150538c0"
+    },
+    {
+      "id": 33,
+      "file": "33_user_menu_without_admin.png",
+      "caption": "Меню USER після зміни ролі: секція адміністрування відсутня.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "3d32b65e919690c2b6efa920a2846f948c8a8d5c44d36a0b8c59c82232129522"
+    },
+    {
+      "id": 35,
+      "file": "35_session_invalidated.png",
+      "caption": "Завершення сесії після серверного HTTP 401 та запрошення повторного входу.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "ddc880342fffb3846565bfb603f7aa72af696856718c84bef17d9ee7757d7c64"
+    },
+    {
+      "id": 36,
+      "file": "36_retry_recovery_verified.png",
+      "caption": "Успішне оновлення після автоматичних повторів: HTTP 503 → HTTP 503 → успіх.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "d7d7a888a819683cad52a498e62870f8d10bb13e2ee38ba18b4dceb0ce6953cb"
+    },
+    {
+      "id": 37,
+      "file": "37_server_503_preserves_cache.png",
+      "caption": "Постійна помилка HTTP 503: обмежені спроби завершено, попередній кеш збережено.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "248562840e51b85f56cabe27bc180797bdcfa607b27951dffe303555191b5c07"
+    },
+    {
+      "id": 38,
+      "file": "38_invalid_api_data.png",
+      "caption": "Відхилення невалідних значень API без заміни попереднього коректного кешу.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "669cbcd5cfb2cfdf5f7a6caa6abbf739deb338166c1b60163ae89aed237b2945"
+    },
+    {
+      "id": 39,
+      "file": "39_malformed_json.png",
+      "caption": "Обробка пошкодженого JSON із повідомленням користувачу та збереженням кешу.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "557f55d0f55aa1d2b0e72438502b5fa409d9f5f9e47d6eaf8724165f4e4d73cc"
+    },
+    {
+      "id": 40,
+      "file": "40_timeout_preserves_cache.png",
+      "caption": "Завершення обмежених спроб після timeout, повідомлення та незмінений кеш.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "870736870be1bca503ddb5b5b3d89043b0ea030a1c7acc9843295cb4c6879b49"
+    },
+    {
+      "id": 41,
+      "file": "41_server_recovery.png",
+      "caption": "Успішне відновлення оновлення каталогу після усунення серверного збою.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "bcc4298fb17d2c5210b74a6abc99f46d9788b885e87c31032155b1b9a301c11e"
+    },
+    {
+      "id": 42,
+      "file": "42_admin_statistics_verified.png",
+      "caption": "Захищена адміністративна статистика: три сценарії та вісім позицій приладів.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "d8dbfc8674042b9c386d9e68b81255baacd0a8c56b080c86fa8c54c613eb5293"
+    },
+    {
+      "id": 43,
+      "file": "43_token_expired.png",
+      "caption": "Автоматичне завершення сесії після закінчення строку дії тестового токена.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "f34f31b53d8930db0724dfca225aeb994479e284a2df4dbaf773ec6c811d8369"
+    },
+    {
+      "id": 44,
+      "file": "44_offline_empty_cache.png",
+      "caption": "Відсутність мережі та кешу: пояснення помилки й порожній стан каталогу.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "c6b7f6fee510f3e3bf06cb6826f650cd6b6445730e6555b73e1e27b0bd53fecd"
+    },
+    {
+      "id": 45,
+      "file": "45_catalog_online_restored.png",
+      "caption": "Перший успішний онлайн-запит після перевірки порожнього офлайн-кешу.",
+      "recommended": false,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "e0c31067afe668be88b9ba2567f8e48deab2de63884ef49a36ca195ab98e8b20"
+    },
+    {
+      "id": 46,
+      "file": "46_offline_persistent_catalog.png",
+      "caption": "Каталог Room доступний після повного перезапуску застосунку без мережі.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "7f9cf35a3f7d8b74df5571955f35761f63d42798a1ff3c90253b0aad0ad69dda"
+    },
+    {
+      "id": 47,
+      "file": "47_adaptive_landscape_cards.png",
+      "caption": "Адаптивні картки каталогу у двох колонках у горизонтальній орієнтації.",
+      "recommended": true,
+      "width": 2400,
+      "height": 1080,
+      "sha256": "e803a235ecca1ea71f4b5a0b09d605b0402da4828017261dd4dd1d01f049acac"
+    },
+    {
+      "id": 48,
+      "file": "48_forecast_history_verified.png",
+      "caption": "Історія збережених прогнозів: контрольний прогноз за 30 днів.",
+      "recommended": true,
+      "width": 1080,
+      "height": 2400,
+      "sha256": "3a387a671d6b7e3f22720d101329ababdf17f4d7e736c6944d976959b4ba1665"
+    }
+  ]
+}

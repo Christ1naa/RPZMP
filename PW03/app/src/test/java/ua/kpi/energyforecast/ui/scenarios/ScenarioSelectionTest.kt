@@ -3,6 +3,7 @@ package ua.kpi.energyforecast.ui.scenarios
 import org.junit.Assert.*
 import org.junit.Test
 import ua.kpi.energyforecast.data.ScenarioCatalog
+import ua.kpi.energyforecast.logic.EnergyCalculator
 import ua.kpi.energyforecast.model.EnergyDevice
 import ua.kpi.energyforecast.model.EnergyScenario
 import ua.kpi.energyforecast.model.ScenarioCategory
@@ -32,7 +33,7 @@ class ScenarioSelectionTest {
         )
     }
 
-    private fun catalog(): List<EnergyScenario> {
+    private fun catalog(): List<ScenarioListItem> {
         return listOf(
             scenario(
                 "office",
@@ -52,7 +53,7 @@ class ScenarioSelectionTest {
                 ScenarioCategory.MIXED,
                 100.0
             )
-        )
+        ).map { ScenarioListItem(it, EnergyCalculator.calculateDeviceDaily(it.devices.single())) }
     }
 
     @Test
@@ -139,37 +140,26 @@ class ScenarioSelectionTest {
     fun detailsRemainAvailableWhenFilteredOutOfList() {
         val state = ScenarioUiState(
             catalog = ScenarioCatalog(
-                scenarios = catalog(),
+                scenarios = catalog().map { it.scenario },
                 updatedAtMillis = 1000L
             ),
             isLoadingCache = false,
             query = "нічого",
             selectedScenarioId = "office",
-            daysText = "30"
+            daysText = "30",
+            calculatedItems = catalog()
         )
 
         assertTrue(state.visibleItems.isEmpty())
         assertEquals("office", state.selectedScenario?.id)
 
-        val forecast = requireNotNull(state.selectedForecast)
-
-        assertEquals(
-            0.5,
-            forecast.dailyConsumptionKwh,
-            0.000001
-        )
-        assertEquals(
-            15.0,
-            forecast.periodConsumptionKwh,
-            0.000001
-        )
     }
 
     @Test
-    fun invalidPeriodDoesNotProduceForecast() {
+    fun invalidPeriodIsRejectedByState() {
         val state = ScenarioUiState(
             catalog = ScenarioCatalog(
-                scenarios = catalog(),
+                scenarios = catalog().map { it.scenario },
                 updatedAtMillis = 1000L
             ),
             selectedScenarioId = "office",
@@ -177,14 +167,10 @@ class ScenarioSelectionTest {
         )
 
         assertNull(state.forecastDays)
-        assertNull(state.selectedForecast)
 
         assertEquals(
             365,
             state.copy(daysText = "365").forecastDays
-        )
-        assertNotNull(
-            state.copy(daysText = "365").selectedForecast
         )
     }
 }

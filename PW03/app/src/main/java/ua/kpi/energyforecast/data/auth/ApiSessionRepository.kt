@@ -75,6 +75,8 @@ class ApiSessionRepository(
                             token,
                             clockSeconds()
                         )
+                    } catch (exception: CancellationException) {
+                        throw exception
                     } catch (exception: Exception) {
                         store.clear()
                         null
