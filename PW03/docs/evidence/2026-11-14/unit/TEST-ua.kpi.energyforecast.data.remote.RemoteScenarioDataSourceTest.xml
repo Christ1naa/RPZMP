@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.173Z" hostname="CHRISTINA" time="0.206">
+  <properties/>
+  <testcase name="rejectsFractionalDeviceCount" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.023"/>
+  <testcase name="rejectsUnknownCategory" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.018"/>
+  <testcase name="rejectsDetailsForDifferentId" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.021"/>
+  <testcase name="rejectsNumberStoredAsString" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.019"/>
+  <testcase name="rejectsDuplicateScenarioIds" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.022"/>
+  <testcase name="rejectsNegativePower" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.02"/>
+  <testcase name="loginDoesNotSendExistingToken" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.028"/>
+  <testcase name="preservesHttpErrorCode" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.017"/>
+  <testcase name="loadsValidatedUnicodeDataAndCalculatesForecast" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.018"/>
+  <testcase name="rejectsMissingScenarioName" classname="ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.ui.scenarios.ScenarioViewModelTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.644Z" hostname="CHRISTINA" time="0.016">
+  <properties/>
+  <testcase name="invalidPeriodClearsForecastAndDoesNotCallRepository" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioViewModelTest" time="0.005"/>
+  <testcase name="repositoryCalculatesCardsAndDetailsEvenWhenFilteredOut" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioViewModelTest" time="0.003"/>
+  <testcase name="failedRefreshPreservesCachedForecastAndStopsLoading" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioViewModelTest" time="0.006"/>
+  <testcase name="cacheReplacementRecalculatesAndRemovedSelectionClearsForecast" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioViewModelTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

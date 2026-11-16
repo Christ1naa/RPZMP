@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:14.477Z" hostname="CHRISTINA" time="0.69">
+  <properties/>
+  <testcase name="waitsBeforeEachRetryAndStopsAfterSuccess" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.008"/>
+  <testcase name="mismatchedDetailsAreLoggedWithoutSuccessOrRetry" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.055"/>
+  <testcase name="malformedJsonIsLoggedWithoutRetry" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.032"/>
+  <testcase name="disconnectedSocketRecoversWithFreshGetAndLogsBothAttempts" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.538"/>
+  <testcase name="invalidCatalogIsLoggedWithoutSuccessOrRetry" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.025"/>
+  <testcase name="messagesDistinguishCredentialsSessionAndOtherFailures" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.002"/>
+  <testcase name="doesNotRetryForbiddenOrMissingResource" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.007"/>
+  <testcase name="invalidAdminSummaryIsLoggedWithoutSuccessOrRetry" classname="ua.kpi.energyforecast.data.remote.NetworkPolicyTest" time="0.023"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,168 @@
+{
+  "implementation_commit": "701ab22d7d9eefa9ef12f652d81344d0bd079a2d",
+  "android_original_run_date": "2026-11-14",
+  "unit": {
+    "tests": 145,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "instrumented": {
+    "tests": 30,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 12
+  },
+  "rerun_date": "2026-11-16",
+  "build": "BUILD SUCCESSFUL (incremental, offline)",
+  "server_pytest": {
+    "passed": 16
+  },
+  "final_docx_sha256": "fc7b426901525d620cb01368a834259eb0a7c97d14d8ebd0599e3d04bb8acc6d",
+  "files": [
+    {
+      "path": "2026-11-14/instrumented/TEST-Pixel_6(AVD) - 16.xml",
+      "sha256": "430988096d591e6105222a56fcca255f70dd85d03f8d4836279aaf0fdffe7317",
+      "bytes": 7042
+    },
+    {
+      "path": "2026-11-14/lint-results-debug.html",
+      "sha256": "de2ec327f5fad59379544992b2c090ecdb08ab9cda1e20e0dc909d3bd77e2ed9",
+      "bytes": 125654
+    },
+    {
+      "path": "2026-11-14/lint-results-debug.xml",
+      "sha256": "a9518bd76e007531c7b9e0bf75b5108125045001c0f09d6b507d5e0bdb57464c",
+      "bytes": 10955
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest.xml",
+      "sha256": "6765774a4d43fc25ceed6c086107ca03871008cdca8ff62ba093f7ee15a59a58",
+      "bytes": 1997
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.auth.JwtSessionParserTest.xml",
+      "sha256": "67816ba5472d69abf6dfac46848d1d57bbb02d4a9af598cd655760c8d24426ed",
+      "bytes": 1079
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.DemoAuthRepositoryTest.xml",
+      "sha256": "11038456edf215c167e67646bb8c79456b76a9d1518231a7b6241b9bbedb5fe0",
+      "bytes": 866
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.remote.AdminSummaryTest.xml",
+      "sha256": "d37174aaa474bb66b4660f2bdf7a8b1ca54f37a9dd915e62668c4a44c6d948ae",
+      "bytes": 820
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.remote.LoginResponseValidationTest.xml",
+      "sha256": "cb9b8a0453ee1abcade9e269cf9dea791a6890389a2aadd798850c6770b6b44d",
+      "bytes": 795
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.remote.NetworkExecutorTest.xml",
+      "sha256": "ec962dafacde62c7db3d5fdc347d56c1b958124e830d4fcd2547cbd8b5072285",
+      "bytes": 1456
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.remote.NetworkPolicyTest.xml",
+      "sha256": "1623372f192eafa5bc4821796513672f61ffe27143a66afd057e12520b46c967",
+      "bytes": 1500
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.remote.RemoteScenarioDataSourceTest.xml",
+      "sha256": "3e6c5cba1ec7d3735bc588b44e7a82afcd87ce64507dd6061293df09d77c1b1c",
+      "bytes": 1738
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.data.source.CachedDemoScenarioSourceTest.xml",
+      "sha256": "5144e8500a9f398b11701be339b4549f04ebfdd70d5d88b2e51308aa00187eda",
+      "bytes": 1051
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ExampleUnitTest.xml",
+      "sha256": "e578a36f551d667e729172cc6d67daa88fdb5542bb01ea03877f9320aa2411bf",
+      "bytes": 432
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.logic.AuthValidatorTest.xml",
+      "sha256": "d9c69cd8a8609fbecdb5645afdeedee3c16c5d9b44a0f0636c8deba9251256a0",
+      "bytes": 1360
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.logic.DeviceValidatorTest.xml",
+      "sha256": "fd8373a93d43d12025e003d8aed311a72b427b63f8e2e1d144effc80630caf04",
+      "bytes": 577
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.logic.EnergyCalculatorTest.xml",
+      "sha256": "6797175eabe13100c72868c59fbd1798aea5b133706bdd2078163055ef0775e6",
+      "bytes": 2365
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.logic.ForecastValidatorTest.xml",
+      "sha256": "a702166e31de5a6aa8463d0da51008f1c9e1cc11e7acb0ad7a32bd89bd58ffb4",
+      "bytes": 1282
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.auth.AuthViewModelTest.xml",
+      "sha256": "3a08f6fea4a95dc6e11ddbb43bda471af2cfc66239778371f52010242f328b33",
+      "bytes": 1454
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.forecast.ForecastUiStateTest.xml",
+      "sha256": "66b739a04e9d29bcb614247c14fe9859ae5aaff5a9e27a16d2261571fb8b2222",
+      "bytes": 1050
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest.xml",
+      "sha256": "a9da7be513acbf8d14db484af88aa10c71f7c4ac5003b3b724acece289d0ebca",
+      "bytes": 2234
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.forecast.QuickForecastViewModelTest.xml",
+      "sha256": "2543fcdb1da37083ce599ab85e96a31a208ea6848393443068d47d4825d9b71f",
+      "bytes": 940
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest.xml",
+      "sha256": "0b4da9fb5b2d19bea56082bbc66c632405d1a28fa24ba600e747e0d3e1f3e77d",
+      "bytes": 1503
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.history.ForecastHistoryViewModelTest.xml",
+      "sha256": "8c8feb2258ebdfd1faa3d2245a65c17d55ff432fbdeeab8bf3d10a5741763347",
+      "bytes": 1107
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest.xml",
+      "sha256": "bc1e4350040806d8ca04f20459fccff9af4fd9268137fa1619269ffe426d5991",
+      "bytes": 1182
+    },
+    {
+      "path": "2026-11-14/unit/TEST-ua.kpi.energyforecast.ui.scenarios.ScenarioViewModelTest.xml",
+      "sha256": "c6f7f2820bea636bc1b2112178e28f01c62714ff42d7a75b1912e657882de224",
+      "bytes": 984
+    },
+    {
+      "path": "2026-11-16/build-debug.log",
+      "sha256": "439aa4a37a280e121b567396af75551768a77a816ba5e9e6cf7e2f02d2d5ec84",
+      "bytes": 2009
+    },
+    {
+      "path": "2026-11-16/server-pytest.log",
+      "sha256": "851548b0a7247d3ab263224cb24439fc30da71a77fd6a8f9b141597e67ed95db",
+      "bytes": 582
+    },
+    {
+      "path": "2026-11-16/server-pytest.xml",
+      "sha256": "f7fc97f0d70ac7dc1c9bea8bf07a7ac5e9fce7b75c73acd4b06c938f98ff1304",
+      "bytes": 1739
+    }
+  ]
+}

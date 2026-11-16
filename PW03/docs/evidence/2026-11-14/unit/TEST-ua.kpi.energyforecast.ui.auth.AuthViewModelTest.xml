@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.431Z" hostname="CHRISTINA" time="0.046">
+  <properties/>
+  <testcase name="invalidSubmissionDoesNotStartLoading" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.026"/>
+  <testcase name="correctingNamePreservesOtherFieldErrors" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.002"/>
+  <testcase name="switchingModeResetsValidationUntilNextSubmission" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.002"/>
+  <testcase name="editingEmailToAnotherInvalidValueKeepsItsError" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.002"/>
+  <testcase name="successfulLoginLoadsAndBlocksFormChanges" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.005"/>
+  <testcase name="incorrectPasswordEndsLoadingAndShowsFailure" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.004"/>
+  <testcase name="validationContinuesAfterAllErrorsAreCorrected" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.003"/>
+  <testcase name="repeatedRegistrationCreatesOneAccountAndAllowsLogin" classname="ua.kpi.energyforecast.ui.auth.AuthViewModelTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

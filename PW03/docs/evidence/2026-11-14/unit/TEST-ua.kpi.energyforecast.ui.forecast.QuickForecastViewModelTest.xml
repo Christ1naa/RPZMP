@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.ui.forecast.QuickForecastViewModelTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.576Z" hostname="CHRISTINA" time="0.009">
+  <properties/>
+  <testcase name="restoredStateKeepsConfirmedResultAndEditedPeriod" classname="ua.kpi.energyforecast.ui.forecast.QuickForecastViewModelTest" time="0.005"/>
+  <testcase name="editingInputClearsPreviousResult" classname="ua.kpi.energyforecast.ui.forecast.QuickForecastViewModelTest" time="0.003"/>
+  <testcase name="navigationPeriodIsUsedForCalculation" classname="ua.kpi.energyforecast.ui.forecast.QuickForecastViewModelTest" time="0.001"/>
+  <testcase name="invalidInputShowsErrorAndCanBeCorrected" classname="ua.kpi.energyforecast.ui.forecast.QuickForecastViewModelTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

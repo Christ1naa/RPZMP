@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:10.229Z" hostname="CHRISTINA" time="3.904">
+  <properties/>
+  <testcase name="cancellationDuringInvalidTokenCleanupIsNotConvertedToReadyState" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="1.304"/>
+  <testcase name="restoresValidSessionWithoutNetworkAndLogoutPersists" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.076"/>
+  <testcase name="readFailureDoesNotExposeProtectedSession" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.008"/>
+  <testcase name="protected401ClearsSessionBut403PreservesIt" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.268"/>
+  <testcase name="invalidOrExpiredSavedTokensAreCleared" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.014"/>
+  <testcase name="failedTokenWriteNeverOpensProtectedSession" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.087"/>
+  <testcase name="oldUnauthorizedResponseCannotCloseNewSession" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="1.039"/>
+  <testcase name="successfulLoginPersistsTokenAndNormalizesEmail" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.047"/>
+  <testcase name="loginResponseArrivingAfterLogoutCannotReopenSession" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="1.04"/>
+  <testcase name="scheduledExpiryClearsSessionAndStorage" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.009"/>
+  <testcase name="resumeCheckExpiresSessionAfterClockChange" classname="ua.kpi.energyforecast.data.auth.ApiSessionRepositoryTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

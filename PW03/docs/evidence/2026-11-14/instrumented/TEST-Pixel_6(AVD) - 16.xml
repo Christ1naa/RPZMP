@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="30" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-11-14T15:40:30" hostname="localhost">
+  <testsuite name="ua.kpi.energyforecast.ExampleInstrumentedTest" tests="1" failures="0" errors="0" skipped="0" time="0.001" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="useAppContext" classname="ua.kpi.energyforecast.ExampleInstrumentedTest" time="0.001" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.RoleUiTest" tests="1" failures="0" errors="0" skipped="0" time="4.009" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="adminMenuAppearsOnlyForAdminAndDisappearsAfterRoleChange" classname="ua.kpi.energyforecast.RoleUiTest" time="4.009" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.data.ForecastHistoryRepositoryTest" tests="4" failures="0" errors="0" skipped="0" time="0.992" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="anotherOwnerCannotReadOrDeleteForecast" classname="ua.kpi.energyforecast.data.ForecastHistoryRepositoryTest" time="0.861" />
+    <testcase name="savedForecastKeepsOriginalParametersAndResult" classname="ua.kpi.energyforecast.data.ForecastHistoryRepositoryTest" time="0.034" />
+    <testcase name="failedItemInsertRollsBackWholeForecast" classname="ua.kpi.energyforecast.data.ForecastHistoryRepositoryTest" time="0.052" />
+    <testcase name="deletingForecastAlsoDeletesItsItems" classname="ua.kpi.energyforecast.data.ForecastHistoryRepositoryTest" time="0.045" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" tests="9" failures="0" errors="0" skipped="0" time="0.801" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="importPreservesExistingDevicePeriodAndOtherOwner" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.088" />
+    <testcase name="sqlAggregateIsIsolatedByOwnerEvenWithMatchingDeviceIds" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.065" />
+    <testcase name="repeatedImportCreatesSeparateDevices" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.068" />
+    <testcase name="sqlAggregateIncludesAllSixPositionsAndTheirQuantities" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.072" />
+    <testcase name="unknownScenarioLeavesProfileUnchanged" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.044" />
+    <testcase name="missingAndEmptyProfilesHaveZeroDailyConsumption" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.031" />
+    <testcase name="bundledScenariosAreReadableAndHaveExpectedForecasts" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.009" />
+    <testcase name="importOverLimitLeavesProfileUnchanged" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.386" />
+    <testcase name="sqlAggregateFlowUpdatesAfterInsertEditAndDelete" classname="ua.kpi.energyforecast.data.RoomEnergyRepositoryTest" time="0.038" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.data.ScenarioCacheMigrationTest" tests="2" failures="0" errors="0" skipped="0" time="0.520" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="migration1To3PreservesExistingProfileAndDevice" classname="ua.kpi.energyforecast.data.ScenarioCacheMigrationTest" time="0.222" />
+    <testcase name="migration2To3PreservesProfileDevicesAndHistory" classname="ua.kpi.energyforecast.data.ScenarioCacheMigrationTest" time="0.298" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.data.ScenarioCacheTest" tests="7" failures="0" errors="0" skipped="0" time="0.442" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="cacheSurvivesDatabaseReopeningWithoutNetwork" classname="ua.kpi.energyforecast.data.ScenarioCacheTest" time="0.128" />
+    <testcase name="activeFlowReceivesUpdatedCatalog" classname="ua.kpi.energyforecast.data.ScenarioCacheTest" time="0.056" />
+    <testcase name="failedDatabaseWriteRollsBackEntireReplacement" classname="ua.kpi.energyforecast.data.ScenarioCacheTest" time="0.056" />
+    <testcase name="remoteFailurePreservesDataAndUpdateTime" classname="ua.kpi.energyforecast.data.ScenarioCacheTest" time="0.064" />
+    <testcase name="refreshReplacesCatalogAndPreservesDeviceOrder" classname="ua.kpi.energyforecast.data.ScenarioCacheTest" time="0.059" />
+    <testcase name="initialCacheIsMissingAndDoesNotCallNetwork" classname="ua.kpi.energyforecast.data.ScenarioCacheTest" time="0.039" />
+    <testcase name="emptySuccessfulResponseHasUpdateTime" classname="ua.kpi.energyforecast.data.ScenarioCacheTest" time="0.040" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.data.ScenarioImportRepositoryTest" tests="4" failures="0" errors="0" skipped="0" time="0.377" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="importPreservesProfileOtherOwnerAndCachedScenario" classname="ua.kpi.energyforecast.data.ScenarioImportRepositoryTest" time="0.065" />
+    <testcase name="importOverLimitLeavesEntireProfileUnchanged" classname="ua.kpi.energyforecast.data.ScenarioImportRepositoryTest" time="0.123" />
+    <testcase name="importAllowsExactlyFiftyPositions" classname="ua.kpi.energyforecast.data.ScenarioImportRepositoryTest" time="0.126" />
+    <testcase name="failureOnSecondDeviceRollsBackFirstInsert" classname="ua.kpi.energyforecast.data.ScenarioImportRepositoryTest" time="0.063" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.data.TokenStoreTest" tests="1" failures="0" errors="0" skipped="0" time="0.112" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="tokenSurvivesReopeningAndLogoutRemovesIt" classname="ua.kpi.energyforecast.data.TokenStoreTest" time="0.112" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.data.remote.LocalApiConnectionTest" tests="1" failures="0" errors="0" skipped="0" time="0.357" timestamp="2026-11-14T15:40:30" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="emulatorCanLoginAndLoadProtectedScenarios" classname="ua.kpi.energyforecast.data.remote.LocalApiConnectionTest" time="0.357" />
+  </testsuite>
+</testsuites>

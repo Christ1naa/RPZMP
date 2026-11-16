@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.622Z" hostname="CHRISTINA" time="0.02">
+  <properties/>
+  <testcase name="sortsByNumericDailyConsumption" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest" time="0.017"/>
+  <testcase name="searchIgnoresCaseAndSurroundingSpaces" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest" time="0.0"/>
+  <testcase name="detailsRemainAvailableWhenFilteredOutOfList" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest" time="0.001"/>
+  <testcase name="invalidPeriodIsRejectedByState" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest" time="0.0"/>
+  <testcase name="filteringDoesNotChangeOriginalCatalog" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest" time="0.0"/>
+  <testcase name="categoryAndSearchAreAppliedTogether" classname="ua.kpi.energyforecast.ui.scenarios.ScenarioSelectionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

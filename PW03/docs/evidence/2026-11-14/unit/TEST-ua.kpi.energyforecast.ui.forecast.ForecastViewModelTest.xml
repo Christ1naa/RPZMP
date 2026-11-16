@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.497Z" hostname="CHRISTINA" time="0.077">
+  <properties/>
+  <testcase name="addingDeviceCalculatesForecastAndEndsLoading" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.021"/>
+  <testcase name="newRepositoryTotalUpdatesForecastWithoutChangingDeviceList" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.005"/>
+  <testcase name="searchAndSortDoNotChangeTotalForecast" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.003"/>
+  <testcase name="editingDeviceReplacesPositionAndRecalculates" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.004"/>
+  <testcase name="invalidDeviceShowsErrorWithoutChangingList" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.004"/>
+  <testcase name="newViewModelRestoresSavedProfile" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.006"/>
+  <testcase name="invalidPeriodHidesResultAndCanBeCorrected" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.005"/>
+  <testcase name="failedWriteShowsErrorWithoutAddingDevice" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.005"/>
+  <testcase name="forecastUsesRepositoryDailyTotalWhenPeriodChanges" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.005"/>
+  <testcase name="differentOwnerHasIndependentProfile" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.005"/>
+  <testcase name="retryLoadRecoversAndContinuesObserving" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.005"/>
+  <testcase name="deletingLastDeviceClearsForecast" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.004"/>
+  <testcase name="latestPeriodWinsWhenParametersChangeRapidly" classname="ua.kpi.energyforecast.ui.forecast.ForecastViewModelTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

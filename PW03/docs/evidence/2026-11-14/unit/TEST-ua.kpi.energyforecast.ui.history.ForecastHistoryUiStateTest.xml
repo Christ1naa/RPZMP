@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.588Z" hostname="CHRISTINA" time="0.005">
+  <properties/>
+  <testcase name="searchAndPeriodFilterApplyTogether" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.003"/>
+  <testcase name="searchFindsTitleIgnoringCaseAndOuterSpaces" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.0"/>
+  <testcase name="unmatchedSearchReturnsEmptyVisibleList" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.0"/>
+  <testcase name="newestSortUsesCreationTime" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.0"/>
+  <testcase name="equalConsumptionUsesNewestRecordThenId" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.001"/>
+  <testcase name="searchFindsArchivedDeviceName" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.001"/>
+  <testcase name="weekFilterIncludesSevenDaysAndExcludesEight" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.0"/>
+  <testcase name="consumptionSortUsesPeriodTotalInsteadOfDailyValue" classname="ua.kpi.energyforecast.ui.history.ForecastHistoryUiStateTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

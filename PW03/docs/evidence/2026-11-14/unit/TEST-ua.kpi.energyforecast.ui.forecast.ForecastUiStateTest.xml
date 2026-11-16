@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.ui.forecast.ForecastUiStateTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.480Z" hostname="CHRISTINA" time="0.013">
+  <properties/>
+  <testcase name="nameSortUsesUkrainianAlphabet" classname="ua.kpi.energyforecast.ui.forecast.ForecastUiStateTest" time="0.003"/>
+  <testcase name="filteredListDoesNotBypassPositionLimit" classname="ua.kpi.energyforecast.ui.forecast.ForecastUiStateTest" time="0.002"/>
+  <testcase name="unmatchedSearchDoesNotChangeFullListOrCount" classname="ua.kpi.energyforecast.ui.forecast.ForecastUiStateTest" time="0.001"/>
+  <testcase name="consumptionSortAccountsForHoursAndDeviceCount" classname="ua.kpi.energyforecast.ui.forecast.ForecastUiStateTest" time="0.006"/>
+  <testcase name="searchFindsUkrainianNamesRegardlessOfCase" classname="ua.kpi.energyforecast.ui.forecast.ForecastUiStateTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

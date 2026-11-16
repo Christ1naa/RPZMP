@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.logic.EnergyCalculatorTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:15.415Z" hostname="CHRISTINA" time="0.008">
+  <properties/>
+  <testcase name="zeroDailyAggregateIsValidAtPeriodBoundaries" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="emptyListProducesZeroAtBothPeriodBoundaries" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="maximumUiInputsRemainFiniteAndIncludeAllQuantities" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="dailyAggregateRejectsPeriodOverflow" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="finiteInputsWhoseResultOverflowsAreRejected" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.001"/>
+  <testcase name="zeroWorkingHoursProduceZeroConsumption" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="dailyAggregateProducesExpectedPeriodWithoutRounding" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="totalRejectsPeriodsOutsideAllowedRangeEvenForEmptyList" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.001"/>
+  <testcase name="dailyAggregateRejectsInvalidPeriods" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="invalidDailyAggregateIsRejected" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.002"/>
+  <testcase name="multipleDevicesAreSummedCorrectly" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="negativePowerIsRejected" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.001"/>
+  <testcase name="singleDeviceCalculatesDailyAndPeriodConsumption" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.0"/>
+  <testcase name="nonfinitePowerIsRejected" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.001"/>
+  <testcase name="nonfiniteAndOutOfRangeHoursAreRejected" classname="ua.kpi.energyforecast.logic.EnergyCalculatorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.data.remote.LoginResponseValidationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-14T15:31:14.165Z" hostname="CHRISTINA" time="0.238">
+  <properties/>
+  <testcase name="validResponseLogsSuccess" classname="ua.kpi.energyforecast.data.remote.LoginResponseValidationTest" time="0.034"/>
+  <testcase name="invalidSessionResponsesNeverLogSuccessOrRetry" classname="ua.kpi.energyforecast.data.remote.LoginResponseValidationTest" time="0.177"/>
+  <testcase name="emptySuccessfulHttpResponseIsLoggedAsInvalid" classname="ua.kpi.energyforecast.data.remote.LoginResponseValidationTest" time="0.027"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
