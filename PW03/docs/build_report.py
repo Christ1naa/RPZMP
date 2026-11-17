@@ -1,5 +1,6 @@
 """Build the Ukrainian PW03 report from its reviewed Markdown source."""
 from pathlib import Path
+from format_report import add_black_hyperlink, enforce_black_text
 import re, json
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
@@ -205,7 +206,11 @@ for text in coverlines[4:9]:
         for r in p.runs:r.bold=True
 p=doc.add_paragraph();p.paragraph_format.space_after=Pt(18)
 for text in coverlines[9:-1]:
-    p=para(text);p.alignment=WD_ALIGN_PARAGRAPH.RIGHT
+    if text.startswith('https://github.com/'):
+        p=doc.add_paragraph();add_black_hyperlink(p,text)
+    else:
+        p=para(text)
+    p.alignment=WD_ALIGN_PARAGRAPH.RIGHT
     p.paragraph_format.space_after=Pt(5)
 p=doc.add_paragraph();p.paragraph_format.space_after=Pt(20)
 p=para(coverlines[-1]);p.alignment=WD_ALIGN_PARAGRAPH.CENTER
@@ -267,5 +272,6 @@ while i<len(lines):
 settings=doc.settings.element
 update=OxmlElement('w:updateFields');update.set(qn('w:val'),'true');settings.append(update)
 doc.save(DEST)
+enforce_black_text(DEST)
 print(DEST)
 print(f'Figures: {len(fig_ids)}; paragraphs: {len(doc.paragraphs)}; tables: {len(doc.tables)}')

@@ -22,7 +22,7 @@
   "server_pytest": {
     "passed": 16
   },
-  "final_docx_sha256": "fc7b426901525d620cb01368a834259eb0a7c97d14d8ebd0599e3d04bb8acc6d",
+  "final_docx_sha256": "ad97054c16f59ee9cec26c55e7cae32d296c31ef64fc153ed805a2651466f31d",
   "files": [
     {
       "path": "2026-11-14/instrumented/TEST-Pixel_6(AVD) - 16.xml",
@@ -164,5 +164,8 @@
       "sha256": "f7fc97f0d70ac7dc1c9bea8bf07a7ac5e9fce7b75c73acd4b06c938f98ff1304",
       "bytes": 1739
     }
-  ]
+  ],
+  "final_pdf_sha256": "f0bfb1a93da2cd7fc210921892d8f06c850b32ddacfbe7084933745425c43169",
+  "report_revision_date": "2026-11-17",
+  "report_revision_scope": "Formatting only: clickable GitHub link beneath student name; explicit black editable text; refreshed fields and PDF export. No new application tests."
 }

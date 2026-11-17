@@ -1,0 +1,25 @@
+{
+  "report_revision_date": "2026-11-17",
+  "pages": 36,
+  "embedded_images": 23,
+  "tables": 9,
+  "editable_text_explicit_black": true,
+  "pdf_text_black": true,
+  "pdf_text_fragments_checked": 1742,
+  "cover_github_link": "https://github.com/Christ1naa/RPZMP/tree/feature/pw03/PW03",
+  "link_beneath_student_name_and_clickable": true,
+  "conclusion_section": 12,
+  "body_pdf_text_unchanged_against_pre_revision_export": true,
+  "pixel_changed_pages_at_110_dpi": [
+    1
+  ],
+  "visual_review": "All 36 pages reviewed in six contact sheets; cover additionally checked at full-page size.",
+  "original_embedded_images_unchanged": true,
+  "primary_evidence_files_verified": 28,
+  "screenshot_hashes_verified": 42,
+  "application_tests_rerun": false,
+  "android_original_run_date": "2026-11-14",
+  "build_and_server_rerun_date": "2026-11-16",
+  "docx_sha256": "ad97054c16f59ee9cec26c55e7cae32d296c31ef64fc153ed805a2651466f31d",
+  "pdf_sha256": "f0bfb1a93da2cd7fc210921892d8f06c850b32ddacfbe7084933745425c43169"
+}
