@@ -1,0 +1,26 @@
+{
+  "captured_at_utc": "2026-11-16T14:50:35.081094+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "controlled-states",
+  "files": [
+    {
+      "file": "pw04-final-evidence--80-controlled-waiting.png",
+      "sha256": "4a602b0e238b2e7d2f1c3c052b997ffeea2a7dd1a9be9409a01f4fa9b16f9503"
+    },
+    {
+      "file": "pw04-final-evidence--81-controlled-failed.png",
+      "sha256": "a1656c179b6edee785e54c4f45bcf514bd79b88f1237c6ce27873e2f915f1a65"
+    },
+    {
+      "file": "pw04-final-evidence--82-controlled-unknown-id.png",
+      "sha256": "1b3d2792a6f59272795e4ac545172335e9436ef54d64265e61f142d6856dd2c4"
+    },
+    {
+      "file": "pw04-final-evidence--83-controlled-empty-dataset.png",
+      "sha256": "423ddee24033f97be6abaebfbbaaffa0abb4a8ddbf0bf194317d8b1af521c36c"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

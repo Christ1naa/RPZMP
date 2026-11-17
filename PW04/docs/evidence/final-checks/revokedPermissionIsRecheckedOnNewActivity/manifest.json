@@ -1,0 +1,14 @@
+{
+  "captured_at_utc": "2026-11-16T14:56:58.250308+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "revokedPermissionIsRecheckedOnNewActivity",
+  "files": [
+    {
+      "file": "pw04-final-evidence--16-permission-revoked-app.png",
+      "sha256": "0472414760b8b5168bd748e37581436382a6ae60276a5b9bafe69e6ea38f48ad"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

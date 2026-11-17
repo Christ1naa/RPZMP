@@ -1,0 +1,26 @@
+{
+  "captured_at_utc": "2026-11-16T14:55:16.250552+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "denyTwiceThenOpenOwnSettingsAndReturn",
+  "files": [
+    {
+      "file": "pw04-final-evidence--12-permission-denial-dialog.png",
+      "sha256": "7462a840d1da45da773cec34b3690f3f2eb3e41685c9342abc288f0cbbde3133"
+    },
+    {
+      "file": "pw04-final-evidence--13-permission-denied-app.png",
+      "sha256": "f975800df74d39510b965555d0b1c9d8fec596c712dd6f851ed4e43277e177e9"
+    },
+    {
+      "file": "pw04-final-evidence--14-permission-permanently-denied-app.png",
+      "sha256": "5845194f04700357ccb9806c7a34e4fb561d9d86ba92a2e06a0ff10a9fb8958a"
+    },
+    {
+      "file": "pw04-final-evidence--15-own-app-settings.png",
+      "sha256": "810ca4eb964a9bea5cfd7e0a76bc901a901583c0851f051e5c8bfc6ae8ed2691"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

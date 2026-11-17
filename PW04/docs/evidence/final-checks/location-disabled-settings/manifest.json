@@ -1,0 +1,14 @@
+{
+  "captured_at_utc": "2026-11-16T14:55:33.690364+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "location-disabled-settings",
+  "files": [
+    {
+      "file": "pw04-final-evidence--17-location-disabled.png",
+      "sha256": "fc807d660738a3de280d5ff5092cc3d599a170550f41b6507cb7256ce3df77db"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

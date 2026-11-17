@@ -1,0 +1,246 @@
+{
+  "date": "2026-11-16",
+  "android_unique_methods": 64,
+  "all_source_android_methods_executed_successfully": true,
+  "unit": {
+    "tests": 54,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "Error": 0,
+    "Warning": 19,
+    "Fatal": 0
+  },
+  "runs": [
+    {
+      "scenario": "general-valid",
+      "passed": true,
+      "tests": 48,
+      "methods": [
+        "ActivityLifecycleTest#stoppedActivityReturnsToSameQuerySelectionAndMapVisibility",
+        "ActivityLifecycleTest#landscapeThenPortraitKeepsQuerySelectionAndMapVisibility",
+        "AndroidCollationTest#ukrainianAlphabetWorksOnAndroidRuntimeAsWellAsJvm",
+        "AppSmokeTest#bothDemoSourcesShowFailureAndRecoverInRealActivity",
+        "AppSmokeTest#filteredSelectionAndDetailsRouteSurviveActivityRecreation",
+        "AppSmokeTest#completeFilterPanelIsWiredToViewModelAndRestoredAfterRecreation",
+        "AppSmokeTest#launchesLoadsSitesAndOpensDetails",
+        "CompleteEvidenceTest#retryRangeSortingAndOrientationScreens",
+        "DetailsNavigationTest#unknownRouteIdShowsNotFoundAndBackReturnsToCatalog",
+        "FilterPanelTest#everyPrimaryChoiceAndBothDirectionsReachTheListAndMapSlot",
+        "FilterPanelTest#invalidRangeShowsErrorAndResetRestoresEveryQueryField",
+        "FilterPanelTest#searchTypeStatusAndCommaBoundsProduceOneObjectInListAndMapSlot",
+        "FilterPanelTest#sheetResetIsImmediateAndKeepsTheSheetUsable",
+        "GoogleMapBrowserTest#realMarkerSelectsCardAndCombinedFiltersLeaveOneMapObject",
+        "GoogleMapSdkTest#realMarkerTouchSelectsItsAssociatedIdAndFocusesCamera",
+        "GoogleMapSdkTest#realCameraRefocusesSameIdAfterPanButNotOnNewReading",
+        "LocationSourceTest#revokedPermissionClearsAndCloses",
+        "LocationSourceTest#disabledProviderRecoversAndUpdates",
+        "LocationSourceTest#coarseWithoutNetworkDoesNotUseGps",
+        "LocationSourceTest#lifecycleStopAndRestart",
+        "LocationSourceTest#invalidCoordinatesAreDroppedAndAccuracyNotInvented",
+        "LocationSourceTest#deniedPermissionDoesNotRegister",
+        "LocationSourceTest#coarseUsesOnlyNetwork",
+        "LocationSourceTest#securityRaceAndCleanupDoNotCrash",
+        "MapFocusTest#sameIdRefocusesOnlyOnNewExplicitRevision",
+        "MapFocusTest#waitsForMapAndUsesOnlyLatestVisibleSelection",
+        "MapFocusTest#callbackRecompositionDoesNotRefocusAndNextActionUsesLatestCallback",
+        "MapInfoWindowTest#descriptionAndMeasurementsWrapWithoutEllipsis",
+        "ResponsiveUiTest#largeFontFilterSheetCanReachResetAndDone",
+        "ResponsiveUiTest#compactLargeFontDetailsCanReachCoordinatesAndDisclaimer",
+        "ResponsiveUiTest#compactLargeFontKeepsMapToggleAndLastCardActionsReachable",
+        "SiteBrowserTest#mapVisibilitySurvivesSavedUiRestorationWithoutLosingSelectedId",
+        "SiteBrowserTest#markerSelectionScrollsAndHighlightsAssociatedCard",
+        "SiteBrowserTest#cardShowsDescriptionPowerStatusForecastAndBothDates",
+        "SiteBrowserTest#mapActionSelectsCardWithoutOpeningDetails",
+        "SiteBrowserTest#searchUpdatesVisibleCollectionAndShowsEmptyState",
+        "SiteBrowserTest#emptyDatasetIsDifferentFromNoSearchMatches",
+        "SiteBrowserTest#repeatedSelectionScrollsBackToTheSameCardAfterManualScroll",
+        "SiteBrowserTest#cardClickOpensDetailsForTheSelectedId",
+        "SiteBrowserTest#shortWideViewportKeepsTheLastCardReachable",
+        "SiteDetailsTest#loadingChangesToTheRequestedObjectWhenTelemetryArrives",
+        "SiteDetailsTest#retainedDetailsRemainIdentifiedAndMarkedStaleDuringFailure",
+        "SiteDetailsTest#detailsResolveTheRequestedIdAndShowAllRequiredFields",
+        "SiteDetailsTest#unavailableDataOffersRestartAndDoesNotClaimObjectIsMissing",
+        "SiteDetailsTest#unknownIdHasExplicitNotFoundAndWorkingBackAction",
+        "StreamStatusTest#waitingMonitorDoesNotDisplayZeroConsumptionAsMeasuredData",
+        "StreamStatusTest#missingSourceIsNotPresentedAsAnEmptySearchAndCanRestart",
+        "StreamStatusTest#forecastRetryIdentifiesSourceAndMarksLastSnapshotStale"
+      ]
+    },
+    {
+      "scenario": "general-absent",
+      "passed": true,
+      "tests": 48,
+      "methods": [
+        "ActivityLifecycleTest#stoppedActivityReturnsToSameQuerySelectionAndMapVisibility",
+        "ActivityLifecycleTest#landscapeThenPortraitKeepsQuerySelectionAndMapVisibility",
+        "AndroidCollationTest#ukrainianAlphabetWorksOnAndroidRuntimeAsWellAsJvm",
+        "AppSmokeTest#bothDemoSourcesShowFailureAndRecoverInRealActivity",
+        "AppSmokeTest#filteredSelectionAndDetailsRouteSurviveActivityRecreation",
+        "AppSmokeTest#completeFilterPanelIsWiredToViewModelAndRestoredAfterRecreation",
+        "AppSmokeTest#launchesLoadsSitesAndOpensDetails",
+        "CompleteEvidenceTest#retryRangeSortingAndOrientationScreens",
+        "DetailsNavigationTest#unknownRouteIdShowsNotFoundAndBackReturnsToCatalog",
+        "EvidenceCaptureTest#captureVerifiedNoKeyScreens",
+        "FilterPanelTest#everyPrimaryChoiceAndBothDirectionsReachTheListAndMapSlot",
+        "FilterPanelTest#invalidRangeShowsErrorAndResetRestoresEveryQueryField",
+        "FilterPanelTest#searchTypeStatusAndCommaBoundsProduceOneObjectInListAndMapSlot",
+        "FilterPanelTest#sheetResetIsImmediateAndKeepsTheSheetUsable",
+        "LocationSourceTest#revokedPermissionClearsAndCloses",
+        "LocationSourceTest#disabledProviderRecoversAndUpdates",
+        "LocationSourceTest#coarseWithoutNetworkDoesNotUseGps",
+        "LocationSourceTest#lifecycleStopAndRestart",
+        "LocationSourceTest#invalidCoordinatesAreDroppedAndAccuracyNotInvented",
+        "LocationSourceTest#deniedPermissionDoesNotRegister",
+        "LocationSourceTest#coarseUsesOnlyNetwork",
+        "LocationSourceTest#securityRaceAndCleanupDoNotCrash",
+        "MapConfigurationTest#missingKeyExplainsConfigurationAndDoesNotPretendMapLoaded",
+        "MapFocusTest#sameIdRefocusesOnlyOnNewExplicitRevision",
+        "MapFocusTest#waitsForMapAndUsesOnlyLatestVisibleSelection",
+        "MapFocusTest#callbackRecompositionDoesNotRefocusAndNextActionUsesLatestCallback",
+        "MapInfoWindowTest#descriptionAndMeasurementsWrapWithoutEllipsis",
+        "ResponsiveUiTest#largeFontFilterSheetCanReachResetAndDone",
+        "ResponsiveUiTest#compactLargeFontDetailsCanReachCoordinatesAndDisclaimer",
+        "ResponsiveUiTest#compactLargeFontKeepsMapToggleAndLastCardActionsReachable",
+        "ResponsiveUiTest#shortMapFallbackCanScrollToSettingsAndConfiguration",
+        "SiteBrowserTest#mapVisibilitySurvivesSavedUiRestorationWithoutLosingSelectedId",
+        "SiteBrowserTest#markerSelectionScrollsAndHighlightsAssociatedCard",
+        "SiteBrowserTest#cardShowsDescriptionPowerStatusForecastAndBothDates",
+        "SiteBrowserTest#mapActionSelectsCardWithoutOpeningDetails",
+        "SiteBrowserTest#searchUpdatesVisibleCollectionAndShowsEmptyState",
+        "SiteBrowserTest#emptyDatasetIsDifferentFromNoSearchMatches",
+        "SiteBrowserTest#repeatedSelectionScrollsBackToTheSameCardAfterManualScroll",
+        "SiteBrowserTest#cardClickOpensDetailsForTheSelectedId",
+        "SiteBrowserTest#shortWideViewportKeepsTheLastCardReachable",
+        "SiteDetailsTest#loadingChangesToTheRequestedObjectWhenTelemetryArrives",
+        "SiteDetailsTest#retainedDetailsRemainIdentifiedAndMarkedStaleDuringFailure",
+        "SiteDetailsTest#detailsResolveTheRequestedIdAndShowAllRequiredFields",
+        "SiteDetailsTest#unavailableDataOffersRestartAndDoesNotClaimObjectIsMissing",
+        "SiteDetailsTest#unknownIdHasExplicitNotFoundAndWorkingBackAction",
+        "StreamStatusTest#waitingMonitorDoesNotDisplayZeroConsumptionAsMeasuredData",
+        "StreamStatusTest#missingSourceIsNotPresentedAsAnEmptySearchAndCanRestart",
+        "StreamStatusTest#forecastRetryIdentifiesSourceAndMarksLastSnapshotStale"
+      ]
+    },
+    {
+      "scenario": "precisePermissionThroughSystemDialog",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "DevicePermissionTest#precisePermissionThroughSystemDialog"
+      ]
+    },
+    {
+      "scenario": "approximatePermissionThroughSystemDialog",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "DevicePermissionTest#approximatePermissionThroughSystemDialog"
+      ]
+    },
+    {
+      "scenario": "denyTwiceThenOpenOwnSettingsAndReturn",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "DevicePermissionTest#denyTwiceThenOpenOwnSettingsAndReturn"
+      ]
+    },
+    {
+      "scenario": "revokedPermissionIsRecheckedOnNewActivity",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "DevicePermissionTest#revokedPermissionIsRecheckedOnNewActivity"
+      ]
+    },
+    {
+      "scenario": "location-disabled-settings",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "DevicePermissionTest#locationDisabledAndReturnFromGpsSettings"
+      ]
+    },
+    {
+      "scenario": "real-device-fix",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "DeviceLocationEvidenceTest#freshRealDeviceFixWithoutSavingCoordinates"
+      ]
+    },
+    {
+      "scenario": "synthetic-position-ui",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "DeviceLocationEvidenceTest#labelledSyntheticPositionUpdatesAndProvidersRecover"
+      ]
+    },
+    {
+      "scenario": "system-gps-adapter",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "AndroidLocationTest#systemGpsDeliversTwoFreshLocationsAndDisabledStatus"
+      ]
+    },
+    {
+      "scenario": "system-large-font",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "CompleteEvidenceTest#actualSystemLargeFontScreens"
+      ]
+    },
+    {
+      "scenario": "invalid-key-retry",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "MapFailureEvidenceTest#failedMapCanRetryAndCatalogueRemainsUsable"
+      ]
+    },
+    {
+      "scenario": "controlled-states",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "StateEvidenceTest#controlledWaitingFailedUnknownAndEmptyStates"
+      ]
+    },
+    {
+      "scenario": "network-recovery",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "NetworkRecoveryTest#realNetworkLossThenRetryAndRestore"
+      ]
+    },
+    {
+      "scenario": "services-unavailable",
+      "passed": true,
+      "tests": 1,
+      "methods": [
+        "ServiceUnavailableTest#unavailablePlayServicesDoesNotBlockCatalogue"
+      ]
+    }
+  ],
+  "real_location": {
+    "device": "SM-A546B",
+    "provider": "network",
+    "is_mock": false,
+    "accuracy_present": true,
+    "coordinates_recorded": false
+  },
+  "limits": [
+    "No manual walkthrough claimed",
+    "No physical satellite GNSS verification",
+    "Synthetic coordinates explicitly labelled",
+    "No OS process-death/TalkBack/foldable test",
+    "Gradle connected wrapper anomaly retained in verification.md"
+  ]
+}

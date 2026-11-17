@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-17",
+  "verification_records_date": "2026-11-16",
+  "revision": "Final student-confirmed version; self-contained report template",
+  "pages": 35,
+  "control_answers": 48,
+  "figures": 16,
+  "embedded_original_pngs": 32,
+  "tables": 6,
+  "page_layouts_verified": true,
+  "visual_review": {
+    "changed_or_new_pages_opened": [
+      11
+    ],
+    "pixel_identical_to_previously_reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ]
+  },
+  "original_embedded_image_bytes_preserved": true,
+  "reference_documents_unchanged": true,
+  "application_sources_unchanged_in_revision": true,
+  "application_tests_rerun_for_report": false,
+  "export": "Microsoft Word PDF export, Poppler page rasterization",
+  "outputs": {
+    "PW04_Report.docx": "972c8e6d30685b2a343498f5888608ff53b12bd4cd223a3c91da8bf355e3a931",
+    "PW04_Report.pdf": "1b05aeb2cd35a1c83ed7fc3960c7390c12ce9bc5c0bac8e43d20d955cdeed876"
+  },
+  "evidence_png_files": 89,
+  "evidence_distinct_png_bytes": 86,
+  "resolved_findings": [
+    "Figure 7 a/b labels",
+    "Figure 15 a/b labels and 6.5-inch portrait on separate page",
+    "TOC and file hashes refreshed",
+    "Outdated PDF/DOCX and fix-freshness wording corrected"
+  ],
+  "student_details_confirmed": true,
+  "phone_operation_confirmed_by_student": true,
+  "individual_manual_scenarios_not_inferred": true
+}

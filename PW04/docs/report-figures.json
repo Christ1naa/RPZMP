@@ -1,0 +1,242 @@
+[
+  {
+    "figure": 1,
+    "title": "Моніторинг і каталог",
+    "caption": "а — обидва джерела LIVE, навантаження й добовий прогноз; б — каталог MainActivity зі справжньою Maps після відмови у location-дозволі. Дані споживачів демонстраційні.",
+    "files": [
+      {
+        "path": "evidence/final-checks/general-absent/pw04-evidence--01-monitor-live.png",
+        "sha256": "26b9b406c8262c797991e1cc8e94945492f7ba6f721a91ada46765c6c1d60898"
+      },
+      {
+        "path": "evidence/final-checks/denyTwiceThenOpenOwnSettingsAndReturn/pw04-final-evidence--13-permission-denied-app.png",
+        "sha256": "f975800df74d39510b965555d0b1c9d8fec596c712dd6f851ed4e43277e177e9"
+      }
+    ]
+  },
+  {
+    "figure": 2,
+    "title": "Картка та окремий екран деталей",
+    "caption": "а — office-1 після комбінованого фільтра; б — деталі цього об’єкта: опис, статус, потужність, режим, прогноз, дата опису й час виміру. MainActivity на A54.",
+    "files": [
+      {
+        "path": "evidence/final-checks/general-absent/pw04-evidence--04-filtered-office.png",
+        "sha256": "a4d8a7db977d2dc5b777f59c173e3d7bf9ea39d288ca58b38f66d8e2ebdd9b25"
+      },
+      {
+        "path": "evidence/final-checks/general-absent/pw04-evidence--05-details-top.png",
+        "sha256": "868756b1afe598e8d5942e90c4c94f8b09c3b58d71c2327b2b92d5b625d85a57"
+      }
+    ]
+  },
+  {
+    "figure": 3,
+    "title": "Незалежні збої потоків",
+    "caption": "а — RETRYING лічильника; б — RETRYING моделі при працездатному лічильнику. Обидва кадри справжньої MainActivity, останні узгоджені дані позначено застарілими.",
+    "files": [
+      {
+        "path": "evidence/final-checks/general-valid/pw04-final-evidence--20-meter-retrying.png",
+        "sha256": "de015fcdb01bc533b9dcea4e26aa5b9475debb4eebea4b450f55d34d2cb11d24"
+      },
+      {
+        "path": "evidence/final-checks/general-valid/pw04-final-evidence--20-model-retrying.png",
+        "sha256": "551a457223feaa3384e354cd670bc12c6135f4cff28b87ec55eb4d1c7a7a56f5"
+      }
+    ]
+  },
+  {
+    "figure": 4,
+    "title": "Автоматичне відновлення джерел",
+    "caption": "а — відновлення лічильника; б — відновлення моделі. Обидва джерела LIVE; послідовність збій → відновлення перевірено assertions, значення між кадрами змінюються.",
+    "files": [
+      {
+        "path": "evidence/final-checks/general-valid/pw04-final-evidence--21-meter-recovered.png",
+        "sha256": "b8c605bccd6f3303d47e143b32b114e3f53e4a6a76b5f1fb9d2a4eb575dfe7ca"
+      },
+      {
+        "path": "evidence/final-checks/general-valid/pw04-final-evidence--21-model-recovered.png",
+        "sha256": "334e4246489e22434f90d9ecdd9723fea074f129bcdd840bcdacb1cea240bf9d"
+      }
+    ]
+  },
+  {
+    "figure": 5,
+    "title": "Фільтри та валідація",
+    "caption": "а — Офіс + Активний + 30–50 кВт; б — помилка min=50 > max=10 після введення меж. У другому кадрі частина полів прокручена; введені значення перевірені тестом.",
+    "files": [
+      {
+        "path": "evidence/final-checks/general-absent/pw04-evidence--03-filter-panel.png",
+        "sha256": "d4c0864f1718e586d92644e2bc829416ed8c0bade0270a3fbb88a92b43608f4b"
+      },
+      {
+        "path": "evidence/final-checks/general-valid/pw04-final-evidence--22-invalid-range.png",
+        "sha256": "fcb536ccef9220c8e7caa59cf00ef6701e10d91c03b43ea92fb5c9c20f0cd60d"
+      }
+    ]
+  },
+  {
+    "figure": 6,
+    "title": "Справжні маркери та InfoWindow",
+    "caption": "а — огляд шести об’єктів; б — вибраний блакитний office-2 і багаторядковий InfoWindow. GoogleMap.snapshot у SDK test host, production EnergyMap зі сталими тестовими показниками; це не весь MainActivity.",
+    "files": [
+      {
+        "path": "evidence/maps-phone/01-map-loaded.png",
+        "sha256": "657bbba6d9abbb276a7e1bfdcac2713a8f367c3419196dbad3581797be9867e9"
+      },
+      {
+        "path": "evidence/maps-phone/02-marker-selected.png",
+        "sha256": "62168eb10859f683270cf2b77ea9f75961fc85d2eda7603d061e27f514856f5d"
+      }
+    ]
+  },
+  {
+    "figure": 7,
+    "title": "Фільтрація маркерів",
+    "caption": "а — один office-1 після Офіс + Активний + 30–50; б — після reset і пошуку «Неіснуючий» маркерів немає. SDK snapshots короткого слоту; кількість карток і скидання перевірено окремими assertions.",
+    "files": [
+      {
+        "path": "evidence/maps-phone/04-filtered-map.png",
+        "sha256": "03d6e0854fc654a15e4db3be30e71474a39f4ebf1af24cdc39504115f99e5c6e"
+      },
+      {
+        "path": "evidence/maps-phone/05-empty-map.png",
+        "sha256": "52d79ad0c583ccfa7a8233f786a183da9d833ed8a979481994e689e1f2e74580"
+      }
+    ]
+  },
+  {
+    "figure": 8,
+    "title": "Системний вибір точності",
+    "caption": "а — Precise; б — Approximate у справжньому діалозі Samsung A54. Після надання приблизного дозволу тест підтвердив coarse=true, fine=false. Приватні координати не знімалися.",
+    "files": [
+      {
+        "path": "evidence/final-checks/precisePermissionThroughSystemDialog/pw04-final-evidence--10-permission-precise-dialog.png",
+        "sha256": "0476e557e92da9b7492e5cd3059f9f14f762b9266245ca69f5fd5a727a8a846a"
+      },
+      {
+        "path": "evidence/final-checks/approximatePermissionThroughSystemDialog/pw04-final-evidence--11-permission-approximate-dialog.png",
+        "sha256": "7462a840d1da45da773cec34b3690f3f2eb3e41685c9342abc288f0cbbde3133"
+      }
+    ]
+  },
+  {
+    "figure": 9,
+    "title": "Відмова і налаштування дозволів",
+    "caption": "а — PW04 після двох відмов і третього запиту без нового діалогу; б — власний App info. Сталість відмови й повернення доводить сценарій тесту, не лише статичний кадр.",
+    "files": [
+      {
+        "path": "evidence/final-checks/denyTwiceThenOpenOwnSettingsAndReturn/pw04-final-evidence--14-permission-permanently-denied-app.png",
+        "sha256": "5845194f04700357ccb9806c7a34e4fb561d9d86ba92a2e06a0ff10a9fb8958a"
+      },
+      {
+        "path": "evidence/final-checks/denyTwiceThenOpenOwnSettingsAndReturn/pw04-final-evidence--15-own-app-settings.png",
+        "sha256": "810ca4eb964a9bea5cfd7e0a76bc901a901583c0851f051e5c8bfc6ae8ed2691"
+      }
+    ]
+  },
+  {
+    "figure": 10,
+    "title": "Вимкнена Location і відновлення позиції",
+    "caption": "а — системне визначення позиції вимкнене; б — зелений маркер після повернення test providers, ±7 м, явний підпис «тестова позиція». Синтетичні координати Києва, не фізичний GNSS.",
+    "files": [
+      {
+        "path": "evidence/final-checks/location-disabled-settings/pw04-final-evidence--17-location-disabled.png",
+        "sha256": "fc807d660738a3de280d5ff5092cc3d599a170550f41b6507cb7256ce3df77db"
+      },
+      {
+        "path": "evidence/final-checks/synthetic-position-ui/pw04-final-evidence--33-providers-recovered.png",
+        "sha256": "f8c4e46e5425757efccb880624a24322c7e4cf4343c9d568f680ee4369a98da7"
+      }
+    ]
+  },
+  {
+    "figure": 11,
+    "title": "Оновлення та очищення координат",
+    "caption": "а — другий синтетичний fix, ±6 м і зелений маркер; б — GPS і network test providers вимкнено, поточна позиція очищена. Production LocationSource і Maps, явно тестова позиція.",
+    "files": [
+      {
+        "path": "evidence/final-checks/synthetic-position-ui/pw04-final-evidence--31-labelled-position-updated.png",
+        "sha256": "86322783a0118178a20a0dc6c7f1078d68222588d7b8452eeac208a3540df5dd"
+      },
+      {
+        "path": "evidence/final-checks/synthetic-position-ui/pw04-final-evidence--32-providers-disabled.png",
+        "sha256": "97b822e94c44d04533903afcd42cb75f05544ca5a327a92000bffd777ac00aa6"
+      }
+    ]
+  },
+  {
+    "figure": 12,
+    "title": "Неправильний Maps ключ і повтор",
+    "caption": "а — timeout у MainActivity з навмисно неправильним ключем; б — нове завантаження після «Повторити мапу». Значення справжнього ключа не показується, список і деталі залишаються доступними.",
+    "files": [
+      {
+        "path": "evidence/final-checks/invalid-key-retry/pw04-final-evidence--40-invalid-key-map-failed.png",
+        "sha256": "f5c79c92182e8a43643d41ef2aadd67d7ee467ec5784f19d5bed4af5fdef2500"
+      },
+      {
+        "path": "evidence/final-checks/invalid-key-retry/pw04-final-evidence--41-invalid-key-map-retrying.png",
+        "sha256": "cfdb35e9e0517f00d0217792e09e3d5307a26fd64acc75551cbcb0b1848e67ff"
+      }
+    ]
+  },
+  {
+    "figure": 13,
+    "title": "Втрата і відновлення мережі",
+    "caption": "а — Wi-Fi/mobile data справді вимкнено, показано timeout; б — після повтору й відновлення мережі завантажено тайли Рейк’явіка. Ізольований EnergyMap без приватної позиції, не MainActivity. Початкові налаштування відновлено.",
+    "files": [
+      {
+        "path": "evidence/final-checks/network-recovery/50-network-off-map-failed.png",
+        "sha256": "46adbdb1366ae6b210571608f8ebefcf532812a9fc578d8458cd99e84502338c"
+      },
+      {
+        "path": "evidence/final-checks/network-recovery/52-network-restored-map-loaded.png",
+        "sha256": "5baacb533cfdfb62d55c3f9d59e47a3fa87729ea858e52b329c6ed1c4d6eb171"
+      }
+    ]
+  },
+  {
+    "figure": 14,
+    "title": "Недоступні сервіси та контрольований стан помилки",
+    "caption": "а — Pixel_6 AVD з тимчасово вимкненими Play services; б — A54, production-компонент із явно позначеним контрольованим FAILED-станом. Другий кадр не є природним збоєм вимірювального обладнання.",
+    "files": [
+      {
+        "path": "evidence/final-checks/services-unavailable-emulator/60-play-services-unavailable.png",
+        "sha256": "9e4440e6ac20d94cb3f239af01fed0930159b0d7666ee361d077b7b4e060b453"
+      },
+      {
+        "path": "evidence/final-checks/controlled-states/pw04-final-evidence--81-controlled-failed.png",
+        "sha256": "a1656c179b6edee785e54c4f45bcf514bd79b88f1237c6ce27873e2f915f1a65"
+      }
+    ]
+  },
+  {
+    "figure": 15,
+    "title": "Зміна орієнтації",
+    "caption": "а — фактичний landscape Configuration; б — повернення portrait зі збереженим запитом і прихованою мапою. Список навмисно прокручено. Це поворот Activity, не process death.",
+    "files": [
+      {
+        "path": "evidence/final-checks/general-valid/pw04-final-evidence--24-landscape.png",
+        "sha256": "4043770b22fddc23bb274515e48c3b55d29ddcf3f77c26a2fec378ddd0ab0a85"
+      },
+      {
+        "path": "evidence/final-checks/general-valid/pw04-final-evidence--25-portrait-restored.png",
+        "sha256": "8343e8044ec0807f302f5f1750c27e7e387604d18bad1d81df2940cec5e40e4b"
+      }
+    ]
+  },
+  {
+    "figure": 16,
+    "title": "Збільшений системний шрифт",
+    "caption": "а — список прокручується до останнього об’єкта; б — доступні «Скинути» та «Готово». Системний font_scale=1.6 на A54, після тесту відновлено початкове значення.",
+    "files": [
+      {
+        "path": "evidence/final-checks/system-large-font/pw04-final-evidence--26-system-large-font.png",
+        "sha256": "93ec3ba3c43550d6ed5794aa648132d805d73b6906c5d3f7ab5b0f7816c1494d"
+      },
+      {
+        "path": "evidence/final-checks/system-large-font/pw04-final-evidence--28-large-font-filter-done.png",
+        "sha256": "6b22ae86ea6a8b145a87c6a536da2ad0c3cb839806a0e3b3439816fdda76ca10"
+      }
+    ]
+  }
+]

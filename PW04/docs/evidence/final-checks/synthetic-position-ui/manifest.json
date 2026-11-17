@@ -1,0 +1,26 @@
+{
+  "captured_at_utc": "2026-11-16T14:55:58.138296+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "synthetic-position-ui",
+  "files": [
+    {
+      "file": "pw04-final-evidence--30-labelled-synthetic-position.png",
+      "sha256": "d0723cd141e29313b94cdf7d0d858517c5ee6cf731f00dade77d659356fadf02"
+    },
+    {
+      "file": "pw04-final-evidence--31-labelled-position-updated.png",
+      "sha256": "86322783a0118178a20a0dc6c7f1078d68222588d7b8452eeac208a3540df5dd"
+    },
+    {
+      "file": "pw04-final-evidence--32-providers-disabled.png",
+      "sha256": "97b822e94c44d04533903afcd42cb75f05544ca5a327a92000bffd777ac00aa6"
+    },
+    {
+      "file": "pw04-final-evidence--33-providers-recovered.png",
+      "sha256": "f8c4e46e5425757efccb880624a24322c7e4cf4343c9d568f680ee4369a98da7"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

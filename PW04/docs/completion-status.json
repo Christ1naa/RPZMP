@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-17",
+  "state": "ready_for_submission",
+  "student_details_confirmed": true,
+  "phone_operation": {
+    "device": "Samsung Galaxy A54",
+    "result": "works",
+    "evidence_type": "student_confirmation_in_chat",
+    "individual_manual_scenarios_not_inferred": true
+  },
+  "programming_requirements": "advanced_level_supported_by_independent_audit",
+  "report": "final DOCX and PDF",
+  "submission_performed": false,
+  "defence_performed": false,
+  "publication_target": "feature/pw04"
+}

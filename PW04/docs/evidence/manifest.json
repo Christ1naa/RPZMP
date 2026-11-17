@@ -1,0 +1,39 @@
+{
+  "captured_at_utc": "2026-11-13T11:11:20.707859+00:00",
+  "serial": "emulator-5554",
+  "model": "sdk_gphone64_x86_64",
+  "android_api": "36",
+  "method": "UiAutomation.takeScreenshot in EvidenceCaptureTest; original PNG bytes",
+  "maps_verified": false,
+  "apk_sha256": "0b4c30f618ffb66fb0273cfebf847590fa70bf236c40d86414a8af47dbbb750d",
+  "files": [
+    {
+      "file": "01-monitor-live.png",
+      "sha256": "03926f36f13e86107a42fba32cc6ec7b5a4971564c19cc311ae77816d0de46a5"
+    },
+    {
+      "file": "02-catalog-no-key.png",
+      "sha256": "94427592271d5a6c2185a5e60ca9eef04003a30061d0cc31b78a3e53bdb229e6"
+    },
+    {
+      "file": "03-filter-panel.png",
+      "sha256": "a64e9f4539498aa373f0cf13ff83c9035dc96a978f0206166d2c02d037c05363"
+    },
+    {
+      "file": "04-filtered-office.png",
+      "sha256": "81bd2fbf6027a440c6538c45ea830e28d64ec350d4c51b31f9e6dbd0e58b26bf"
+    },
+    {
+      "file": "05-details-top.png",
+      "sha256": "028356cba70d3c0d78ad32b86038c58dd67b42826205ebeef2160b9904b0fb44"
+    },
+    {
+      "file": "06-details-bottom.png",
+      "sha256": "028356cba70d3c0d78ad32b86038c58dd67b42826205ebeef2160b9904b0fb44"
+    },
+    {
+      "file": "07-empty-search.png",
+      "sha256": "dfbdf654f8aea782a76e458ae132af15b7d25a4b80b2d810bb7662adcbb564b3"
+    }
+  ]
+}

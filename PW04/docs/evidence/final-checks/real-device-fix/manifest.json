@@ -1,0 +1,9 @@
+{
+  "captured_at_utc": "2026-11-16T14:55:40.147353+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "real-device-fix",
+  "files": [],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

@@ -1,0 +1,14 @@
+{
+  "captured_at_utc": "2026-11-16T14:54:53.312569+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "precisePermissionThroughSystemDialog",
+  "files": [
+    {
+      "file": "pw04-final-evidence--10-permission-precise-dialog.png",
+      "sha256": "0476e557e92da9b7492e5cd3059f9f14f762b9266245ca69f5fd5a727a8a846a"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

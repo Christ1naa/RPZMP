@@ -1,0 +1,22 @@
+{
+  "captured_at_utc": "2026-11-16T14:49:24.382628+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "invalid-key-retry",
+  "files": [
+    {
+      "file": "pw04-final-evidence--40-invalid-key-map-failed.png",
+      "sha256": "f5c79c92182e8a43643d41ef2aadd67d7ee467ec5784f19d5bed4af5fdef2500"
+    },
+    {
+      "file": "pw04-final-evidence--41-invalid-key-map-retrying.png",
+      "sha256": "cfdb35e9e0517f00d0217792e09e3d5307a26fd64acc75551cbcb0b1848e67ff"
+    },
+    {
+      "file": "pw04-final-evidence--42-invalid-key-catalogue-still-usable.png",
+      "sha256": "cafd26a6709d908d37c3bace29dc76a55e29c28c926fde8ff32ee32767452e6f"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "5afd98868fa7ecc4823e8d3fd1c06b59901676a8040540b4d92a3ab90e4c1317"
+}

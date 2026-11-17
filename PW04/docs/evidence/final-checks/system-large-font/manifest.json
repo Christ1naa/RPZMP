@@ -1,0 +1,22 @@
+{
+  "captured_at_utc": "2026-11-16T14:56:22.698135+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "system-large-font",
+  "files": [
+    {
+      "file": "pw04-final-evidence--26-system-large-font.png",
+      "sha256": "93ec3ba3c43550d6ed5794aa648132d805d73b6906c5d3f7ab5b0f7816c1494d"
+    },
+    {
+      "file": "pw04-final-evidence--27-large-font-filter-reset.png",
+      "sha256": "6b22ae86ea6a8b145a87c6a536da2ad0c3cb839806a0e3b3439816fdda76ca10"
+    },
+    {
+      "file": "pw04-final-evidence--28-large-font-filter-done.png",
+      "sha256": "6b22ae86ea6a8b145a87c6a536da2ad0c3cb839806a0e3b3439816fdda76ca10"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

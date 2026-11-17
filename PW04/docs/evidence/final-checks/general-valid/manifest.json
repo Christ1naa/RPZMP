@@ -1,0 +1,106 @@
+{
+  "captured_at_utc": "2026-11-16T14:59:54.873662+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "general-valid",
+  "files": [
+    {
+      "file": "pw04-final-evidence--20-meter-retrying.png",
+      "sha256": "de015fcdb01bc533b9dcea4e26aa5b9475debb4eebea4b450f55d34d2cb11d24"
+    },
+    {
+      "file": "pw04-final-evidence--20-model-retrying.png",
+      "sha256": "551a457223feaa3384e354cd670bc12c6135f4cff28b87ec55eb4d1c7a7a56f5"
+    },
+    {
+      "file": "pw04-final-evidence--21-meter-recovered.png",
+      "sha256": "b8c605bccd6f3303d47e143b32b114e3f53e4a6a76b5f1fb9d2a4eb575dfe7ca"
+    },
+    {
+      "file": "pw04-final-evidence--21-model-recovered.png",
+      "sha256": "334e4246489e22434f90d9ecdd9723fea074f129bcdd840bcdacb1cea240bf9d"
+    },
+    {
+      "file": "pw04-final-evidence--22-invalid-range.png",
+      "sha256": "fcb536ccef9220c8e7caa59cf00ef6701e10d91c03b43ea92fb5c9c20f0cd60d"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-date-asc.png",
+      "sha256": "82471bac76e7b65aee0967b69e17691ab0b6097f5a3ab46c5418912812bbc219"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-date-desc.png",
+      "sha256": "de3372c0f91a6cbe9f84bc8b39a9cda8d2920e6b169e7e83e3098fcf201471c5"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-forecast-asc.png",
+      "sha256": "65038a585f0223aa33a838b9c9e467a656f45e04815c353e3ec3363cff422317"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-forecast-desc.png",
+      "sha256": "2419d42b32c8d2851658e6ae47028024d87fea7aa2df847b49788891bfcf66d7"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-name-asc.png",
+      "sha256": "c7d76e920eb3c53559ae0070e1bc1d877eb51aa583a2ebaf599d2b2ce83cffb5"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-name-desc.png",
+      "sha256": "038b90d35edef50f906e47e921bfa42b7b2d93ddbbb5c22f1b44a60488e0479c"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-power-asc.png",
+      "sha256": "abebd16cd47ba178c99c5d460f80ee22460b36ae457a4d4c7554005486a732cb"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-power-desc.png",
+      "sha256": "35f50d2f60a7ef06573b250e1cad7e584c094c8a1155be6a340b2ca4ef95c584"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-status-asc.png",
+      "sha256": "69d1c3ab1955bc7d4569dd760b5af4d340d971b6777de719b002e1c07c8942d0"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-status-desc.png",
+      "sha256": "be60af950c70258afcb7ddd5a9048dd97b60db9f75643d08cf5827206223b2f3"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-type-asc.png",
+      "sha256": "24ff33ae87b1cafe2e7c59828cf6e889986d887f778149ba92f225f347c1bd5e"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-type-desc.png",
+      "sha256": "3747b50bb2d2de080ac90c6c078b20aec32db31e3c6dea6ccbad84ce92d8f8eb"
+    },
+    {
+      "file": "pw04-final-evidence--24-landscape.png",
+      "sha256": "4043770b22fddc23bb274515e48c3b55d29ddcf3f77c26a2fec378ddd0ab0a85"
+    },
+    {
+      "file": "pw04-final-evidence--25-portrait-restored.png",
+      "sha256": "8343e8044ec0807f302f5f1750c27e7e387604d18bad1d81df2940cec5e40e4b"
+    },
+    {
+      "file": "pw04-maps-evidence--01-map-loaded.png",
+      "sha256": "fbc64c206717a940fd7e63540133bd28ab0001af7cc864741474b8ad468e6be3"
+    },
+    {
+      "file": "pw04-maps-evidence--02-marker-selected.png",
+      "sha256": "e5d6f19751abfb07cd36911f0adee37542c6d99170f922dfa493d141dcdfb6e7"
+    },
+    {
+      "file": "pw04-maps-evidence--03-camera-refocused.png",
+      "sha256": "ef252a0f0baf454b6bfc995ce54fbd89f86469c1b9f1c711de95d14754240ee3"
+    },
+    {
+      "file": "pw04-maps-evidence--04-filtered-map.png",
+      "sha256": "144abce87153b22ecd95cdf851c0a5bf74f18f43646da18e31554fb842b48f23"
+    },
+    {
+      "file": "pw04-maps-evidence--05-empty-map.png",
+      "sha256": "ae67c3b704462794bae1f5ad3156e148e292557684d8d045c6a07c3b950e644c"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

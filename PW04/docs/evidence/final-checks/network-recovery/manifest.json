@@ -1,0 +1,21 @@
+{
+  "captured_at_utc": "2026-11-16T14:54:08.547268+00:00",
+  "passed": true,
+  "model": "SM-A546B",
+  "api": "36",
+  "original_network_settings_restored": true,
+  "files": [
+    {
+      "file": "50-network-off-map-failed.png",
+      "sha256": "46adbdb1366ae6b210571608f8ebefcf532812a9fc578d8458cd99e84502338c"
+    },
+    {
+      "file": "51-network-retry-loading.png",
+      "sha256": "4bddfbc74490ed0dec2caedadc059deae85dfe9fa16c7a3f3a72a86a3c0acdfa"
+    },
+    {
+      "file": "52-network-restored-map-loaded.png",
+      "sha256": "5baacb533cfdfb62d55c3f9d59e47a3fa87729ea858e52b329c6ed1c4d6eb171"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "captured_at_utc": "2026-11-16T15:04:25.473997+00:00",
+  "model": "SM-A546B",
+  "android_api": "36",
+  "method": "GoogleMap.snapshot; production EnergyMap in SDK/Browser test hosts, not MainActivity",
+  "test_result": "OK (4 tests)",
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66",
+  "files": [
+    {
+      "file": "01-map-loaded.png",
+      "sha256": "657bbba6d9abbb276a7e1bfdcac2713a8f367c3419196dbad3581797be9867e9"
+    },
+    {
+      "file": "02-marker-selected.png",
+      "sha256": "62168eb10859f683270cf2b77ea9f75961fc85d2eda7603d061e27f514856f5d"
+    },
+    {
+      "file": "03-camera-refocused.png",
+      "sha256": "dfbc5dfbde022c1b45d27aa5077252370548e1a46da79ea158d007a95ca691e5"
+    },
+    {
+      "file": "04-filtered-map.png",
+      "sha256": "03d6e0854fc654a15e4db3be30e71474a39f4ebf1af24cdc39504115f99e5c6e"
+    },
+    {
+      "file": "05-empty-map.png",
+      "sha256": "52d79ad0c583ccfa7a8233f786a183da9d833ed8a979481994e689e1f2e74580"
+    }
+  ]
+}

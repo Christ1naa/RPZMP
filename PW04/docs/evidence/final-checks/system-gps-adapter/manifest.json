@@ -1,0 +1,9 @@
+{
+  "captured_at_utc": "2026-11-16T14:56:07.820204+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "system-gps-adapter",
+  "files": [],
+  "passed": true,
+  "apk_sha256": "b49659b9371f9e7af2b6015498ab52129e009eb6dc0db1fd72652825e496da66"
+}

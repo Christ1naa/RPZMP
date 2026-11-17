@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
 import ua.kpi.energyforecast.pw04.ui.*
@@ -24,9 +25,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun EnergyApp(model: ForecastViewModel = viewModel()) {
+fun EnergyApp(model: ForecastViewModel = viewModel(), nav: NavHostController = rememberNavController()) {
     val state by model.uiState.collectAsStateWithLifecycle()
-    val nav = rememberNavController()
     val entry by nav.currentBackStackEntryAsState()
     val route = entry?.destination?.route
     Scaffold(bottomBar = {
@@ -40,17 +40,17 @@ fun EnergyApp(model: ForecastViewModel = viewModel()) {
     }) { padding ->
         NavHost(nav, startDestination = "monitor", modifier = Modifier.fillMaxSize().padding(padding)) {
             composable("monitor") {
-                MonitorScreen(state.telemetry, model::simulateFailure, model::restart)
+                MonitorScreen(state.telemetry, model::simulateFailure, model::restart, model::simulateForecastFailure)
             }
             composable("sites") {
                 SiteBrowser(state, model::updateQuery, model::select,
-                    onDetails = { nav.navigate("details/$it") }) {
-                    SiteMapPanel(state.visible, state.selectedId, model::select)
+                    onDetails = { nav.navigate("details/${android.net.Uri.encode(it)}") { launchSingleTop = true } }, onRestart = model::restart) {
+                    SiteMapPanel(state.visible, state.selectedId, model::select, state.selectionRevision)
                 }
             }
             composable("details/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { detailEntry ->
                 val id = detailEntry.arguments?.getString("id")
-                SiteDetails(state.telemetry.readings.firstOrNull { it.site.id == id }, onBack = { nav.popBackStack() })
+                SiteDetails(id, state.telemetry, onBack = { nav.popBackStack() }, onRestart = model::restart)
             }
         }
     }

@@ -1,0 +1,17 @@
+{
+  "captured_at_utc": "2026-11-16T14:54:49.521391+00:00",
+  "passed": true,
+  "device": "Pixel_6 AVD",
+  "api": "36",
+  "files": [
+    {
+      "file": "60-play-services-unavailable.png",
+      "sha256": "9e4440e6ac20d94cb3f239af01fed0930159b0d7666ee361d077b7b4e060b453"
+    },
+    {
+      "file": "61-services-unavailable-details-work.png",
+      "sha256": "cd13b87eefdd98d339d41995369156e905ad7ab8610105ebdb3230b9548f808b"
+    }
+  ],
+  "services_state_restored": true
+}

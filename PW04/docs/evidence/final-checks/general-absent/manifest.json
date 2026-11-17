@@ -1,0 +1,114 @@
+{
+  "captured_at_utc": "2026-11-16T15:02:58.497301+00:00",
+  "model": "SM-A546B",
+  "api": "36",
+  "scenario": "general-absent",
+  "files": [
+    {
+      "file": "pw04-final-evidence--20-meter-retrying.png",
+      "sha256": "1a72f7901c21261f4fc93d224f63f226361d369411010eee80e79c0708346f26"
+    },
+    {
+      "file": "pw04-final-evidence--20-model-retrying.png",
+      "sha256": "0b3d75d4f974fa92ae3d5c61f92f07a9c7bf0b4aef9ac9bc0aba8b8cea587ffc"
+    },
+    {
+      "file": "pw04-final-evidence--21-meter-recovered.png",
+      "sha256": "afd73eb9003a43f158a88b5d62ab88bf247a23b83d0f52c08b68dd9edfdfc663"
+    },
+    {
+      "file": "pw04-final-evidence--21-model-recovered.png",
+      "sha256": "bd4965c976a619900c9783087314769939d0b04960322de771e956425687b0c3"
+    },
+    {
+      "file": "pw04-final-evidence--22-invalid-range.png",
+      "sha256": "0c4ebecf31d67081c8931fb98c1a9b89c4af36e32bd383933e78e852685c37a0"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-date-asc.png",
+      "sha256": "97f8112a0cb3ad88f9f55bfd664a4b0f54ef7ad8809126a65dc7b9501afb5f9f"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-date-desc.png",
+      "sha256": "04f4ae9d10fbd77cd565677085aea26a5f589beea7b4c2b4d986e5967c557fee"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-forecast-asc.png",
+      "sha256": "58788d97acc5c65ed2e42867bfe3b4fc8df1eb231fdb48ebc1745b9570cdece7"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-forecast-desc.png",
+      "sha256": "522d1fcec92468559d0763e3d33b8742afb04199a2020aa87c2660dae3371eac"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-name-asc.png",
+      "sha256": "03900ad4ccdda984a480476b8effa6ec9d59e8bd7be7c468ec65561a4cb9e16e"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-name-desc.png",
+      "sha256": "6b24cbcf9ca454b4aad16c8c46652d55b4046c7b444c6830239f384be3ae7915"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-power-asc.png",
+      "sha256": "20ebd596155811a3ba3d546a0a45c8a9f99ed661a6a70de19137e862f8abe224"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-power-desc.png",
+      "sha256": "00b6cf64e1220b764e01eef679130f480eaa1cab63e0c97d49e4b0a4ba2bd914"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-status-asc.png",
+      "sha256": "956231781ce2b16a6ebd608f6a841e07bb606f0ea99e4c15c29b7214ca2b698e"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-status-desc.png",
+      "sha256": "68fd08505f737214641d0d5772f0be75cd14f5ee8692325bc37f2cd7de38779a"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-type-asc.png",
+      "sha256": "2eae83ee8a6bf129e9addcf2d33baf95461fb3d6184842af5fa62665d881122c"
+    },
+    {
+      "file": "pw04-final-evidence--23-sort-type-desc.png",
+      "sha256": "126ec0a286e0d689835612b36b66bc6ddaf48fad7cb4a07e5541d770bd550746"
+    },
+    {
+      "file": "pw04-final-evidence--24-landscape.png",
+      "sha256": "630123b20cbe5a61c88044485a008a981b4410db3e5b98f085a7cb71ff4ab6b2"
+    },
+    {
+      "file": "pw04-final-evidence--25-portrait-restored.png",
+      "sha256": "b5544be8ca8bfab2c605ffe44ddf452e5dfa8ab68c51154d3c5807e7eb74538c"
+    },
+    {
+      "file": "pw04-evidence--01-monitor-live.png",
+      "sha256": "26b9b406c8262c797991e1cc8e94945492f7ba6f721a91ada46765c6c1d60898"
+    },
+    {
+      "file": "pw04-evidence--02-catalog-no-key.png",
+      "sha256": "8f04b2d95ba80aa5c1b6a50986f4bf6632f732017a0a4d72bf85b1d608d5d629"
+    },
+    {
+      "file": "pw04-evidence--03-filter-panel.png",
+      "sha256": "d4c0864f1718e586d92644e2bc829416ed8c0bade0270a3fbb88a92b43608f4b"
+    },
+    {
+      "file": "pw04-evidence--04-filtered-office.png",
+      "sha256": "a4d8a7db977d2dc5b777f59c173e3d7bf9ea39d288ca58b38f66d8e2ebdd9b25"
+    },
+    {
+      "file": "pw04-evidence--05-details-top.png",
+      "sha256": "868756b1afe598e8d5942e90c4c94f8b09c3b58d71c2327b2b92d5b625d85a57"
+    },
+    {
+      "file": "pw04-evidence--06-details-bottom.png",
+      "sha256": "333fc8d23542deba6e72d25241e88c0b3524b7e8a0ad3aeb9725cdff3d44f760"
+    },
+    {
+      "file": "pw04-evidence--07-empty-search.png",
+      "sha256": "f6ac855775ff9db700486502015e4fbd2e4cb5709bbfe5153092681e5cafba2f"
+    }
+  ],
+  "passed": true,
+  "apk_sha256": "48bbfc8c7d8385103ab31237d3f7eed363c30545d1f3537a644490a830aa7e03"
+}

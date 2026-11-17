@@ -13,15 +13,19 @@ data class ForecastUiState(
     val telemetry: TelemetryState = TelemetryState(),
     val query: SiteQuery = SiteQuery(),
     val visible: List<SiteReading> = emptyList(),
-    val selectedId: String? = null
+    val selectedId: String? = null,
+    val selectionRevision: Long = 0
 )
+
+private data class SiteSelection(val id: String? = null, val revision: Long = 0)
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ForecastViewModel @JvmOverloads constructor(
     private val saved: SavedStateHandle,
     private val source: DemoTelemetrySource = DemoTelemetrySource(DemoSites.sites),
     private val engine: TelemetryEngine = TelemetryEngine(DemoSites.sites, source),
-    private val failureAction: () -> Unit = source::simulateFailure
+    private val failureAction: () -> Unit = source::simulateFailure,
+    private val forecastFailureAction: () -> Unit = source::simulateForecastFailure
 ) : ViewModel() {
     private val query = MutableStateFlow(SiteQuery(
         search = saved["search"] ?: "",
@@ -32,7 +36,8 @@ class ForecastViewModel @JvmOverloads constructor(
         secondary = SiteSort.valueOf(saved["secondary"] ?: SiteSort.POWER.name),
         descending = saved["descending"] ?: false
     ))
-    private val selected = saved.getStateFlow<String?>("selected", null)
+    // ID — збережений вибір, revision — нова явна дія, навіть якщо ID не змінився.
+    private val selected = MutableStateFlow(SiteSelection(saved["selected"]))
     private val restart = MutableStateFlow(0)
 
     // Один гарячий потік для всіх екранів. Немає окремих генераторів для кожної картки.
@@ -40,10 +45,11 @@ class ForecastViewModel @JvmOverloads constructor(
     val telemetry = restart.flatMapLatest { engine.observe() }
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000, 0), replay = 1)
 
-    val uiState = combine(telemetry, query, selected) { data, filters, id ->
+    val uiState = combine(telemetry, query, selected) { data, filters, selection ->
         val visible = querySites(data.readings, filters)
-        ForecastUiState(data, filters, visible, id?.takeIf { key -> visible.any { it.site.id == key } })
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(0), ForecastUiState(query = query.value))
+        ForecastUiState(data, filters, visible,
+            selection.id?.takeIf { key -> visible.any { it.site.id == key } }, selection.revision)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(0, 0), ForecastUiState(query = query.value))
 
     fun updateQuery(value: SiteQuery) {
         query.value = value
@@ -57,13 +63,18 @@ class ForecastViewModel @JvmOverloads constructor(
         saved["descending"] = value.descending
         // Прихований фільтром об'єкт більше не залишається вибраним.
         if (uiState.value.telemetry.readings.isNotEmpty() &&
-            querySites(uiState.value.telemetry.readings, value).none { it.site.id == selected.value }) {
+            querySites(uiState.value.telemetry.readings, value).none { it.site.id == selected.value.id }) {
             saved["selected"] = null
+            selected.update { it.copy(id = null) }
         }
     }
     fun select(id: String) {
-        if (uiState.value.visible.any { it.site.id == id }) saved["selected"] = id
+        if (uiState.value.visible.any { it.site.id == id }) {
+            saved["selected"] = id
+            selected.update { SiteSelection(id, it.revision + 1) }
+        }
     }
     fun restart() { restart.update { it + 1 } }
     fun simulateFailure() = failureAction()
+    fun simulateForecastFailure() = forecastFailureAction()
 }

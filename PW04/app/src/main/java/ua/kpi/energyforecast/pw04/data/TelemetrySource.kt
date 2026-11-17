@@ -20,7 +20,9 @@ interface TelemetrySource {
 /** Холодні незалежні джерела: облік у Вт раз на 1 с, модель попиту раз на 1,5 с. */
 class DemoTelemetrySource(private val sites: List<EnergySite>) : TelemetrySource {
     private val failNext = AtomicBoolean(false)
+    private val failForecastNext = AtomicBoolean(false)
     fun simulateFailure() { failNext.set(true) }
+    fun simulateForecastFailure() { failForecastNext.set(true) }
 
     override fun meter(): Flow<MeterFrame> = flow {
         var tick = 0
@@ -38,6 +40,7 @@ class DemoTelemetrySource(private val sites: List<EnergySite>) : TelemetrySource
     override fun demandFactor(): Flow<Double> = flow {
         var tick = 0
         while (true) {
+            if (failForecastNext.getAndSet(false)) throw IOException("Імітація збою прогнозної моделі")
             emit(1.05 + 0.05 * sin(tick / 4.0))
             delay(1500)
             tick++
