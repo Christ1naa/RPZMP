@@ -205,9 +205,20 @@ def build():
             p = doc.add_paragraph(title, 'Title')
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.space_before = Pt(35)
-        p = para(row)
+        if row.startswith('https://github.com/'):
+            from docx.opc.constants import RELATIONSHIP_TYPE
+            p = doc.add_paragraph()
+            link = OxmlElement('w:hyperlink')
+            link.set(qn('r:id'), doc.part.relate_to(row, RELATIONSHIP_TYPE.HYPERLINK, is_external=True))
+            run = OxmlElement('w:r'); properties = OxmlElement('w:rPr')
+            colour = OxmlElement('w:color'); colour.set(qn('w:val'), '000000'); properties.append(colour)
+            underline = OxmlElement('w:u'); underline.set(qn('w:val'), 'single'); properties.append(underline)
+            run.append(properties); value = OxmlElement('w:t'); value.text = row; run.append(value)
+            link.append(run); p._p.append(link)
+        else:
+            p = para(row)
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        if row.startswith(('Виконала', 'Вахрушева', 'Перевірив', 'Олексій')):
+        if row.startswith(('Виконала', 'Вахрушева', 'Перевірив', 'Олексій', 'https://github.com/')):
             p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         if row.startswith('Виконала'):
             p.paragraph_format.space_before = Pt(40)
@@ -425,6 +436,9 @@ def evidence_package():
             if path.is_file(): archive.write(path, 'docs/' + path.relative_to(HERE).as_posix())
         for path in sorted(HERE.glob('*.md')) + sorted(HERE.glob('*.json')):
             archive.write(path, 'docs/' + path.name)
+        comment = HERE / 'submission-comment.txt'
+        if comment.exists():
+            archive.write(comment, 'docs/' + comment.name)
         for path in staging.glob('*.json'): archive.write(path, 'verification/' + path.name)
         names = [r['scenario'] + '.txt' for r in counts['runs']]
         names += ['network-detached-runner.txt', 'services-unavailable-runner.txt']

@@ -12,5 +12,8 @@
   "report": "final DOCX and PDF",
   "submission_performed": false,
   "defence_performed": false,
-  "publication_target": "feature/pw04"
+  "publication_target": "feature/pw04",
+  "github_link_on_title_page_under_student_name": "https://github.com/Christ1naa/RPZMP/tree/feature/pw04/PW04",
+  "conclusion_present": true,
+  "submission_comment_prepared": "docs/submission-comment.txt"
 }

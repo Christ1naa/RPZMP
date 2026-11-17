@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
   "verification_records_date": "2026-11-16",
-  "revision": "All editable text, character/table styles, fields and Word stories explicitly black",
+  "revision": "Teacher submission requirement: clickable GitHub link below student full name on title page",
   "pages": 35,
   "control_answers": 48,
   "figures": 16,
@@ -9,9 +9,10 @@
   "tables": 6,
   "page_layouts_verified": true,
   "visual_review": {
-    "changed_or_new_pages_opened": [],
+    "changed_or_new_pages_opened": [
+      1
+    ],
     "pixel_identical_to_previously_reviewed_pages": [
-      1,
       2,
       3,
       4,
@@ -46,11 +47,6 @@
       33,
       34,
       35
-    ],
-    "representative_pages_reopened": [
-      2,
-      5,
-      17
     ]
   },
   "original_embedded_image_bytes_preserved": true,
@@ -59,8 +55,8 @@
   "application_tests_rerun_for_report": false,
   "export": "Microsoft Word PDF export, Poppler page rasterization",
   "outputs": {
-    "PW04_Report.docx": "46f7a6586992959d371b0d7a253e52787f7e407b93e68fd10f65d8a0871de017",
-    "PW04_Report.pdf": "59f9b6150bf17dd441a5cb75cb5aff8f4ddf67856b0020ea265947c815b04e9b"
+    "PW04_Report.docx": "1420e735232f84aa880964f958649805de121bf83844e7041359432687dab8d1",
+    "PW04_Report.pdf": "f0aed6257c2b976e0cb82468fbbfcc5c9e2fb1ba5754579a22f8bbb33a7f4203"
   },
   "evidence_png_files": 89,
   "evidence_distinct_png_bytes": 86,
@@ -76,5 +72,8 @@
   "all_editable_text_explicit_black": true,
   "rendered_pdf_text_colours": [
     "black"
-  ]
+  ],
+  "github_link_on_title_page": "https://github.com/Christ1naa/RPZMP/tree/feature/pw04/PW04",
+  "pdf_title_page_link_clickable": true,
+  "conclusion_present": true
 }
