@@ -9,6 +9,7 @@ import json
 import re
 import textwrap
 import zipfile
+from lxml import etree
 import xml.etree.ElementTree as ET
 
 from docx import Document
@@ -26,6 +27,44 @@ SOURCE = HERE / 'PW04_Report.md'
 WORK = ROOT / 'build/report-work'
 WORK.mkdir(parents=True, exist_ok=True)
 FINAL = HERE / 'evidence/final-checks'
+
+
+def enforce_black_text(path):
+    """Use explicit black for all Word text and styles, independent of theme colors.
+
+    Image bytes and table fills/borders are preserved. Character styles, TOC,
+    field text, equations, headers and footers are covered as well as body text.
+    """
+    with zipfile.ZipFile(path) as archive:
+        members = [(info, archive.read(info.filename)) for info in archive.infolist()]
+    ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
+          'm': 'http://schemas.openxmlformats.org/officeDocument/2006/math'}
+    def black(properties):
+        node = properties.find(qn('w:color'))
+        if node is None:
+            node = OxmlElement('w:color'); properties.append(node)
+        node.attrib.clear(); node.set(qn('w:val'), '000000')
+    with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as archive:
+        for info, data in members:
+            if info.filename.startswith('word/') and info.filename.endswith('.xml'):
+                tree = etree.fromstring(data)
+                for node in tree.xpath('//w:color', namespaces=ns):
+                    node.attrib.clear(); node.set(qn('w:val'), '000000')
+                for parent in tree.xpath('//w:style | //w:r | //m:r | //w:rPrDefault', namespaces=ns):
+                    properties = parent.find(qn('w:rPr'))
+                    if properties is None:
+                        properties = OxmlElement('w:rPr')
+                    else:
+                        parent.remove(properties)
+                    if parent.tag == qn('w:style'):
+                        index = next((i for i, child in enumerate(parent) if child.tag in
+                                      [qn('w:tblPr'), qn('w:trPr'), qn('w:tcPr'), qn('w:tblStylePr')]), len(parent))
+                    else:
+                        index = 1 if parent.tag == qn('m:r') and parent.find(qn('m:rPr')) is not None else 0
+                    parent.insert(index, properties)
+                    black(properties)
+                data = etree.tostring(tree, xml_declaration=True, encoding='UTF-8', standalone=True)
+            archive.writestr(info, data)
 
 
 def shot(folder, stem):
@@ -354,6 +393,7 @@ def build():
     props.comments = 'Результати перевірок і знімки 16.11.2026; оформлення виправлено 17.11.2026 за незалежним аудитом.'
     update = OxmlElement('w:updateFields'); update.set(qn('w:val'), 'true'); doc.settings.element.append(update)
     doc.save(HERE / 'PW04_Report.docx')
+    enforce_black_text(HERE / 'PW04_Report.docx')
     manifest = []
     for n, (title, paths, caption) in enumerate(FIGURES, 1):
         manifest.append({'figure': n, 'title': title, 'caption': caption, 'files': [

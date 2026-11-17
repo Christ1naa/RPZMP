@@ -16,6 +16,15 @@ try {
     $null = $report.Fields.Update()
     $report.Repaginate()
     foreach ($contents in $report.TablesOfContents) { $contents.UpdatePageNumbers() }
+    # Updating fields can reapply character styles. Explicit black in every story
+    # keeps body, TOC, hyperlinks, equations, headers and footers consistent.
+    foreach ($story in $report.StoryRanges) {
+        $currentStory = $story
+        while ($null -ne $currentStory) {
+            $currentStory.Font.Color = 0
+            $currentStory = $currentStory.NextStoryRange
+        }
+    }
     $report.Save()
     $report.ExportAsFixedFormat([System.IO.Path]::GetFullPath($PdfPath), 17)
     Write-Output ('Word export complete; pages: ' + $report.ComputeStatistics(2))

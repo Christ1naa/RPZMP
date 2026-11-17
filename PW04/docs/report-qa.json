@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
   "verification_records_date": "2026-11-16",
-  "revision": "Final student-confirmed version; self-contained report template",
+  "revision": "All editable text, character/table styles, fields and Word stories explicitly black",
   "pages": 35,
   "control_answers": 48,
   "figures": 16,
@@ -9,9 +9,7 @@
   "tables": 6,
   "page_layouts_verified": true,
   "visual_review": {
-    "changed_or_new_pages_opened": [
-      11
-    ],
+    "changed_or_new_pages_opened": [],
     "pixel_identical_to_previously_reviewed_pages": [
       1,
       2,
@@ -23,6 +21,7 @@
       8,
       9,
       10,
+      11,
       12,
       13,
       14,
@@ -47,6 +46,11 @@
       33,
       34,
       35
+    ],
+    "representative_pages_reopened": [
+      2,
+      5,
+      17
     ]
   },
   "original_embedded_image_bytes_preserved": true,
@@ -55,8 +59,8 @@
   "application_tests_rerun_for_report": false,
   "export": "Microsoft Word PDF export, Poppler page rasterization",
   "outputs": {
-    "PW04_Report.docx": "972c8e6d30685b2a343498f5888608ff53b12bd4cd223a3c91da8bf355e3a931",
-    "PW04_Report.pdf": "1b05aeb2cd35a1c83ed7fc3960c7390c12ce9bc5c0bac8e43d20d955cdeed876"
+    "PW04_Report.docx": "46f7a6586992959d371b0d7a253e52787f7e407b93e68fd10f65d8a0871de017",
+    "PW04_Report.pdf": "59f9b6150bf17dd441a5cb75cb5aff8f4ddf67856b0020ea265947c815b04e9b"
   },
   "evidence_png_files": 89,
   "evidence_distinct_png_bytes": 86,
@@ -68,5 +72,9 @@
   ],
   "student_details_confirmed": true,
   "phone_operation_confirmed_by_student": true,
-  "individual_manual_scenarios_not_inferred": true
+  "individual_manual_scenarios_not_inferred": true,
+  "all_editable_text_explicit_black": true,
+  "rendered_pdf_text_colours": [
+    "black"
+  ]
 }
