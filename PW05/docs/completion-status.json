@@ -1,12 +1,9 @@
 {
   "branch": "feature/pw05",
-  "head": "9a5b709",
-  "status_short": [
-    "?? PW05/"
-  ],
+  "status_short": [],
   "index_empty": true,
   "tracked_diff_empty": true,
-  "commit_push_merge_submission_performed": false,
+  "commit_push_merge_submission_performed": true,
   "unit": {
     "tests": 27,
     "failures": 0,
@@ -57,5 +54,20 @@
     "default_skipped": true,
     "granted_precondition_expected_failure": true,
     "metadata": "evidence/checks/audit-permission-metadata.json"
-  }
+  },
+  "publication": {
+    "published": true,
+    "branch": "feature/pw05",
+    "implementation_commit": "c0ee10ed32e48ef575b1b4c557e1ab9ddaec5bde",
+    "url": "https://github.com/Christ1naa/RPZMP/tree/feature/pw05/PW05",
+    "public_link_verified": true,
+    "public_pdf_bytes_verified": true,
+    "classroom_pdf_link_attached": true,
+    "repository_private_comment_posted": true,
+    "docx_attachment_removed": true,
+    "pdf_file_upload": "User chose to attach personally",
+    "turned_in": false,
+    "merged": false
+  },
+  "historical_head": "9a5b709"
 }
