@@ -63,6 +63,8 @@ hyper.set(qn('r:id'),rid)
 run=OxmlElement('w:r');props=OxmlElement('w:rPr');color=OxmlElement('w:color');color.set(qn('w:val'),'000000');props.append(color);run.append(props)
 t=OxmlElement('w:t');t.text='https://github.com/Christ1naa/RPZMP/tree/feature/pw05/PW05';run.append(t);hyper.append(run);p._p.append(hyper)
 for p in d.paragraphs[:15]:p.alignment=WD_ALIGN_PARAGRAPH.CENTER
+# Блок виконавиці та викладача — праворуч, як у зразку користувача.
+for p in d.paragraphs[9:14]:p.alignment=WD_ALIGN_PARAGRAPH.RIGHT
 d.add_page_break()
 p=d.add_paragraph('Зміст');p.style=d.styles['Title']
 p=d.add_paragraph()
@@ -167,6 +169,7 @@ SHA-256: {hashlib.sha256(REFERENCE.read_bytes()).hexdigest()}
 Normal Times New Roman 12 pt; Heading 1 15 pt; Heading 2 13 pt; Title 19 pt.
 Збережено стилі й параметри секції. У колонтитулах замінено номер роботи 4 на 5. Текст чорний.
 Титульний блок клонується зі звіту PW04; замінено номер, заняття, тему і гіперпосилання.
+За зразком користувача блок виконавиці, ПІБ, URL та викладача вирівняно вправо; місто й рік залишено по центру.
 Увесь старий зміст та всі source image/hyperlink relationships вилучені.
 Дозволено нову кількість сторінок, новий TOC, нові абзаци й лише PNG доказів PW05.
 Джерело PDF PW04 використане лише для стилю, не як доказ виконання PW05.

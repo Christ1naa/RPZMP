@@ -39,8 +39,11 @@
     27
   ],
   "render_method": "Word COM -> PDF -> bundled Poppler; all 27 pages reviewed after audit",
-  "docx_sha256": "623c7a8fb8cde2ad72fd8bfcd5bfa3bfdbaa41222fdadf8c8c040769d6264db9",
-  "pdf_sha256": "2c525d7839ca25f88289f464ce8f6d806120c1f6d8a7101dd0e2e6b924a91f5d",
+  "docx_sha256": "ed174dc4f3ecfa4f00926e06d92e0041ba297e1fd7f6d876c72d9352713a5ea7",
+  "pdf_sha256": "4b99851d3525ac54b5b5db660e02ebb5a9bc6aab0ed0445864a2fe847e603a79",
   "remaining_checks": "Physical vibration; quantitative sensor accuracy/latency; complete UI process-death recovery; API 26/33/37; whole-UI 200%; natural long Doze and OEM limits",
-  "figure_references_in_main_text": true
+  "figure_references_in_main_text": true,
+  "title_author_and_reviewer_right_aligned": true,
+  "title_visually_reviewed_after_alignment": true,
+  "body_pages_2_to_27_unchanged": true
 }

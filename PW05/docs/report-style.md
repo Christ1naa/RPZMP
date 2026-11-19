@@ -12,3 +12,5 @@ Normal Times New Roman 12 pt; Heading 1 15 pt; Heading 2 13 pt; Title 19 pt.
 Джерело PDF PW04 використане лише для стилю, не як доказ виконання PW05.
 Канонічний render_docx.py недоступний через відсутність LibreOffice у Windows runtime.
 Альтернатива: Word 16 COM → PDF → bundled Poppler PNG, перевірка всіх фінальних сторінок.
+
+Блок виконавиці, ПІБ, GitHub і викладача на титулі вирівняно вправо за зразком користувача. Київ 2026 залишено по центру.
