@@ -1,0 +1,61 @@
+{
+  "branch": "feature/pw05",
+  "head": "9a5b709",
+  "status_short": [
+    "?? PW05/"
+  ],
+  "index_empty": true,
+  "tracked_diff_empty": true,
+  "commit_push_merge_submission_performed": false,
+  "unit": {
+    "tests": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "last_full_android": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "separate_successful_runs": [
+    "POST_NOTIFICATIONS denied: 1",
+    "Channel/cooldown policy: 2",
+    "Final APK graph gallery: 1",
+    "Persisted snooze result in new process: 1"
+  ],
+  "snooze": "Fresh full cycle OK (1 test), 302.127s; original failures retained",
+  "lint": {
+    "errors": 0,
+    "warnings": 26,
+    "hints": 1
+  },
+  "report": {
+    "date": "2026-11-19",
+    "pages": 27,
+    "answers": 48,
+    "embedded_original_screenshots": 25,
+    "all_pages_visually_reviewed": true,
+    "phone_screenshot_package": "PW05_Report_Screenshots.zip"
+  },
+  "remaining": "Physical vibration; quantitative sensor accuracy/latency; complete UI process-death recovery; API 26/33/37; whole-UI 200%; natural long Doze and OEM limits",
+  "primary_worktree": "C:/Projects/RPZMP remains feature/pw04; existing PW03/untracked files untouched",
+  "date": "2026-11-19",
+  "reliability": {
+    "reboot": "OK (1 verify test), 82.089s",
+    "forced_deep_idle": "OK (1 verify test), 207.341s",
+    "font200_charts": "OK (1 test), 11.481s",
+    "final_android_regression": "OK (9 tests), 53.359s",
+    "fix": "SensorPreferences synchronous confirmed write before immediate reboot"
+  },
+  "physical_snooze": "OK (1 test), 527.953s, Galaxy A54; inexact delivery approx 228s after minimum due",
+  "permission_denied_audit": {
+    "device": "emulator-5554 API36",
+    "denied_test_passed": true,
+    "seconds": 0.294,
+    "default_skipped": true,
+    "granted_precondition_expected_failure": true,
+    "metadata": "evidence/checks/audit-permission-metadata.json"
+  }
+}

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="11" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-11-17T12:22:45" hostname="localhost">
+  <testsuite name="ua.kpi.energyforecast.pw05.AdvancedDeviceTest" tests="5" failures="0" errors="0" skipped="0" time="39.184" timestamp="2026-11-17T12:22:45" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="notificationActionsUseSystemPendingIntentsAndPersistState" classname="ua.kpi.energyforecast.pw05.AdvancedDeviceTest" time="12.518" />
+    <testcase name="sensorSettingsSurviveRepositoryRecreation" classname="ua.kpi.energyforecast.pw05.AdvancedDeviceTest" time="2.375" />
+    <testcase name="chartsComponentsAndRotation" classname="ua.kpi.energyforecast.pw05.AdvancedDeviceTest" time="6.088" />
+    <testcase name="categoryDisableCancelsAllPendingAndBlocksNewEvents" classname="ua.kpi.energyforecast.pw05.AdvancedDeviceTest" time="1.935" />
+    <testcase name="largeFontLandscapeAndSensorSelectionRemainReachable" classname="ua.kpi.energyforecast.pw05.AdvancedDeviceTest" time="16.268" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.pw05.AndroidSensorBackendTest" tests="2" failures="0" errors="0" skipped="0" time="0.579" timestamp="2026-11-17T12:22:45" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="platformAvailabilityAndStreamsAreConsistent" classname="ua.kpi.energyforecast.pw05.AndroidSensorBackendTest" time="0.180" />
+    <testcase name="twoAvailableSensorsProduceValidatedLiveReadings" classname="ua.kpi.energyforecast.pw05.AndroidSensorBackendTest" time="0.399" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.pw05.DeliveryDeviceTest" tests="1" failures="0" errors="0" skipped="0" time="5.566" timestamp="2026-11-17T12:22:45" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="alarmDeliversAfterRequestedTime" classname="ua.kpi.energyforecast.pw05.DeliveryDeviceTest" time="5.566" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.pw05.NotificationPolicyDeviceTest" tests="2" failures="0" errors="0" skipped="0" time="0.123" timestamp="2026-11-17T12:22:45" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="sensorCooldownSuppressesRepeatedTestFixtures" classname="ua.kpi.energyforecast.pw05.NotificationPolicyDeviceTest" time="0.073" />
+    <testcase name="blockedChannelIsReportedWithoutFalseDelivery" classname="ua.kpi.energyforecast.pw05.NotificationPolicyDeviceTest" time="0.050" />
+  </testsuite>
+  <testsuite name="ua.kpi.energyforecast.pw05.PermissionDeniedDeviceTest" tests="1" failures="0" errors="0" skipped="0" time="0.041" timestamp="2026-11-17T12:22:45" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="deniedPermissionIsRecordedWithoutFalseDelivery" classname="ua.kpi.energyforecast.pw05.PermissionDeniedDeviceTest" time="0.041" />
+  </testsuite>
+</testsuites>

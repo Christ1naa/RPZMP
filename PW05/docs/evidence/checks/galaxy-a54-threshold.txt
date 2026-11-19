@@ -1,0 +1,55 @@
+
+ua.kpi.energyforecast.pw05.AdvancedDeviceTest:
+Error in physicalThresholdEvidence(ua.kpi.energyforecast.pw05.AdvancedDeviceTest):
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but found '3' nodes that satisfy: (Text + InputText + EditableText contains 'Поточний поріг:' (ignoreCase: false) as substring)
+Nodes found:
+1) Node #105 at (l=79.0, t=2307.0, r=1001.0, b=2511.0)px
+Text = '[Поточний поріг: 1,00 м/с². Системні події: увімкніть категорію «Сенсори» у сповіщеннях.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 6 siblings
+2) Node #126 at (l=79.0, t=3388.0, r=1001.0, b=3592.0)px
+Text = '[Поточний поріг: 2,00 рад/с. Системні події: увімкніть категорію «Сенсори» у сповіщеннях.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 5 siblings
+3) Node #147 at (l=79.0, t=4469.0, r=1001.0, b=4673.0)px
+Text = '[Поточний поріг: 500,00 лк. Системні події: увімкніть категорію «Сенсори» у сповіщеннях.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 5 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at ua.kpi.energyforecast.pw05.AdvancedDeviceTest.physicalThresholdEvidence(AdvancedDeviceTest.kt:206)
+
+
+Time: 5,514
+There was 1 failure:
+1) physicalThresholdEvidence(ua.kpi.energyforecast.pw05.AdvancedDeviceTest)
+java.lang.AssertionError: Action performScrollTo() failed.
+Reason: Expected exactly '1' node but found '3' nodes that satisfy: (Text + InputText + EditableText contains 'Поточний поріг:' (ignoreCase: false) as substring)
+Nodes found:
+1) Node #105 at (l=79.0, t=2307.0, r=1001.0, b=2511.0)px
+Text = '[Поточний поріг: 1,00 м/с². Системні події: увімкніть категорію «Сенсори» у сповіщеннях.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 6 siblings
+2) Node #126 at (l=79.0, t=3388.0, r=1001.0, b=3592.0)px
+Text = '[Поточний поріг: 2,00 рад/с. Системні події: увімкніть категорію «Сенсори» у сповіщеннях.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 5 siblings
+3) Node #147 at (l=79.0, t=4469.0, r=1001.0, b=4673.0)px
+Text = '[Поточний поріг: 500,00 лк. Системні події: увімкніть категорію «Сенсори» у сповіщеннях.]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, SetTextSubstitution, ShowTextSubstitution]
+Has 5 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.ActionsKt.performScrollTo(Actions.kt:81)
+	at ua.kpi.energyforecast.pw05.AdvancedDeviceTest.physicalThresholdEvidence(AdvancedDeviceTest.kt:206)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

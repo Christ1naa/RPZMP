@@ -1,0 +1,10 @@
+
+ua.kpi.energyforecast.pw05.AdvancedDeviceTest:......
+ua.kpi.energyforecast.pw05.AndroidSensorBackendTest:..
+ua.kpi.energyforecast.pw05.DeliveryDeviceTest:.
+
+Time: 53.359
+
+OK (9 tests)
+
+

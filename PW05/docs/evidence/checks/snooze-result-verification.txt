@@ -1,0 +1,41 @@
+
+ua.kpi.energyforecast.pw05.SnoozeDeliveryDeviceTest:
+Error in snoozedSystemActionActuallyDeliversAgainAfterFiveMinutes(ua.kpi.energyforecast.pw05.SnoozeDeliveryDeviceTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at ua.kpi.energyforecast.pw05.SnoozeDeliveryDeviceTest$snoozedSystemActionActuallyDeliversAgainAfterFiveMinutes$1.invokeSuspend(SnoozeDeliveryDeviceTest.kt:25)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ua.kpi.energyforecast.pw05.SnoozeDeliveryDeviceTest.snoozedSystemActionActuallyDeliversAgainAfterFiveMinutes(SnoozeDeliveryDeviceTest.kt:14)
+
+
+Time: 0.174
+There was 1 failure:
+1) snoozedSystemActionActuallyDeliversAgainAfterFiveMinutes(ua.kpi.energyforecast.pw05.SnoozeDeliveryDeviceTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at ua.kpi.energyforecast.pw05.SnoozeDeliveryDeviceTest$snoozedSystemActionActuallyDeliversAgainAfterFiveMinutes$1.invokeSuspend(SnoozeDeliveryDeviceTest.kt:25)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at ua.kpi.energyforecast.pw05.SnoozeDeliveryDeviceTest.snoozedSystemActionActuallyDeliversAgainAfterFiveMinutes(SnoozeDeliveryDeviceTest.kt:14)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

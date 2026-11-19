@@ -1,0 +1,25 @@
+
+ua.kpi.energyforecast.pw05.ReliabilityDeviceTest:
+Error in persistedSettingsAndRebootDelivery(ua.kpi.energyforecast.pw05.ReliabilityDeviceTest):
+java.lang.AssertionError: expected:<[ACCELEROMETER]> but was:<[ACCELEROMETER, GYROSCOPE, LIGHT]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at ua.kpi.energyforecast.pw05.ReliabilityDeviceTest.persistedSettingsAndRebootDelivery(ReliabilityDeviceTest.kt:29)
+
+
+Time: 0.145
+There was 1 failure:
+1) persistedSettingsAndRebootDelivery(ua.kpi.energyforecast.pw05.ReliabilityDeviceTest)
+java.lang.AssertionError: expected:<[ACCELEROMETER]> but was:<[ACCELEROMETER, GYROSCOPE, LIGHT]>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at ua.kpi.energyforecast.pw05.ReliabilityDeviceTest.persistedSettingsAndRebootDelivery(ReliabilityDeviceTest.kt:29)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

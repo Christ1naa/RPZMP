@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-17T12:31:37.204Z" hostname="CHRISTINA" time="0.006">
+  <properties/>
+  <testcase name="rejectsDuplicateHoursAndOverflow" classname="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" time="0.001"/>
+  <testcase name="zeroConsumptionIsValid" classname="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" time="0.0"/>
+  <testcase name="emptyHistoryIsMissingRatherThanZero" classname="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" time="0.0"/>
+  <testcase name="validatesHorizon" classname="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" time="0.001"/>
+  <testcase name="rejectsInvalidReadings" classname="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" time="0.001"/>
+  <testcase name="demoIsReproducibleAndHas24DistinctHours" classname="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" time="0.001"/>
+  <testcase name="summaryAndForecastUseEnergyUnits" classname="ua.kpi.energyforecast.pw05.domain.EnergySeriesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

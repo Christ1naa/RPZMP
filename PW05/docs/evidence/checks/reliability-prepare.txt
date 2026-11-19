@@ -1,0 +1,8 @@
+
+ua.kpi.energyforecast.pw05.ReliabilityDeviceTest:.
+
+Time: 0.191
+
+OK (1 test)
+
+

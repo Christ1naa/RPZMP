@@ -1,0 +1,39 @@
+Tue Nov 17 12:33:20 GMT 2026
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="next" value="2" />
+    <string name="journal">[{&quot;id&quot;:1,&quot;category&quot;:&quot;REMINDER&quot;,&quot;title&quot;:&quot;PW05 Відкладання&quot;,&quot;text&quot;:&quot;Повторний показ через п'ять хвилин&quot;,&quot;due&quot;:1794918581445,&quot;status&quot;:&quot;SHOWN&quot;,&quot;revision&quot;:1}]</string>
+    <boolean name="enabled" value="true" />
+    <boolean name="REMINDER" value="true" />
+</map>
+
+>     NotificationRecord(0x08254a5e: pkg=ua.kpi.energyforecast.pw05 user=UserHandle{0} id=1 tag=null importance=3 key=0|ua.kpi.energyforecast.pw05|1|null|10249: Notification(channel=REMINDER shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONLY_ALERT_ONCE color=0x00000000 actions=3 vis=PRIVATE))
+        uid=10249 userId=0
+>       opPkg=ua.kpi.energyforecast.pw05
+>       icon=Icon(typ=RESOURCE pkg=ua.kpi.energyforecast.pw05 id=0x0108009b)
+        flags=ONLY_ALERT_ONCE
+        originalFlags=ONLY_ALERT_ONCE
+        pri=0
+        key=0|ua.kpi.energyforecast.pw05|1|null|10249
+        seen=false
+        groupKey=0|ua.kpi.energyforecast.pw05|1|null|10249
+        notification=
+              fullscreenIntent=null
+              contentIntent=PendingIntent{73d7e3f: PendingIntentRecord{6ed15b4 ua.kpi.energyforecast.pw05 startActivity (allowlist: 35ebe17:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}
+              deleteIntent=PendingIntent{560230c: PendingIntentRecord{f5ca726 ua.kpi.energyforecast.pw05 broadcastIntent (allowlist: 35ebe17:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}
+              number=0
+              groupAlertBehavior=0
+              when=1794918683488/1794918683488
+              tickerText=null
+              vis=0
+              contentView=null
+              bigContentView=null
+              headsUpContentView=null
+              color=0x00000000
+              timeout=PT72H
+              actions={
+                  [0] "Підтвердити" -> PendingIntent{be4c455: PendingIntentRecord{f758114 ua.kpi.energyforecast.pw05 broadcastIntent (allowlist: 35ebe17:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}
+                  [1] "Відкласти на 5 хв" -> PendingIntent{2f7ae6a: PendingIntentRecord{2c4ef67 ua.kpi.energyforecast.pw05 broadcastIntent (allowlist: 35ebe17:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}
+                  [2] "Деталі" -> PendingIntent{a95bf5b: PendingIntentRecord{6ed15b4 ua.kpi.energyforecast.pw05 startActivity (allowlist: 35ebe17:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}
+
+

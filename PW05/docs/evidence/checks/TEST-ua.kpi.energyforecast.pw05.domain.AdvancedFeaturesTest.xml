@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-17T12:31:37.175Z" hostname="CHRISTINA" time="0.027">
+  <properties/>
+  <testcase name="normalizedVectorsStayInCircleEvenForExtremeInputs" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.002"/>
+  <testcase name="snoozeReschedulesAndInvalidatesOldDelivery" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.001"/>
+  <testcase name="aggregationSortsAndRejectsDuplicateHours" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.003"/>
+  <testcase name="emptyAndZeroChartDataAreDistinct" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.002"/>
+  <testcase name="independentIdsAndCategoriesRemainIndependent" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.0"/>
+  <testcase name="zoomClampsOffsetAndComputesVisibleStatistics" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.016"/>
+  <testcase name="terminalActionsAreIdempotent" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.0"/>
+  <testcase name="aggregationPreservesSameSourceTotals" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.002"/>
+  <testcase name="blockedCanBeExplicitlyRescheduled" classname="ua.kpi.energyforecast.pw05.domain.AdvancedFeaturesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

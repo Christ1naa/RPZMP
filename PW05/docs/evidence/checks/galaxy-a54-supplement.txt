@@ -1,0 +1,8 @@
+
+ua.kpi.energyforecast.pw05.AdvancedDeviceTest:..
+
+Time: 17,35
+
+OK (2 tests)
+
+

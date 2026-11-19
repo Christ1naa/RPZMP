@@ -1,0 +1,34 @@
+{
+  "device": "emulator-5554",
+  "api": "36",
+  "apk_sha256": "42575F455E54A7B8DECEF154B23C9441C19832D2CAA63D9FA4E451126FD1DAF6",
+  "test_apk_sha256": "F0077B66B9431C05D07096D18916738B4781420DF5D7D8B4C69B95F07C428582",
+  "method": "ua.kpi.energyforecast.pw05.PermissionDeniedDeviceTest#deniedPermissionIsRecordedWithoutFalseDelivery",
+  "runner": "ua.kpi.energyforecast.pw05.test/androidx.test.runner.AndroidJUnitRunner",
+  "original_permission_granted": true,
+  "raw_output_flag": "-r",
+  "explicit_argument": "-e permissionDenied true",
+  "installed_apks": "Both app and test APK installed from the hashed local artifacts before final runs",
+  "scenarios": [
+    {
+      "argument": null,
+      "permission": "GRANTED",
+      "status_code": -4,
+      "outcome": "SKIPPED; not counted as denial verification"
+    },
+    {
+      "argument": "permissionDenied=true",
+      "permission": "GRANTED",
+      "status_code": -2,
+      "outcome": "EXPECTED_FAILURE of runtime precondition; not an application failure"
+    },
+    {
+      "argument": "permissionDenied=true",
+      "permission": "DENIED",
+      "status_code": 0,
+      "outcome": "PASSED: BLOCKED and no active notification",
+      "seconds": 0.294
+    }
+  ],
+  "original_permission_restored": true
+}
